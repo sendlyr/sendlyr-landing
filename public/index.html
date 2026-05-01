@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sendlyr - Find the onboarding behavior that predicts retention</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span class="ldot">S</span>Sendlyr</div>
+  <button class="nav-cta" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Book a Demo</button>
+</nav>
+
+<main>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag"><span class="pulse"></span>Live deployment · <b>34% to 39.5% 12-week retention</b></div>
+  <h1>Find the one behavior<br>that predicts retention.<br><em>Then drive it.</em></h1>
+  <p class="hero-sub">Most teams optimise onboarding toward a guessed activation metric. We find the specific early behavior that actually predicts whether your users stay from your data, not assumptions. Then we build state-based emails to drive more users toward it. We can show you your signal in 48 hours.</p>
+  <div class="hero-cta-group">
+    <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">See It Applied to Your Product &rarr;</button>
+  </div>
+  <div class="hero-proof">
+    <div class="proof-item">
+      <div class="proof-val">34%</div>
+      <div class="proof-label">Baseline retention</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-val proof-lift">39.5%</div>
+      <div class="proof-label">With Sendlyr</div>
+    </div>
+    <div class="proof-item">
+      <div class="proof-val">+5.5pp</div>
+      <div class="proof-label">12-week lift</div>
+    </div>
+  </div>
+  <p class="hero-proof-note">Sendlyr tested early product behaviors against 12-week retention. One milestone reached by users in their first 14 days predicted 39.5% retention vs 34% for everyone else. We then used user state to move more users toward it.</p>
+</section>
+
+<!-- TRUSTED BY -->
+<section class="trusted-section" aria-label="Trusted by">
+  <div class="trusted-card">
+    <span class="trusted-eyebrow">Trusted by</span>
+    <div>
+      <a href="https://www.typesy.com/homeschool/" target="_blank" rel="noopener" aria-label="Typesy homeschool">
+        <img src="/assets/images/typesy-logo-colored-2-scaled.png" alt="Typesy">
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE — merged card -->
+<section class="merged">
+  <div class="merged-wrap">
+    <div class="merged-card fade-up">
+      <div class="merged-eye">BEFORE SENDLYR</div>
+      <div class="merged-head">
+        <h2 class="merged-title">The hard part is not writing emails. <em>It is knowing what to drive.</em></h2>
+        <p class="merged-deck">Most teams optimise toward a guessed activation metric. Even if the emails are well written, they can still push users toward the wrong behavior.</p>
+      </div>
+      <div class="merged-cols">
+
+        <div class="col-item">
+          <div class="col-anim">
+            <div class="mini-composer">
+              <div class="mc-bar">
+                <span class="dot"></span>
+                <span>email_2 · onboarding</span>
+                <span class="stamp">draft 7</span>
+              </div>
+              <div class="mc-row"><span class="lbl">to</span><span class="v" style="color:var(--text-mute)">new users</span></div>
+              <div class="mc-row"><span class="lbl">subject</span><span class="v"><span id="m-typ"></span><span class="cblink"></span></span></div>
+              <div class="mc-body">
+                <span class="ghost" id="m-l1"></span>
+                <span class="ghost" id="m-l2"></span>
+              </div>
+              <div class="mc-foot">
+                <span class="err">tone unclear</span>
+                <span class="err">cta missing</span>
+                <span style="margin-left:auto">2h 14m</span>
+              </div>
+            </div>
+          </div>
+          <h3 class="col-title">Optimising toward the wrong behavior</h3>
+          <p class="col-desc">Most teams pick an activation metric because it sounds right. Without testing it against retention data, you cannot know if you are driving the behavior that actually makes users stay.</p>
+        </div>
+
+        <div class="col-item">
+          <div class="col-anim">
+            <div class="mini-cadence">
+              <div class="mcad-top">
+                <span class="lbl">Wait between emails</span>
+                <span class="pill"><span class="pdot"></span>editing</span>
+              </div>
+              <div class="mcad-input" id="cad-input">
+                <span class="dval" id="cad-val">2<span class="strike"></span></span>
+                <span class="dunit">days</span>
+              </div>
+              <div class="mcad-feedback" id="cad-fb">Typing…</div>
+              <div class="mcad-history">
+                <span class="mcad-h-pill">2d</span>
+                <span class="mcad-h-pill">5d</span>
+                <span class="mcad-h-pill">3d</span>
+              </div>
+            </div>
+          </div>
+          <h3 class="col-title">Open rates that do not move retention</h3>
+          <p class="col-desc">A well-written email sent toward the wrong milestone improves engagement metrics and leaves retention unchanged. The metric to optimise is behavior, not opens.</p>
+        </div>
+
+        <div class="col-item">
+          <div class="col-anim">
+            <div class="mini-flow" id="flow-canvas">
+              <svg class="mf-svg" id="mf-svg" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <marker id="mf-arr" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto">
+                    <polygon points="0 0,6 3,0 6" fill="#D4D7DA"/>
+                  </marker>
+                  <marker id="mf-arr-r" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto">
+                    <polygon points="0 0,6 3,0 6" fill="#C44545"/>
+                  </marker>
+                </defs>
+                <line id="mf-l1" class="mf-link" marker-end="url(#mf-arr)"/>
+                <line id="mf-l2" class="mf-link dashed" marker-end="url(#mf-arr)"/>
+                <line id="mf-l3" class="mf-link broken" marker-end="url(#mf-arr-r)"/>
+              </svg>
+              <div class="mf-node" id="mf-n1" style="left:14px;top:14px"><span class="num">01</span>signup</div>
+              <div class="mf-node" id="mf-n2" style="left:14px;top:54px"><span class="num">02</span>send email</div>
+              <div class="mf-node warn" id="mf-n3" style="left:14px;top:94px"><span class="num">03</span>wait 2d</div>
+              <div class="mf-drag" id="mf-drag"><span class="num">04</span>follow-up</div>
+              <div class="mf-cursor" id="mf-cur">
+                <svg width="12" height="12" viewBox="0 0 14 14"><path d="M2 2L12 6L7 7.5L5.5 12L2 2Z" fill="#0E6E78" stroke="#fff" stroke-width="0.8"/></svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="col-title">Building before knowing</h3>
+          <p class="col-desc">The workflow comes first, the analysis comes later, and the team never knows whether the journey is aimed at the right moment.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AFTER — merged card -->
+<section class="merged">
+  <div class="merged-wrap">
+    <div class="merged-card fade-up">
+      <div class="merged-eye">AFTER SENDLYR</div>
+      <div class="merged-head">
+        <h2 class="merged-title">Find the milestone first. <em>Then write the lifecycle.</em></h2>
+        <p class="merged-deck">Sendlyr tests your product behaviors against retention, identifies the early behavior that predicts retention, and stages every email for your review before anything sends.</p>
+      </div>
+      <div class="merged-cols">
+
+        <div class="col-item">
+          <div class="col-anim">
+            <div class="mini-gen">
+              <div class="mg-prompt">
+                <div class="ai-i">✦</div>
+                <div class="ptext"><span id="gen-prompt"></span><span class="cblink"></span></div>
+                <button class="pgo" id="gen-go">Generate</button>
+              </div>
+              <div class="mg-grid" id="gen-grid"></div>
+            </div>
+          </div>
+          <h3 class="col-title">The milestone comes from data, not guesswork</h3>
+          <p class="col-desc">We test early product behaviors against your retention outcomes the same method Ramli John describes in Product-Led Onboarding. The winning behavior becomes the target your emails drive toward.</p>
+        </div>
+
+        <div class="col-item">
+          <div class="col-anim">
+            <div class="mini-route" id="route-stage">
+              <div class="mr-left" id="route-zone"></div>
+              <div class="mr-right">
+                <div class="mr-bucket" data-key="new"><span class="b-dot" style="background:#0E6E78"></span><span class="b-name">New</span><span class="b-count" id="rb-new">0</span></div>
+                <div class="mr-bucket" data-key="stuck"><span class="b-dot" style="background:#C2670A"></span><span class="b-name">Stuck</span><span class="b-count" id="rb-stuck">0</span></div>
+                <div class="mr-bucket" data-key="intent"><span class="b-dot" style="background:#F97316"></span><span class="b-name">High intent</span><span class="b-count" id="rb-intent">0</span></div>
+                <div class="mr-bucket" data-key="risk"><span class="b-dot" style="background:#C44545"></span><span class="b-name">Churn risk</span><span class="b-count" id="rb-risk">0</span></div>
+                <div class="mr-bucket" data-key="activated"><span class="b-dot" style="background:#10B981"></span><span class="b-name">Activated</span><span class="b-count" id="rb-activated">0</span></div>
+              </div>
+            </div>
+          </div>
+          <h3 class="col-title">Emails built around the activation milestone</h3>
+          <p class="col-desc">Every email in the sequence exists to move users closer to the milestone. Users who reach it early get different emails than users who are stuck. Same product, different message based on behavior.</p>
+        </div>
+
+        <div class="col-item">
+          <div class="col-anim">
+            <div class="mini-app">
+              <div class="ma-list" id="app-list"></div>
+              <button class="ma-btn" id="app-btn"><span>Approve all 4 →</span></button>
+              <div class="ma-success" id="app-success">
+                <div class="check">✓</div>
+                <div class="label">all queued · 8am tomorrow</div>
+              </div>
+            </div>
+          </div>
+          <h3 class="col-title">You approve every email before it sends</h3>
+          <p class="col-desc">Nothing goes out without your review. The system stages each email you read it, see why it was chosen, and approve or reject. Human judgment stays in the loop.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACTIVATION CARD — Typesy story -->
+<section class="merged">
+  <div class="merged-wrap">
+    <div class="merged-card activation-card fade-up">
+      <div class="merged-eye">HOW WE FIND THE MOMENT</div>
+      <div class="merged-head">
+        <h2 class="merged-title">We do not guess the activation moment. <em>We test it.</em></h2>
+        <p class="merged-deck">For Typesy, we compared early product behaviors against 12-week retention and selected the milestone with the strongest useful lift and enough coverage to matter. We only show the approved headline signal; other tested behaviors are masked to protect customer data.</p>
+      </div>
+
+      <div class="activation-layout">
+        <div class="activation-story">
+          <p class="activation-lead">The early behavior that predicts retention was clear: one milestone reached by users in their first 14 days retained at <b>39.5%</b>, a 5.5 percentage point lift over baseline.</p>
+          <div class="pai-table" aria-label="Typesy behavior analysis">
+            <div class="pai-row pai-head">
+              <span>Candidate signal</span>
+              <span>Relationship to retention</span>
+              <span>Decision</span>
+            </div>
+            <div class="pai-row pai-masked">
+              <span><span class="blurred-data">Key action B in 14 days</span></span>
+              <span><span class="blurred-data">37.9%</span></span>
+              <span><span class="blurred-data">81%</span></span>
+            </div>
+            <div class="pai-row pai-masked">
+              <span><span class="blurred-data">Key action A in 14 days</span></span>
+              <span><span class="blurred-data">36.1%</span></span>
+              <span><span class="blurred-data">82%</span></span>
+            </div>
+            <div class="pai-row pai-primary">
+              <span>Threshold met</span>
+              <span>39.5%</span>
+              <span>79% · Primary signal</span>
+            </div>
+          </div>
+        </div>
+        <div class="activation-stat-block">
+          <div class="activation-stat-row">
+            <div class="activation-stat-item">
+              <div class="activation-stat-val">34%</div>
+              <div class="activation-stat-lbl">Before</div>
+            </div>
+            <div class="activation-arrow">→</div>
+            <div class="activation-stat-item">
+              <div class="activation-stat-val activation-stat-accent">39.5%</div>
+              <div class="activation-stat-lbl">After</div>
+            </div>
+          </div>
+          <div class="activation-stat-caption">12-week retention · Typesy by eReflect</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIFFERENTIATION CARD -->
+<section class="merged">
+  <div class="merged-wrap">
+    <div class="merged-card fade-up">
+      <div class="merged-eye">WHY SENDLYR</div>
+      <div class="merged-head">
+        <h2 class="merged-title">Every other tool assumes you know <em>which behavior predicts retention</em>.</h2>
+        <p class="merged-deck">Sendlyr finds it first. The emails, segments, and review queue come after the data shows which milestone is worth driving.</p>
+      </div>
+
+      <div class="diff-card-grid">
+        <div class="diff-cell">
+          <div class="diff-vs">01</div>
+          <div class="diff-name">Find the activation milestone</div>
+          <div class="diff-body">We test candidate behaviors against retention so you know which milestone is worth influencing.</div>
+          <div class="diff-sendlyr">No activation guesswork before the campaign is built.</div>
+        </div>
+        <div class="diff-cell">
+          <div class="diff-vs">02</div>
+          <div class="diff-name">Build around it</div>
+          <div class="diff-body">The sequence is designed to move users toward the proven milestone, not toward a generic checklist.</div>
+          <div class="diff-sendlyr">Email becomes a retention lever, not just a messaging channel.</div>
+        </div>
+        <div class="diff-cell">
+          <div class="diff-vs">03</div>
+          <div class="diff-name">Stage every send</div>
+          <div class="diff-body">Every email waits for your approval before it goes out. You keep judgment and control.</div>
+          <div class="diff-sendlyr">Approve, reject, or regenerate before users see anything.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA CARD -->
+<section class="merged" id="demo">
+  <div class="merged-wrap">
+    <div class="cta-card fade-up">
+      <div class="eye">GET STARTED</div>
+      <h2>See it on your users<br><em>in 48 hours</em>.</h2>
+      <p>Book a 48-hour analysis. We will look at your product data, test behavioral hypotheses against your retention outcomes, and show you the early milestone that predicts whether your users stay before we write a single email.</p>
+      <form class="lead-form" id="lead-form" action="/api/leads" method="post">
+        <input type="text" name="fax_number" tabindex="-1" autocomplete="off" class="lead-honeypot" aria-hidden="true">
+        <input type="hidden" name="source" value="landing-page-demo-form">
+        <div class="lead-form-grid">
+          <label class="lead-field">
+            <span>Name</span>
+            <input type="text" name="name" autocomplete="name" required>
+          </label>
+          <label class="lead-field">
+            <span>Work email</span>
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+          <label class="lead-field">
+            <span>Company</span>
+            <input type="text" name="company" autocomplete="organization" required>
+          </label>
+          <label class="lead-field">
+            <span>Product URL</span>
+            <input type="url" name="productUrl" autocomplete="url" placeholder="https://">
+          </label>
+        </div>
+        <label class="lead-field lead-field-full">
+          <span>What is your biggest retention or onboarding challenge right now?</span>
+          <textarea name="message" rows="4" placeholder="e.g. Users sign up but don't activate in the first week, trial-to-paid conversion is lower than expected..."></textarea>
+        </label>
+        <button class="btn-primary" type="submit">Book My 48-Hour Analysis &rarr;</button>
+        <p class="lead-status" id="lead-status" role="status" aria-live="polite"></p>
+      </form>
+      <div class="cta-fine">no commitment · no setup before the call</div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="nav-logo"><span class="ldot">S</span>Sendlyr</div>
+  <div>&copy; 2026 Sendlyr · autonomous lifecycle messaging</div>
+</footer>
+
+<script>
+function $(id){return document.getElementById(id)}
+function lerp(a,b,t){return a+(b-a)*t}
+function ease(t){return t<0.5?2*t*t:-1+(4-2*t)*t}
+
+/* Reveal fades */
+function initScrollAnimations() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+}
+
+/* ── Drafting (mini composer typing) ── */
+const SUBS = ['Welcome — start your','Hey {{name}}, did you','Quick note on your','Your first lesson is'];
+const LINES = [
+  ['Hey {{name}},','Welcome to Typesy! We are so'],
+  ['Hi there,','Just checking in to see how'],
+  ['Hello {{name}},',"Quick one — we noticed you"],
+  ['Hey,','Your trial is going strong.'],
+];
+let si=0,sci=0,sd=false;
+function typeStep(){
+  const s = SUBS[si]; const el = $('m-typ'); if(!el) return;
+  if(!sd){
+    sci++;
+    el.textContent = s.slice(0,sci);
+    if(sci>=s.length){
+      sd = true;
+      $('m-l1').textContent = LINES[si][0];
+      $('m-l2').textContent = LINES[si][1] + '…';
+      setTimeout(typeStep, 1700); return;
+    }
+    setTimeout(typeStep, 55+Math.random()*30);
+  } else {
+    sci -= 2;
+    el.textContent = s.slice(0, Math.max(sci,0));
+    if(sci<=0){
+      sci=0; sd=false; si=(si+1)%SUBS.length;
+      $('m-l1').textContent=''; $('m-l2').textContent='';
+      setTimeout(typeStep, 380); return;
+    }
+    setTimeout(typeStep, 22);
+  }
+}
+
+/* ── Cadence (mini days cycling) ── */
+const CSEQ = [
+  { v:2, fb:'changing mind…' },
+  { v:5, fb:'maybe shorter…' },
+  { v:3, fb:'or longer?' },
+  { v:4, fb:'still unsure…' },
+];
+let ci2=0;
+function cycleCad(){
+  const { v, fb } = CSEQ[ci2];
+  const valEl = $('cad-val'); const inputEl = $('cad-input'); const fbEl = $('cad-fb');
+  if(!valEl) return;
+  inputEl.classList.add('editing');
+  fbEl.textContent = fb;
+  valEl.classList.add('del');
+  setTimeout(()=>{
+    valEl.firstChild.textContent = '';
+    valEl.classList.remove('del');
+    setTimeout(()=>{
+      valEl.firstChild.textContent = v;
+      inputEl.classList.remove('editing');
+      setTimeout(()=>{ ci2 = (ci2+1)%CSEQ.length; cycleCad(); }, 1700);
+    }, 220);
+  }, 600);
+}
+
+/* ── Logic (mini flow drag) ── */
+const NCX = 56;
+const NY = { n1:14, n2:54, n3:94 };
+const NH = 24;
+const DRAG_W = 90;
+const WP = [
+  {x:130,y:74},{x:180,y:50},{x:200,y:110},{x:160,y:140},
+  {x:110,y:120},{x:120,y:80},{x:160,y:60},{x:190,y:90},
+  {x:130,y:74},
+];
+let widx=0,wt=0;
+function getDP(){
+  const a=WP[widx], b=WP[(widx+1)%WP.length];
+  const t=ease(wt);
+  return {x:lerp(a.x,b.x,t), y:lerp(a.y,b.y,t)};
+}
+function setLine(id,x1,y1,x2,y2){
+  const e=$(id); if(!e) return;
+  e.setAttribute('x1',x1); e.setAttribute('y1',y1);
+  e.setAttribute('x2',x2); e.setAttribute('y2',y2);
+}
+function flowTick(){
+  wt += 0.0030;
+  if(wt>=1){ wt=0; widx=(widx+1)%(WP.length-1); }
+  const dp = getDP();
+  const drag = $('mf-drag');
+  if(drag){ drag.style.left=dp.x+'px'; drag.style.top=dp.y+'px'; }
+  const cur = $('mf-cur');
+  if(cur){ cur.style.left=(dp.x+DRAG_W-8)+'px'; cur.style.top=(dp.y+8)+'px'; }
+  setLine('mf-l1', NCX, NY.n1+NH, NCX, NY.n2-2);
+  setLine('mf-l2', NCX, NY.n2+NH, NCX, NY.n3-2);
+  setLine('mf-l3', NCX+30, NY.n3+NH/2, dp.x-3, dp.y+NH/2);
+  requestAnimationFrame(flowTick);
+}
+
+/* ── Generation (mini AI prompt → cards) ── */
+const GP = 'create onboarding sequence...';
+const GCARDS = [
+  { cls:'indigo',  state:'New',     subj:'Start your first lesson' },
+  { cls:'amber',   state:'Stuck',   subj:'Pick up where you left off' },
+  { cls:'rose',    state:'Risk',    subj:"What stopped you?" },
+  { cls:'emerald', state:'Active',  subj:'Upgrade for unlimited' },
+];
+function typeGen(cb){
+  const el = $('gen-prompt'); if(!el){ if(cb)cb(); return; }
+  let i=0;
+  function tick(){
+    i++; el.textContent = GP.slice(0,i);
+    if(i>=GP.length){ if(cb)cb(); return; }
+    setTimeout(tick, 35+Math.random()*20);
+  }
+  el.textContent = ''; tick();
+}
+function pressGen(cb){
+  const btn = $('gen-go'); if(!btn){ if(cb)cb(); return; }
+  btn.classList.add('press');
+  setTimeout(()=>{ btn.classList.remove('press'); btn.classList.add('fire'); if(cb)cb(); }, 180);
+}
+function renderGenCards(){
+  const grid = $('gen-grid'); if(!grid) return;
+  grid.innerHTML = '';
+  GCARDS.forEach((c,i)=>{
+    const card = document.createElement('div');
+    card.className = 'mg-card';
+    card.innerHTML = `<span class="badge ${c.cls}">${c.state}</span><div class="subj">"${c.subj}"</div>`;
+    grid.appendChild(card);
+    setTimeout(()=>card.classList.add('in'), 80 + i*120);
+  });
+}
+function genPlay(){
+  if(!$('gen-go')) return;
+  $('gen-go').classList.remove('fire','press');
+  $('gen-grid').innerHTML = '';
+  typeGen(()=>{
+    setTimeout(()=>pressGen(()=> setTimeout(renderGenCards, 220)), 600);
+  });
+  setTimeout(genPlay, 8000);
+}
+
+/* ── Routing (mini balls flowing into buckets) ── */
+const RUSERS = [
+  { i:'A', c:'#0E6E78', k:'new' },
+  { i:'M', c:'#F97316', k:'intent' },
+  { i:'P', c:'#C2670A', k:'stuck' },
+  { i:'J', c:'#C44545', k:'risk' },
+  { i:'S', c:'#10B981', k:'activated' },
+  { i:'C', c:'#0E6E78', k:'new' },
+  { i:'N', c:'#F97316', k:'intent' },
+  { i:'L', c:'#10B981', k:'activated' },
+];
+const RC = { new:0, stuck:0, intent:0, risk:0, activated:0 };
+let rui = 0;
+
+function bumpRBucket(k){
+  RC[k]++;
+  const cnt = $('rb-'+k);
+  if(cnt){ cnt.textContent = RC[k]; cnt.classList.remove('bump'); void cnt.offsetWidth; cnt.classList.add('bump'); setTimeout(()=>cnt.classList.remove('bump'), 280); }
+  const row = document.querySelector(`[data-key="${k}"]`);
+  if(row){ row.classList.add('lit'); setTimeout(()=>row.classList.remove('lit'), 420); }
+}
+
+function spawnBall(){
+  const u = RUSERS[rui % RUSERS.length]; rui++;
+  const stage = $('route-stage'); const zone = $('route-zone');
+  if(!stage || !zone) { setTimeout(spawnBall, 1000); return; }
+
+  const ball = document.createElement('div');
+  ball.className = 'uball-mini';
+  ball.style.background = u.c;
+  ball.textContent = u.i;
+  stage.appendChild(ball);
+
+  const stageRect = stage.getBoundingClientRect();
+  const zoneRect = zone.getBoundingClientRect();
+  const startX = (zoneRect.left - stageRect.left) + 8;
+  const startY = (zoneRect.top - stageRect.top) + 26 + Math.random() * (zoneRect.height - 50);
+  ball.style.left = startX + 'px'; ball.style.top = startY + 'px';
+
+  const targetEl = document.querySelector(`[data-key="${u.k}"]`);
+  if(!targetEl){ ball.remove(); setTimeout(spawnBall, 800); return; }
+  const tRect = targetEl.getBoundingClientRect();
+  const tx = tRect.left - stageRect.left + 8;
+  const ty = tRect.top - stageRect.top + tRect.height/2 - 11;
+
+  const dur = 1300; const start = performance.now();
+  function step(now){
+    const t = Math.min((now-start)/dur, 1);
+    const e = ease(t);
+    const px = lerp(startX, tx, e);
+    const py = lerp(startY, ty, e) + Math.sin(e * Math.PI) * (-18);
+    ball.style.left = px + 'px';
+    ball.style.top  = py + 'px';
+    if(t>=1){
+      bumpRBucket(u.k);
+      ball.style.transition = 'opacity 0.3s, transform 0.3s';
+      ball.style.opacity = '0'; ball.style.transform = 'scale(0.5)';
+      setTimeout(()=>ball.remove(), 320);
+      return;
+    }
+    requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+  setTimeout(spawnBall, 700 + Math.random()*200);
+}
+
+/* ── Approval (mini list + button) ── */
+const AUSERS = [
+  { i:'A', c:'#0E6E78', n:'Alice', s:'New' },
+  { i:'M', c:'#F97316', n:'Marco', s:'Intent' },
+  { i:'P', c:'#C2670A', n:'Priya', s:'Stuck' },
+  { i:'S', c:'#10B981', n:'Sofia', s:'Active' },
+];
+function renderAList(){
+  const list = $('app-list'); if(!list) return;
+  list.innerHTML = '';
+  AUSERS.forEach(u => {
+    const row = document.createElement('div');
+    row.className = 'ma-row';
+    row.innerHTML = `
+      <div class="ma-av" style="background:${u.c}">${u.i}</div>
+      <div>
+        <div class="ma-name">${u.n}</div>
+        <div class="ma-state">${u.s}</div>
+      </div>
+    `;
+    list.appendChild(row);
+  });
+}
+function scanRows(cb){
+  const rows = document.querySelectorAll('#app-list .ma-row');
+  let i = 0;
+  function step(){
+    if(i>=rows.length){ if(cb)cb(); return; }
+    rows.forEach(r => r.classList.remove('scanning'));
+    rows[i].classList.add('scanning');
+    setTimeout(()=>{ rows[i].classList.remove('scanning'); i++; step(); }, 280);
+  }
+  step();
+}
+function approveAll(cb){
+  const rows = document.querySelectorAll('#app-list .ma-row');
+  rows.forEach((r,i)=> setTimeout(()=>r.classList.add('approved'), i*100));
+  setTimeout(cb, rows.length*100 + 200);
+}
+function pressAppBtn(){
+  const btn = $('app-btn'); if(!btn) return;
+  btn.classList.add('press');
+  setTimeout(()=>btn.classList.remove('press'), 160);
+  setTimeout(()=>{
+    btn.classList.add('fire');
+    setTimeout(()=>{ const sb = $('app-success'); if(sb) sb.classList.add('show'); }, 400);
+  }, 200);
+}
+function appPlay(){
+  if(!$('app-btn')) return;
+  $('app-success').classList.remove('show');
+  $('app-btn').classList.remove('fire','press');
+  renderAList();
+  setTimeout(()=>{
+    scanRows(()=>{
+      setTimeout(()=>{
+        approveAll(()=>{
+          setTimeout(pressAppBtn, 250);
+        });
+      }, 250);
+    });
+  }, 700);
+  setTimeout(appPlay, 11000);
+}
+
+function initLeadForm(){
+  const form = $('lead-form');
+  const status = $('lead-status');
+  if(!form || !status) return;
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const submit = form.querySelector('button[type="submit"]');
+    const originalText = submit.textContent;
+    submit.disabled = true;
+    submit.textContent = 'Sending...';
+    status.className = 'lead-status';
+    status.textContent = '';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(new FormData(form)),
+      });
+      const result = await response.json();
+
+      if(!response.ok || !result.ok) {
+        throw new Error(result.message || 'Something went wrong. Please try again.');
+      }
+
+      form.reset();
+      status.classList.add('success');
+      status.textContent = result.message || 'Thanks. We received your demo request.';
+    } catch (error) {
+      status.classList.add('error');
+      status.textContent = error.message || 'Unable to submit right now. Please try again.';
+    } finally {
+      submit.disabled = false;
+      submit.textContent = originalText;
+    }
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initScrollAnimations();
+  setTimeout(() => {
+    document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
+  }, 800);
+
+  typeStep();
+  cycleCad();
+  flowTick();
+  genPlay();
+  spawnBall();
+  appPlay();
+  initLeadForm();
+});
+</script>
+</body>
+</html>
