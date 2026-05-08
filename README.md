@@ -20,7 +20,7 @@ Add Supabase credentials to `.env`:
 
 ```sh
 SUPABASE_URL=https://your-project-ref.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-or-secret-key
+SUPABASE_SERVICE_ROLE_KEY=your-secret-or-service-role-key
 SUPABASE_LEADS_TABLE=leads
 ```
 
@@ -53,6 +53,7 @@ The demo form posts to `POST /api/leads`.
 4. Find your API settings:
    - Project URL: Project Settings or Connect dialog.
    - Server key: API Keys. Use a secret/service-role key only in server environments, never in browser JavaScript.
+   - Do not use a publishable/anon key for `SUPABASE_SERVICE_ROLE_KEY`; RLS will block inserts.
 
 ## Vercel Setup
 
@@ -63,6 +64,6 @@ The demo form posts to `POST /api/leads`.
 5. Output directory: leave empty.
 6. Add Environment Variables in Vercel Project Settings:
    - `SUPABASE_URL`
-   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY` with a secret/service-role key, not a publishable key
    - `SUPABASE_LEADS_TABLE` with value `leads`
 7. Redeploy after adding environment variables.

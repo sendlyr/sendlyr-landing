@@ -309,7 +309,7 @@
       <h2>See it on your users<br><em>in 48 hours</em>.</h2>
       <p>Book a 48-hour analysis. We will look at your product data, test behavioral hypotheses against your retention outcomes, and show you the early milestone that predicts whether your users stay before we write a single email.</p>
       <form class="lead-form" id="lead-form" action="/api/leads" method="post">
-        <input type="text" name="fax_number" tabindex="-1" autocomplete="off" class="lead-honeypot" aria-hidden="true">
+        <input type="text" name="fax_number" tabindex="-1" autocomplete="new-password" class="lead-honeypot" aria-hidden="true">
         <input type="hidden" name="source" value="landing-page-demo-form">
         <div class="lead-form-grid">
           <label class="lead-field">
@@ -660,6 +660,7 @@ function initLeadForm(){
         throw new Error(result.message || 'Something went wrong. Please try again.');
       }
 
+      console.info('Lead form submission storage:', result.storage || 'unknown');
       form.reset();
       status.classList.add('success');
       status.textContent = result.message || 'Thanks. We received your demo request.';
