@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How we found the exact behavior that predicts whether a user will keep paying - Sendlyr</title>
+<meta name="description" content="A Sendlyr case study on finding the activation milestone that predicts retention and building state-based onboarding around it.">
+<link rel="icon" type="image/png" href="/assets/logo/sendlyr-icon-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr"></a>
+  <div class="nav-mid">
+    <a href="/#how">How it works</a>
+    <a href="/#problem">Approach</a>
+    <a href="/#proof">Results</a>
+    <a href="/#why">Why Sendlyr</a>
+    <a href="/blog">Blog</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-status"><span class="dot"></span>1 customer live</div>
+    <a class="btn-primary" href="/#demo">Book analysis <span class="btn-arrow">&rarr;</span></a>
+  </div>
+</nav>
+
+<main>
+  <article class="article-page">
+    <header class="article-hero">
+      <div class="article-cover">
+        <img src="/assets/blog/pai-discovery-case-study/cover-image.png" alt="cover-image">
+      </div>
+      <div class="article-kicker">Case study</div>
+      <h1>How we found the exact behavior that predicts whether a user will keep paying, and what we built around it</h1>
+      <p class="article-deck">Most SaaS trial emails are personalized to a schedule, not a behavior. We wanted to know whether a specific early action predicted whether users would still be paying 12 weeks later.</p>
+      <div class="article-byline">
+        <span>Stephen Dang</span>
+        <span>Co-founder @ Sendlyr</span>
+        <span>Published May 2026</span>
+      </div>
+    </header>
+
+    <div class="article-body">
+      <section>
+        <h2>The problem nobody can see until it is too late</h2>
+        <p>Every subscription app has the same blind spot. You know who signed up. You know who cancelled. What you do not know, until it is too late to do anything about it, is which users were going to convert and which ones were already gone in their first week.</p>
+        <p>The standard response is a fixed email sequence. Day 1, welcome. Day 3, tips. Day 7, check-in. Every user gets the same messages on the same schedule, regardless of what they have actually done inside the product.</p>
+        <p>A user who is deeply engaged gets the same getting-started email as a user who has not logged in since signup. The sequence does not know the difference. It just runs the clock.</p>
+        <p>The real question is not how to write better emails. It is how to know which user needs what message before they have already decided to leave.</p>
+      </section>
+
+      <figure class="article-visual">
+        <img src="/assets/blog/pai-discovery-case-study/visual-1-trial-timeline.png" alt="visual-1-trial-timeline">
+        <figcaption>visual-1-trial-timeline</figcaption>
+      </figure>
+
+      <section>
+        <h2>The analysis: finding the behavior that actually predicts retention</h2>
+        <p>We did not guess the activation moment. We tested it. Working with a subscription education app, we pulled behavioral data across a cohort and tested early in-app actions against 12-week retention outcomes.</p>
+        <p>The question for each hypothesis was simple: does reaching this behavior early predict whether a user is still active 12 weeks later? And critically, does it apply to enough users to matter?</p>
+        <p>Some behaviors showed strong lift but low coverage. They identified a small group of power users, not a generalizable activation signal. Others had broad coverage but weak lift.</p>
+        <p>One behavior stood out on both dimensions. Users who reached the activation threshold within their first 14 days showed a 12-week retention rate of 39.47%. Users who did not: 33.97%. That is a 5.5 percentage point lift, and the behavior was reached by 79% of retained users.</p>
+      </section>
+
+      <figure class="article-visual">
+        <img src="/assets/blog/pai-discovery-case-study/visual-3-retention-curves.png" alt="visual-3-retention-curves">
+        <figcaption>visual-3-retention-curves</figcaption>
+      </figure>
+
+      <section>
+        <h2>The validation: same signal, different cohort, stronger lift</h2>
+        <p>The original analysis was run on a one-time payment cohort. When the product moved to a subscription model, we revalidated the activation milestone against the new cohort: different users, different billing structure, same behavioral signal.</p>
+        <p>The lift held. And it was larger. Subscription users who hit the activation milestone converted to paid at 87.85%. Users who did not: 72.49%. At 60 days post-conversion, users who reached the milestone showed 13.49 points higher survival. At 90 days, 19.19 points higher.</p>
+        <p>The same early behavior that predicted 12-week retention in the original cohort predicted trial conversion and long-term paid survival in the subscription cohort. The signal generalized.</p>
+      </section>
+
+      <figure class="article-visual">
+        <img src="/assets/blog/pai-discovery-case-study/visual-2-hypothesis-table.png" alt="visual-2-hypothesis-table">
+        <figcaption>visual-2-hypothesis-table</figcaption>
+      </figure>
+
+      <section>
+        <h2>What we built around it</h2>
+        <p>Knowing the activation milestone is only the first step. The second is routing each user toward it differently, based on where they actually are.</p>
+        <p>We built a state classification engine. Every user is evaluated daily against behavioral rules and assigned to a state. The state determines what message, if any, they receive.</p>
+        <p>For users who do receive messages, the state is re-verified at send time, not just when the email was queued. Users move. A message relevant yesterday might not be relevant today. If a user's state has changed before the scheduled send, the send is suppressed.</p>
+        <p>Every email template is reviewed by a human before it is sent. The reviewer sees the user's current state, the behavioral signals behind the classification, and the reasoning behind the message. Nothing sends without explicit approval.</p>
+      </section>
+
+      <figure class="article-visual">
+        <img src="/assets/blog/pai-discovery-case-study/visual-4-validation-table.png" alt="visual-4-validation-table">
+        <figcaption>visual-4-validation-table</figcaption>
+      </figure>
+
+      <section>
+        <h2>The experiment, and what Sendlyr is</h2>
+        <p>We are running this as a controlled test. A treatment group receives the state-based email sequence. A control group is tracked but receives nothing from Sendlyr. We are measuring trial-to-paid conversion and paid survival at 60 and 90 days.</p>
+        <p>This is what Sendlyr does: the behavioral decision layer before the message. Not the email tool. Not the automation platform.</p>
+        <p>The question we answer is: given what this specific user has done in your product so far, what is the most useful thing you can say to them right now?</p>
+        <p>Most lifecycle tools help you send messages. We help you decide who needs one, what it should say, and whether sending it is the right call at all.</p>
+      </section>
+
+      <div class="article-cta">
+        <h2>Want to find your activation milestone?</h2>
+        <p>Sendlyr can show you the first signal and journey plan in 48 hours.</p>
+        <a class="btn-primary lg" href="/#demo">Book analysis <span class="btn-arrow">&rarr;</span></a>
+      </div>
+    </div>
+  </article>
+</main>
+
+<footer>
+  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr"></a>
+  <div class="f-right">
+    <span>&copy; 2026 Sendlyr</span>
+    <span>find the behavior &middot; drive it</span>
+  </div>
+</footer>
+</body>
+</html>

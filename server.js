@@ -38,7 +38,10 @@ http
       return;
     }
 
-    const requestPath = req.url === "/" ? "/index.html" : req.url.split("?")[0];
+    let requestPath = req.url === "/" ? "/index.html" : req.url.split("?")[0];
+    if (!path.extname(requestPath)) {
+      requestPath = path.posix.join(requestPath, "index.html");
+    }
     const safePath = decodeURIComponent(requestPath).replace(/^[/\\]+/, "");
     const filePath = path.resolve(root, safePath);
 
