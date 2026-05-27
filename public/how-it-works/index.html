@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Sendlyr Works | From Product Data to Behavior-Based Emails</title>
+<meta name="description" content="Sendlyr analyzes your existing product data, finds the early behavior that predicts conversion, classifies each user daily, and stages behavior-based emails for your approval. No new stack required.">
+<link rel="icon" type="image/png" href="/assets/logo/sendlyr-icon-transparent.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr"></a>
+  <div class="nav-mid">
+    <a href="/how-it-works" aria-current="page">How it works</a>
+    <a href="/#problem">Approach</a>
+    <a href="/#proof">Results</a>
+    <a href="/#why">Why Sendlyr</a>
+    <a href="/blog">Blog</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-status"><span class="dot"></span>1 customer live</div>
+    <a class="btn-primary" href="https://calendly.com/dquang191104/30min" target="_blank" rel="noopener">Book analysis <span class="btn-arrow">&rarr;</span></a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══════════ PAGE HEADER ═══════════ -->
+<section class="hiw-page-header">
+  <div class="block-eye">How it works</div>
+  <h1>Five steps from your product data<br>to emails that <em>actually move users.</em></h1>
+  <p class="hiw-sub">No new stack. No generic sequences. Human approval before anything sends.</p>
+</section>
+
+<!-- ═══════════ PIPELINE ═══════════ -->
+<section class="hiw-pipeline-section">
+  <div class="hiw-pipeline">
+
+    <!-- Step 1 -->
+    <div class="hiw-step fade-up">
+      <div class="hiw-step-num">01</div>
+      <div class="hiw-step-title">Connect your data</div>
+      <div class="hiw-step-desc">We read from your existing behavioral data source — product database, analytics platform, or event stream. No new SDK to install, no code changes required.</div>
+      <div class="hiw-step-note">Currently live: Azure SQL. Expanding to other sources.</div>
+    </div>
+
+    <div class="hiw-connector" aria-hidden="true">→</div>
+
+    <!-- Step 2 -->
+    <div class="hiw-step fade-up">
+      <div class="hiw-step-num">02</div>
+      <div class="hiw-step-title">Discover your activation milestone</div>
+      <!-- SWAP WHEN READY: Replace retention stat with Typesy VIP trial-to-paid conversion lift once A/B result lands. -->
+      <div class="hiw-step-desc">We run a PAI analysis — a statistical scan of your historical cohort data to find the one early behavior that predicts whether a user converts or stays. This is analysis, not a formula: the behavior is different for every product.</div>
+      <div class="hiw-step-note">Example: "Complete ≥1 course within 4 days" → 39.5% retention vs. 34% baseline in Typesy.</div>
+    </div>
+
+    <div class="hiw-connector" aria-hidden="true">→</div>
+
+    <!-- Step 3 -->
+    <div class="hiw-step fade-up">
+      <div class="hiw-step-num">03</div>
+      <div class="hiw-step-title">Classify every user, every day</div>
+      <div class="hiw-step-desc">Each trial user is assigned a behavioral state daily based on what they have or haven't done relative to the activation milestone. States are deterministic — no ML, no black box.</div>
+      <div class="hiw-step-note">Typesy VIP runs 9 states: NEW, IN_PROGRESS, STUCK, ACTIVATED, and five more.</div>
+    </div>
+
+    <div class="hiw-connector" aria-hidden="true">→</div>
+
+    <!-- Step 4 -->
+    <div class="hiw-step fade-up">
+      <div class="hiw-step-num">04</div>
+      <div class="hiw-step-title">Generate emails, you approve them</div>
+      <div class="hiw-step-desc">For each state, we generate a behavior-matched email draft you can review, edit, and approve once. After that, the system personalizes each send — names, progress stats, dynamic CTAs — from live data.</div>
+      <div class="hiw-step-note">One approval per state template. No per-user approval. You can edit or replace any draft before approving.</div>
+    </div>
+
+    <div class="hiw-connector" aria-hidden="true">→</div>
+
+    <!-- Step 5 -->
+    <div class="hiw-step fade-up">
+      <div class="hiw-step-num">05</div>
+      <div class="hiw-step-title">Measure the experiment</div>
+      <div class="hiw-step-desc">Sendlyr runs a treatment/control A/B split from day one — state-matched emails vs. nothing. Conversion rate, PAI hit rate, and send performance are reported to you weekly.</div>
+      <div class="hiw-step-note">Minimum signal threshold: 50 treatment users. Results update daily in your dashboard (client-specific access).</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ FAQ STRIP ═══════════ -->
+<section class="hiw-faq-section fade-up">
+  <div class="hiw-faq">
+    <div class="hiw-faq-eye">Common questions</div>
+
+    <div class="hiw-faq-pair">
+      <div class="hiw-faq-q">Do I need to change my stack or install an SDK?</div>
+      <div class="hiw-faq-a">No. We read from your existing data source. The only integration is read access to your behavioral data.</div>
+    </div>
+
+    <div class="hiw-faq-pair">
+      <div class="hiw-faq-q">How long does setup take?</div>
+      <div class="hiw-faq-a">48-hour analysis to identify the activation milestone. 1–2 weeks from first call to first email in monitoring mode — emails are generated and verified but nothing sends until you approve.</div>
+    </div>
+
+    <div class="hiw-faq-pair">
+      <div class="hiw-faq-q">Who approves the emails?</div>
+      <div class="hiw-faq-a">You do — once per state template. After that, the system personalizes and sends at the right time with no further approval required per user.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="block">
+  <div class="cta-card fade-up">
+    <div class="cta-eye">◆ Get started</div>
+    <h2>Book a <em>48-hour analysis.</em></h2>
+    <p>We'll analyze your product data and tell you what your activation milestone is. No commitment.</p>
+    <a class="btn-primary lg" href="https://calendly.com/dquang191104/30min" target="_blank" rel="noopener">Book a 48-Hour Analysis <span class="btn-arrow">→</span></a>
+    <div class="cta-meta-row">
+      <span>No commitment</span>
+      <span>No setup before the call</span>
+      <span>48-hour turnaround</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr"></a>
+  <div class="f-right">
+    <span>&copy; 2026 Sendlyr</span>
+    <span>find the behavior &middot; drive it</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-up').forEach(function (el) { obs.observe(el); });
+    setTimeout(function () {
+      document.querySelectorAll('.fade-up').forEach(function (el) { el.classList.add('visible'); });
+    }, 600);
+  })();
+</script>
+
+</body>
+</html>
