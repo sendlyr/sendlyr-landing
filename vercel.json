@@ -1,3 +1,9 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/for/fitness", "destination": "/for/fitness-apps", "permanent": true },
+    { "source": "/for/cooking", "destination": "/for/cooking-apps", "permanent": true },
+    { "source": "/for/edtech", "destination": "/for/edtech-apps", "permanent": true },
+    { "source": "/for/:path*", "destination": "/how-it-works", "permanent": false }
+  ]
 }
