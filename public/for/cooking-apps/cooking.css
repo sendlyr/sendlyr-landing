@@ -1,0 +1,567 @@
+/* ═══════════════════════════════════════════════════════════════
+   For Cooking Apps — additive styles
+   Loaded after /styles.css on /for/cooking-apps/
+═══════════════════════════════════════════════════════════════ */
+
+/* ─── Edtech hero with proof strip ──────────────────── */
+.cook-hero {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 72px 28px 0;
+  text-align: center;
+}
+.cook-hero .block-eye { justify-content: center; margin-bottom: 22px; }
+.cook-hero h1 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(40px, 5.4vw, 76px);
+  line-height: 0.98;
+  letter-spacing: -2px;
+  color: var(--ink);
+  margin-bottom: 22px;
+  text-wrap: balance;
+}
+.cook-hero h1 em {
+  font-style: italic;
+  background: linear-gradient(120deg, var(--teal) 20%, var(--violet) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cook-hero-sub {
+  font-size: 17px;
+  color: var(--mute);
+  max-width: 600px;
+  margin: 0 auto 30px;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+.cook-hero-sub b { color: var(--ink); font-weight: 600; }
+
+.cook-hero-cta-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.cook-hero-cta-meta {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--faint);
+}
+.cook-hero-cta-meta::before {
+  content: ''; display: inline-block; width: 4px; height: 4px; border-radius: 50%;
+  background: var(--faint); margin-right: 8px; vertical-align: middle;
+}
+
+/* The big proof strip in the hero */
+.cook-hero-stat {
+  max-width: 920px;
+  margin: 8px auto 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+.cook-hero-stat::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(11,95,102,0.06) 0%, transparent 70%);
+}
+.cook-stat-cell {
+  padding: 20px 18px;
+  border-right: 1px solid var(--line-soft);
+  position: relative;
+  text-align: left;
+}
+.cook-stat-cell:last-child { border-right: 0; }
+.cook-stat-lbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--faint);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.cook-stat-val {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 36px;
+  line-height: 1;
+  letter-spacing: -1.4px;
+  color: var(--ink);
+}
+.cook-stat-val.accent {
+  background: linear-gradient(120deg, var(--teal), var(--violet));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cook-stat-foot {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--faint);
+  margin-top: 6px;
+}
+.cook-stat-foot b { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 760px) {
+  .cook-hero { padding: 52px 18px 0; }
+  .cook-hero-stat { grid-template-columns: 1fr 1fr; padding: 4px; }
+  .cook-stat-cell { padding: 16px 14px; }
+  .cook-stat-cell:nth-child(2) { border-right: 0; }
+  .cook-stat-cell:nth-child(1), .cook-stat-cell:nth-child(2) { border-bottom: 1px solid var(--line-soft); }
+}
+
+/* ─── Section: What edtech teams usually pick ───────── */
+.cook-myth-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.cook-myth {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  padding: 24px 24px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.cook-myth::before {
+  content: '';
+  position: absolute;
+  left: 16px; right: 16px;
+  top: 50%;
+  height: 1px;
+  background: var(--rose);
+  opacity: 0.5;
+  transform: rotate(-3deg);
+  z-index: 0;
+}
+.cook-myth-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--faint);
+  letter-spacing: 1.2px;
+  margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+  position: relative; z-index: 1;
+}
+.cook-myth-num::after { content: ''; flex: 1; height: 1px; background: var(--line-soft); }
+.cook-myth-assumed {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 14px;
+  position: relative;
+  z-index: 1;
+}
+.cook-myth-why {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--rose);
+  line-height: 1.55;
+  padding: 10px 12px;
+  background: var(--rose-soft);
+  border: 1px solid var(--rose-line);
+  border-radius: var(--r-sm);
+  position: relative;
+  z-index: 1;
+}
+.cook-myth-why::before {
+  content: '✕ ';
+  font-weight: 700;
+  margin-right: 4px;
+}
+.cook-myth-why b { color: var(--ink); font-weight: 600; }
+@media (max-width: 880px) { .cook-myth-grid { grid-template-columns: 1fr; } }
+
+/* ─── Section: What we test for your edtech app ────── */
+.cook-cand-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: 40px 44px;
+  box-shadow: var(--shadow-lg);
+}
+.cook-cand-head {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: end;
+  margin-bottom: 32px;
+}
+.cook-cand-head h2 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(30px, 3.6vw, 44px);
+  line-height: 1.04;
+  letter-spacing: -1.3px;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.cook-cand-head h2 em {
+  font-style: italic;
+  background: linear-gradient(120deg, var(--teal), var(--violet));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cook-cand-deck {
+  font-size: 15px; color: var(--mute); line-height: 1.62; max-width: 460px;
+}
+.cook-cand-deck b { color: var(--ink); font-weight: 600; }
+.cook-cand-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.cook-cand {
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+  transition: all 0.18s;
+}
+.cook-cand:hover {
+  border-color: var(--teal-line);
+  background: var(--surface);
+  transform: translateY(-1px);
+}
+.cook-cand .lbl {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--faint);
+  font-weight: 600;
+}
+.cook-cand .name {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.15px;
+  line-height: 1.3;
+}
+.cook-cand .ex {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--mute);
+  line-height: 1.4;
+  margin-top: 2px;
+}
+.cook-cand-foot {
+  margin-top: 22px;
+  padding: 14px 16px;
+  background: var(--surface-2);
+  border: 1px dashed var(--line);
+  border-radius: var(--r-sm);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--mute);
+  line-height: 1.55;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cook-cand-foot::before {
+  content: '◆';
+  color: var(--teal);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+.cook-cand-foot b { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 960px) {
+  .cook-cand-head { grid-template-columns: 1fr; gap: 14px; align-items: start; }
+  .cook-cand-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .cook-cand-card { padding: 28px 22px; }
+  .cook-cand-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── Section: Edtech user states ───────────────────── */
+.cook-states-card {
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface-2) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  padding: 40px 44px;
+  box-shadow: var(--shadow-sm);
+}
+.cook-states-head {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 48px;
+  margin-bottom: 28px;
+  align-items: end;
+}
+.cook-states-head h2 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 40px);
+  line-height: 1.04;
+  letter-spacing: -1.2px;
+  color: var(--ink);
+}
+.cook-states-head h2 em {
+  font-style: italic;
+  background: linear-gradient(120deg, var(--teal), var(--violet));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cook-states-deck { font-size: 14.5px; color: var(--mute); line-height: 1.62; max-width: 460px; }
+.cook-states-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.cook-state {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--ink);
+}
+.cook-state .dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+}
+.cook-state .name { font-weight: 600; flex: 1; letter-spacing: 0.3px; }
+.cook-state .when {
+  color: var(--mute);
+  font-size: 10px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.cook-state.activated { border-color: var(--emerald-line); background: var(--emerald-soft); }
+.cook-state.activated .dot { background: var(--emerald); }
+.cook-state.stuck { border-color: var(--amber-line); background: var(--amber-soft); }
+.cook-state.stuck .dot { background: var(--amber); }
+.cook-state.risk { border-color: var(--rose-line); background: var(--rose-soft); }
+.cook-state.risk .dot { background: var(--rose); }
+
+@media (max-width: 960px) {
+  .cook-states-head { grid-template-columns: 1fr; gap: 14px; align-items: start; }
+  .cook-states-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .cook-states-card { padding: 28px 22px; }
+  .cook-states-grid { grid-template-columns: 1fr; }
+}
+
+/* ─── Section: Edtech FAQ ──────────────────────────── */
+.cook-faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.cook-faq-pair {
+  padding: 24px 28px;
+  border-top: 1px solid var(--line-soft);
+  border-left: 1px solid var(--line-soft);
+}
+.cook-faq-pair:nth-child(2n+1) { border-left: 0; }
+.cook-faq-pair:nth-child(1), .cook-faq-pair:nth-child(2) { border-top: 0; }
+.cook-faq-q {
+  font-family: var(--font-ui);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.2px;
+  margin-bottom: 8px;
+  display: flex; gap: 8px; align-items: flex-start;
+}
+.cook-faq-q::before {
+  content: 'Q';
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--teal);
+  background: var(--teal-soft);
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  letter-spacing: 0.4px;
+}
+.cook-faq-a {
+  font-size: 13.5px;
+  color: var(--mute);
+  line-height: 1.6;
+  padding-left: 26px;
+}
+.cook-faq-a b { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 760px) {
+  .cook-faq-grid { grid-template-columns: 1fr; }
+  .cook-faq-pair { border-left: 0; padding: 22px 22px; }
+  .cook-faq-pair:nth-child(2) { border-top: 1px solid var(--line-soft); }
+}
+
+/* ─── Section header for plain sections ─────────────── */
+.cook-section-head {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 56px;
+  align-items: end;
+  margin-bottom: 28px;
+}
+.cook-section-head h2 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(30px, 3.8vw, 48px);
+  line-height: 1.04;
+  letter-spacing: -1.4px;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.cook-section-head h2 em {
+  font-style: italic;
+  background: linear-gradient(120deg, var(--teal), var(--violet));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cook-section-head .deck {
+  font-size: 15px; color: var(--mute); line-height: 1.62; max-width: 460px;
+}
+.cook-section-head .deck b { color: var(--ink); font-weight: 600; }
+@media (max-width: 880px) {
+  .cook-section-head { grid-template-columns: 1fr; gap: 14px; align-items: start; }
+}
+
+/* Proof card override — taller, more dominant */
+.cook-proof-card .proof-stat-eye {
+  font-size: 11px;
+  letter-spacing: 1.4px;
+}
+.cook-proof-card .proof-val {
+  font-size: clamp(56px, 7vw, 88px);
+  letter-spacing: -2.4px;
+}
+
+/* ─── Honest framing card (fitness-specific) ────────── */
+.cook-honest-card {
+  background: var(--ink);
+  color: #E4E6E2;
+  border-radius: var(--r-xl);
+  padding: 52px 56px;
+  position: relative;
+  overflow: hidden;
+}
+.cook-honest-card::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(circle at 10% 12%, rgba(11,95,102,0.18) 0%, transparent 42%),
+    radial-gradient(circle at 92% 88%, rgba(109,91,208,0.14) 0%, transparent 42%);
+}
+.cook-honest-eye {
+  position: relative;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #7BC3CA;
+  margin-bottom: 18px;
+}
+.cook-honest-h2 {
+  position: relative;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(28px, 3.6vw, 44px);
+  line-height: 1.05;
+  letter-spacing: -1.3px;
+  color: #fff;
+  margin-bottom: 20px;
+  max-width: 760px;
+  text-wrap: balance;
+}
+.cook-honest-h2 em {
+  font-style: italic;
+  color: #7BC3CA;
+}
+.cook-honest-body {
+  position: relative;
+  font-size: 16px;
+  color: #B8BFC4;
+  line-height: 1.65;
+  max-width: 760px;
+  margin-bottom: 30px;
+  text-wrap: pretty;
+}
+.cook-honest-body b { color: #fff; font-weight: 600; }
+.cook-honest-list {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 28px;
+}
+.cook-honest-item {
+  padding: 0 24px 0 0;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.cook-honest-item:not(:first-child) { padding-left: 24px; }
+.cook-honest-item:last-child { border-right: 0; padding-right: 0; }
+.cook-honest-item-x {
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 5px;
+  display: flex; align-items: center; justify-content: center;
+  color: #E07380;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 1px;
+}
+.cook-honest-item-q {
+  font-family: var(--font-ui);
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: -0.2px;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.cook-honest-item-a {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: #B8BFC4;
+  line-height: 1.55;
+}
+@media (max-width: 880px) {
+  .cook-honest-card { padding: 36px 28px; }
+  .cook-honest-list { grid-template-columns: 1fr; gap: 22px; padding-top: 22px; }
+  .cook-honest-item, .cook-honest-item:not(:first-child) {
+    padding: 0;
+    border-right: 0;
+  }
+}
