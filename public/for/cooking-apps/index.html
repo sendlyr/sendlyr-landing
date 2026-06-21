@@ -3,20 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sendlyr for Cooking Apps — The behavior that predicts subscription. We find it.</title>
-<meta name="description" content="Cooking apps have a huge browse-to-cook gap. We don't know which behavior predicts who actually subscribes. Neither do you. The 48-hour PAI analysis finds it on your cohort, not a category benchmark.">
+<title>Sendlyr for Cooking Apps | Trial Conversion</title>
+<meta name="description" content="Find which cooking-app behavior predicts trial-to-paid conversion, then route users through approved lifecycle emails toward that activation milestone.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.sendlyr.com/for/cooking-apps">
+<meta property="og:title" content="Sendlyr for Cooking Apps | Trial Conversion">
+<meta property="og:description" content="Find the Product Activation Indicator in your cooking app cohort, then guide users toward it with behavioral email journeys.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.sendlyr.com/for/cooking-apps">
+<meta property="og:image" content="https://www.sendlyr.com/assets/og/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sendlyr: The behavior that predicts retention. Found, then driven.">
+<meta property="og:site_name" content="Sendlyr">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sendlyr for Cooking Apps | Trial Conversion">
+<meta name="twitter:description" content="Find the Product Activation Indicator in your cooking app cohort, then guide users toward it with behavioral email journeys.">
+<meta name="twitter:image" content="https://www.sendlyr.com/assets/og/og-default.png">
 <link rel="icon" type="image/png" href="/assets/logo/sendlyr-icon-transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
 <link rel="stylesheet" href="/for/cooking-apps/cooking.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "We're freemium with a paid tier, not trial-based. Does this work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We swap trial-to-paid for free-to-paid or free-to-W12-retained, depending on the outcome you care about."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "We lean heavily on push notifications — does email even work for us?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, and we can drive push instead of email, or both. The output of Sendlyr is a state machine, and the channel is configurable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Our content is seasonal — pumpkin in October, grilling in summer. Breaks the analysis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. We bucket cohorts by signup month and compute matched-cohort conversion, not raw averages."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Our users are mostly mobile-only. Can you reach them?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The state machine can drive the channels you already have, including email, push, in-app messages, or SMS."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "We have multiple subscription tiers. Which do you optimize for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We optimize for the conversion you choose, such as entry-tier paid conversion, higher-tier upsell, or annual retention."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Our recipes are user-generated. Does the analysis care about content quality?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not directly. We test user behaviors, not content metadata. The milestone is about what users do, not which recipes they engage with."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the minimum cohort size?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Practical minimum is around 10,000 trial or free users in the last 90 days. Below that, the analysis cannot reach statistical significance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the analysis finds no strong milestone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If no behavior shows meaningful lift and coverage, we tell you. You keep the report and methodology with no obligation to continue."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
 <!-- ═══════════ NAV ═══════════ -->
 <nav>
-  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr"></a>
+  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr" width="1361" height="364"></a>
   <div class="nav-mid">
     <a href="/how-it-works">How it works</a>
     <a href="/#problem">Approach</a>
@@ -262,7 +349,7 @@
           </div>
         </div>
         <div class="proof-foot">
-          <img src="/assets/images/typesy-logo-colored-2-scaled.png" alt="Typesy">
+          <img src="/assets/images/typesy-logo-colored-2-scaled.png" alt="Typesy" width="2560" height="623" loading="lazy">
           <span>Typing app · eReflect · method, not category transfer</span>
         </div>
       </div>
@@ -422,10 +509,11 @@
 </main>
 
 <footer>
-  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr"></a>
+  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr" width="1361" height="364"></a>
   <div class="f-right">
     <span>&copy; 2026 Sendlyr</span>
     <span>find the behavior · drive it</span>
+    <span class="footer-links"><a href="/for/fitness-apps">Fitness</a> · <a href="/for/edtech-apps">Edtech</a> · <a href="/how-it-works">How it works</a></span>
   </div>
 </footer>
 

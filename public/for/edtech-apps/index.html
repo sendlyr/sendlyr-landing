@@ -3,20 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sendlyr for Edtech Apps — The behavior that predicts retention. Found, then driven.</title>
-<meta name="description" content="For one edtech app, we found the early behavior that predicts 12-week retention — 34% baseline to 39.5%, tested across 24,118 trials. The same 48-hour analysis runs on your cohort data.">
+<title>Sendlyr for Edtech Apps | Retention Emails</title>
+<meta name="description" content="Find the edtech activation behavior that predicts retention, then guide learners through approved onboarding emails toward that Product Activation Indicator.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.sendlyr.com/for/edtech-apps">
+<meta property="og:title" content="Sendlyr for Edtech Apps | Retention Emails">
+<meta property="og:description" content="Use Sendlyr to find the early learner behavior that predicts retention, then build state-based onboarding around it.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.sendlyr.com/for/edtech-apps">
+<meta property="og:image" content="https://www.sendlyr.com/assets/og/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sendlyr: The behavior that predicts retention. Found, then driven.">
+<meta property="og:site_name" content="Sendlyr">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sendlyr for Edtech Apps | Retention Emails">
+<meta name="twitter:description" content="Use Sendlyr to find the early learner behavior that predicts retention, then build state-based onboarding around it.">
+<meta name="twitter:image" content="https://www.sendlyr.com/assets/og/og-default.png">
 <link rel="icon" type="image/png" href="/assets/logo/sendlyr-icon-transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
 <link rel="stylesheet" href="/for/edtech-apps/edtech.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Our users are minors — does this work under COPPA/FERPA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. By default we work with anonymized user IDs only. No names, emails, or PII pass through analysis. DPA available."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Our trials are 7 days, not 14 — does the method still work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The lookback window is configurable. For short trials we look at days 0-3 or 0-5."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "We're B2B / school district sales — is this for us?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Partial fit. If you have an individual learner trial layer, such as teacher pilots, free seats, or freemium, yes. Pure enterprise purchase-order cycles are not what Sendlyr is built for."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the minimum cohort size you need?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Practical minimum is around 10,000 trial users in the last 90 days. Below that, the analysis cannot reach statistical significance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "School year seasonality skews our retention. Can you handle that?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We bucket cohorts by signup month and look at matched-cohort retention, not raw averages."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "We already use Customer.io / Iterable / Braze. Do you replace it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. We find the milestone and generate the drafts. You can route sends through your existing ESP or have us handle delivery."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if the analysis finds no strong milestone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If no behavior shows meaningful lift and coverage, we tell you. You keep the report and methodology with no obligation to continue."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long until we see lift?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Milestone in 48 hours. Templates approved and live in 1-2 weeks. A/B reaches significance typically in weeks 4-6, depending on volume."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
 <!-- ═══════════ NAV ═══════════ -->
 <nav>
-  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr"></a>
+  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr" width="1361" height="364"></a>
   <div class="nav-mid">
     <a href="/how-it-works">How it works</a>
     <a href="/#problem">Approach</a>
@@ -122,7 +209,7 @@
           </div>
         </div>
         <div class="proof-foot">
-          <img src="/assets/images/typesy-logo-colored-2-scaled.png" alt="Typesy">
+          <img src="/assets/images/typesy-logo-colored-2-scaled.png" alt="Typesy" width="2560" height="623" loading="lazy">
           <span>Typing app · eReflect · n = 24,118</span>
         </div>
       </div>
@@ -389,10 +476,11 @@
 </main>
 
 <footer>
-  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr"></a>
+  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr" width="1361" height="364"></a>
   <div class="f-right">
     <span>&copy; 2026 Sendlyr</span>
     <span>find the behavior · drive it</span>
+    <span class="footer-links"><a href="/for/fitness-apps">Fitness</a> · <a href="/for/cooking-apps">Cooking</a> · <a href="/how-it-works">How it works</a></span>
   </div>
 </footer>
 
