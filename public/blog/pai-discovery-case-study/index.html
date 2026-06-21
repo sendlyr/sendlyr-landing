@@ -3,17 +3,84 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How we found the exact behavior that predicts whether a user will keep paying - Sendlyr</title>
-<meta name="description" content="A Sendlyr case study on finding the activation milestone that predicts retention and building state-based onboarding around it.">
+<title>PAI Discovery Case Study | Sendlyr Retention Analysis</title>
+<meta name="description" content="A Sendlyr case study on finding the Product Activation Indicator that predicted retention, then building state-based onboarding around it.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://www.sendlyr.com/blog/pai-discovery-case-study">
+<meta property="og:title" content="PAI Discovery Case Study | Sendlyr Retention Analysis">
+<meta property="og:description" content="How Sendlyr found the early behavior that predicted retention, validated it on a subscription cohort, and built state-based onboarding around it.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.sendlyr.com/blog/pai-discovery-case-study">
+<meta property="og:image" content="https://www.sendlyr.com/assets/og/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sendlyr: The behavior that predicts retention. Found, then driven.">
+<meta property="og:site_name" content="Sendlyr">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PAI Discovery Case Study | Sendlyr Retention Analysis">
+<meta name="twitter:description" content="How Sendlyr found the early behavior that predicted retention, validated it on a subscription cohort, and built state-based onboarding around it.">
+<meta name="twitter:image" content="https://www.sendlyr.com/assets/og/og-default.png">
 <link rel="icon" type="image/png" href="/assets/logo/sendlyr-icon-transparent.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "@id": "https://www.sendlyr.com/blog/pai-discovery-case-study#article",
+      "headline": "How we found the exact behavior that predicts whether a user will keep paying, and what we built around it",
+      "description": "A Sendlyr case study on finding the Product Activation Indicator that predicted retention and building state-based onboarding around it.",
+      "image": "https://www.sendlyr.com/assets/blog/pai-discovery-case-study/cover-image.png",
+      "author": {
+        "@type": "Person",
+        "name": "Stephen Dang"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Sendlyr",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.sendlyr.com/assets/logo/sendlyr-logo.png"
+        }
+      },
+      "mainEntityOfPage": "https://www.sendlyr.com/blog/pai-discovery-case-study",
+      "articleSection": "Case study"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.sendlyr.com/blog/pai-discovery-case-study#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.sendlyr.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://www.sendlyr.com/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "PAI Discovery Case Study",
+          "item": "https://www.sendlyr.com/blog/pai-discovery-case-study"
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <nav>
-  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr"></a>
+  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr" width="1361" height="364"></a>
   <div class="nav-mid">
     <a href="/how-it-works">How it works</a>
     <a href="/#problem">Approach</a>
@@ -31,7 +98,7 @@
   <article class="article-page">
     <header class="article-hero">
       <div class="article-cover">
-        <img src="/assets/blog/pai-discovery-case-study/cover-image.png" alt="cover-image">
+        <img src="/assets/blog/pai-discovery-case-study/cover-image.png" alt="Sendlyr case study cover showing activation analysis visuals" width="1733" height="907">
       </div>
       <div class="article-kicker">Case study</div>
       <h1>How we found the exact behavior that predicts whether a user will keep paying, and what we built around it</h1>
@@ -53,7 +120,7 @@
       </section>
 
       <figure class="article-visual">
-        <img src="/assets/blog/pai-discovery-case-study/visual-1-trial-timeline.png" alt="visual-1-trial-timeline">
+        <img src="/assets/blog/pai-discovery-case-study/visual-1-trial-timeline.png" alt="Trial timeline showing behavior-based onboarding stages" width="1672" height="941" loading="lazy">
         <figcaption>visual-1-trial-timeline</figcaption>
       </figure>
 
@@ -66,7 +133,7 @@
       </section>
 
       <figure class="article-visual">
-        <img src="/assets/blog/pai-discovery-case-study/visual-3-retention-curves.png" alt="visual-3-retention-curves">
+        <img src="/assets/blog/pai-discovery-case-study/visual-3-retention-curves.png" alt="Retention curve comparison for users who reached the activation milestone" width="1672" height="941" loading="lazy">
         <figcaption>visual-3-retention-curves</figcaption>
       </figure>
 
@@ -78,7 +145,7 @@
       </section>
 
       <figure class="article-visual">
-        <img src="/assets/blog/pai-discovery-case-study/visual-2-hypothesis-table.png" alt="visual-2-hypothesis-table">
+        <img src="/assets/blog/pai-discovery-case-study/visual-2-hypothesis-table.png" alt="Hypothesis table comparing candidate activation behaviors" width="1672" height="941" loading="lazy">
         <figcaption>visual-2-hypothesis-table</figcaption>
       </figure>
 
@@ -91,7 +158,7 @@
       </section>
 
       <figure class="article-visual">
-        <img src="/assets/blog/pai-discovery-case-study/visual-4-validation-table.png" alt="visual-4-validation-table">
+        <img src="/assets/blog/pai-discovery-case-study/visual-4-validation-table.png" alt="Validation table showing the activation signal across subscription cohorts" width="1672" height="941" loading="lazy">
         <figcaption>visual-4-validation-table</figcaption>
       </figure>
 
@@ -113,10 +180,11 @@
 </main>
 
 <footer>
-  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr"></a>
+  <a class="nav-logo" href="/" aria-label="Sendlyr home"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr" width="1361" height="364"></a>
   <div class="f-right">
     <span>&copy; 2026 Sendlyr</span>
     <span>find the behavior &middot; drive it</span>
+    <span class="footer-links"><a href="/for/fitness-apps">Fitness</a> &middot; <a href="/for/cooking-apps">Cooking</a> &middot; <a href="/for/edtech-apps">Edtech</a></span>
   </div>
 </footer>
 </body>

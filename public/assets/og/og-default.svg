@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="brandGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0B5F66"/>
+      <stop offset="100%" stop-color="#6D5BD0"/>
+    </linearGradient>
+    <radialGradient id="tealGlow" cx="16%" cy="10%" r="42%">
+      <stop offset="0%" stop-color="#0B5F66" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0B5F66" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="violetGlow" cx="86%" cy="88%" r="44%">
+      <stop offset="0%" stop-color="#6D5BD0" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#6D5BD0" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#0B171C" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="20" flood-color="#0B171C" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#F6F7F5"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#tealGlow)"/>
+  <rect width="1200" height="630" fill="url(#violetGlow)"/>
+  <circle cx="1040" cy="70" r="310" fill="url(#brandGradient)" opacity="0.12"/>
+  <rect x="40" y="40" width="1120" height="550" rx="28" fill="none" stroke="#0B5F66" stroke-opacity="0.16"/>
+
+  <image href="../logo/sendlyr-logo-transparent.png" x="82" y="65" width="246" height="66" preserveAspectRatio="xMinYMid meet"/>
+
+  <g transform="translate(892 68)">
+    <rect width="226" height="42" rx="21" fill="#FFFFFF" fill-opacity="0.74" stroke="#E4E6E2"/>
+    <circle cx="22" cy="21" r="4.5" fill="#15795E"/>
+    <circle cx="22" cy="21" r="9.5" fill="none" stroke="#15795E" stroke-opacity="0.16" stroke-width="5"/>
+    <text x="43" y="27" fill="#5A6770" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="17" font-weight="500">retention engine</text>
+  </g>
+
+  <g transform="translate(82 194)">
+    <rect width="478" height="46" rx="23" fill="#FFFFFF" fill-opacity="0.80" stroke="#E4E6E2"/>
+    <rect x="8" y="8" width="104" height="30" rx="15" fill="#E6F1F0"/>
+    <text x="26" y="29" fill="#0B5F66" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="15" font-weight="700" letter-spacing="0.4">LIVE</text>
+    <text x="127" y="30" fill="#5A6770" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="18" font-weight="500">Typesy / 34% to 39.5% retention</text>
+  </g>
+
+  <text x="82" y="302" fill="#0B1316" font-family="'Source Serif 4', Georgia, serif" font-size="78" font-style="italic" font-weight="400">
+    <tspan x="82" dy="0">The behavior that</tspan>
+    <tspan x="82" dy="82">predicts retention.</tspan>
+  </text>
+  <text x="82" y="468" fill="url(#brandGradient)" font-family="'Source Serif 4', Georgia, serif" font-size="78" font-style="italic" font-weight="600">Found, then driven.</text>
+
+  <text x="82" y="526" fill="#5A6770" font-family="'Inter', system-ui, sans-serif" font-size="27" font-weight="500">
+    <tspan x="82" dy="0">Identify the activation milestone that moves retention,</tspan>
+    <tspan x="82" dy="37">then drive users toward it with approved behavioral emails.</tspan>
+  </text>
+
+  <text x="1018" y="560" fill="#084D52" font-family="'JetBrains Mono', ui-monospace, monospace" font-size="19" font-weight="600">sendlyr.com</text>
+</svg>
