@@ -3,516 +3,420 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sendlyr | Behavioral Email for SaaS Retention</title>
-<meta name="description" content="Sendlyr finds the product activation indicator that predicts trial-to-paid conversion and routes SaaS users through behavioral emails toward retention.">
+<title>Sendlyr | Product Activation Indicator Discovery</title>
+<meta name="description" content="Sendlyr finds the early user behavior that predicts conversion or retention, then turns it into state-based lifecycle experiments your team can run through its existing email stack.">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://www.sendlyr.com">
-<meta property="og:title" content="Sendlyr | Behavioral Email for SaaS Retention">
-<meta property="og:description" content="Find the early behavior that predicts retention, then route trial users through state-based behavioral email journeys toward it.">
+<meta property="og:title" content="Sendlyr | Product Activation Indicator Discovery">
+<meta property="og:description" content="Find the early user behavior that predicts conversion or retention, then turn it into state-based lifecycle experiments your team can run through its existing stack.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.sendlyr.com">
 <meta property="og:image" content="https://www.sendlyr.com/assets/og/og-default.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Sendlyr: The behavior that predicts retention. Found, then driven.">
+<meta property="og:image:alt" content="Sendlyr: Stop guessing what onboarding should drive.">
 <meta property="og:site_name" content="Sendlyr">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sendlyr | Behavioral Email for SaaS Retention">
-<meta name="twitter:description" content="Find the early behavior that predicts retention, then route trial users through state-based behavioral email journeys toward it.">
+<meta name="twitter:title" content="Sendlyr | Product Activation Indicator Discovery">
+<meta name="twitter:description" content="Find the early user behavior that predicts conversion or retention, then turn it into state-based lifecycle experiments your team can run through its existing stack.">
 <meta name="twitter:image" content="https://www.sendlyr.com/assets/og/og-default.png">
-<link rel="icon" type="image/png" href="/assets/logo/sendlyr-icon-transparent.png">
+<link rel="icon" type="image/png" href="/assets/logo/sendlyr-icon-512.png">
+<link rel="apple-touch-icon" href="/assets/logo/sendlyr-icon-512.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/styles.css">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://www.sendlyr.com/#organization",
-      "name": "Sendlyr",
-      "url": "https://www.sendlyr.com",
-      "logo": "https://www.sendlyr.com/assets/logo/sendlyr-logo.png",
-      "description": "Sendlyr is a behavioral decision layer for subscription and SaaS companies."
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://www.sendlyr.com/#website",
-      "name": "Sendlyr",
-      "url": "https://www.sendlyr.com",
-      "publisher": {
-        "@id": "https://www.sendlyr.com/#organization"
-      }
-    }
-  ]
-}
-</script>
+<link rel="stylesheet" href="/enhance.css">
 </head>
 <body>
 
+<!-- scroll progress -->
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
 <!-- ═══════════ NAV ═══════════ -->
-<nav>
-  <div class="nav-logo"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr" width="1361" height="364"></div>
+<nav data-screen-label="nav">
+  <div class="nav-logo"><img src="/assets/logo/sendlyr-logo-transparent@2x.png" alt="Sendlyr" width="1361" height="364"></div>
   <div class="nav-mid">
-    <a href="#how">How it works</a>
-    <a href="#problem">Approach</a>
-    <a href="#proof">Results</a>
-    <a href="#why">Why Sendlyr</a>
+    <a href="#problem" data-nav>Problem</a>
+    <a href="#how" data-nav>How it works</a>
+    <a href="#proof" data-nav>Results</a>
+    <a href="#why" data-nav>Why Sendlyr</a>
     <a href="/blog">Blog</a>
   </div>
   <div class="nav-right">
-    <div class="nav-status"><span class="dot"></span>1 customer live</div>
-    <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Book analysis <span class="btn-arrow">→</span></button>
+    <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Book a discovery sprint <span class="btn-arrow">→</span></button>
   </div>
 </nav>
 
 <main>
 
 <!-- ═══════════ HERO ═══════════ -->
-<section class="hero">
+<section class="hero" data-screen-label="hero">
   <div class="hero-inner">
     <div class="hero-tag">
       <span class="tag-pill"><span class="live-dot"></span>LIVE</span>
-      <span>Typesy · 34% → <b>39.5%</b> 12-week retention</span>
+      <span>Typesy · activation signal predicted <b>39.5%</b> 12-week retention</span>
     </div>
-    <h1 class="hero-head">The one behavior that<br>predicts retention. <em>Found, then driven.</em></h1>
-    <p class="hero-sub">We test your product data, identify the activation milestone that <b>actually moves retention</b>, then drive users toward it with staged emails you approve.</p>
+    <h1 class="hero-head">Stop guessing what onboarding <em>should drive.</em></h1>
+    <p class="hero-value">Sendlyr finds the early behavior that predicts conversion, then turns it into user states and lifecycle emails your team approves — through your existing stack.</p>
     <div class="hero-cta-row">
-      <button class="btn-primary lg" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Get your analysis <span class="btn-arrow">→</span></button>
-      <span class="hero-cta-meta">48-hour turnaround · no setup before the call</span>
+      <button class="btn-primary lg" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Book a discovery sprint <span class="btn-arrow">→</span></button>
+      <a class="btn-ghost lg" href="/blog/pai-discovery-case-study">Read the Typesy case study</a>
+      <span class="hero-cta-meta">Analysis first · existing stack later</span>
     </div>
+  </div>
 
-    <!-- ANIMATED HERO DIAGRAM -->
-    <div class="hero-diagram fade-up">
-      <div class="hd-bar">
-        <span class="b-lights"><span></span><span></span><span></span></span>
-        <span class="b-title">sendlyr · retention engine</span>
-        <span class="b-stamp">running</span>
+  <!-- INTERACTIVE PIPELINE CONSOLE -->
+  <div class="console fade-up" id="console">
+    <div class="console-bar">
+      <span class="cb-lights"><span></span><span></span><span></span></span>
+      <span class="cb-title">sendlyr · activation decision layer</span>
+      <span class="cb-stamp" id="cb-stamp">running</span>
+    </div>
+    <div class="console-stage">
+      <svg class="console-svg" id="console-svg" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="pipe-fwd" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#0B5F66" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#6D5BD0" stop-opacity="0.35"/>
+          </linearGradient>
+          <linearGradient id="pipe-back" x1="1" y1="0" x2="0" y2="0">
+            <stop offset="0%" stop-color="#6D5BD0" stop-opacity="0.16"/>
+            <stop offset="100%" stop-color="#0B5F66" stop-opacity="0.16"/>
+          </linearGradient>
+        </defs>
+        <path id="pipe-path-fwd" d="M 60 70 L 280 70 L 500 70 L 720 70 L 940 70" fill="none" stroke="url(#pipe-fwd)" stroke-width="2" stroke-linecap="round"/>
+        <path id="pipe-path-back" d="M 940 70 C 940 170, 720 184, 500 184 C 280 184, 60 170, 60 70" fill="none" stroke="url(#pipe-back)" stroke-width="1.5" stroke-dasharray="4 5" stroke-linecap="round"/>
+        <g id="pipe-particles-fwd"></g>
+        <g id="pipe-particles-back"></g>
+      </svg>
+      <div class="pipe-stages" id="pipe-stages" role="tablist" aria-label="Decision layer stages"></div>
+      <div class="pipe-loop-label">PAI DISCOVERY · USER STATES · CONTROLLED EXPERIMENT</div>
+    </div>
+    <div class="console-readout" id="console-readout" role="tabpanel" aria-live="polite">
+      <div class="cr-index"><span id="cr-num">01</span><span class="cr-of">/ 05</span></div>
+      <div class="cr-main">
+        <div class="cr-title" id="cr-title">Usage</div>
+        <div class="cr-desc" id="cr-desc">Historical event exports and outcome cohorts — the raw material every classification is scored against.</div>
       </div>
-      <div class="hd-stage">
-        <svg class="hd-svg" id="hd-svg" viewBox="0 0 1000 280" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-          <defs>
-            <linearGradient id="hd-pipe" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stop-color="#0B5F66" stop-opacity="0.35"/>
-              <stop offset="100%" stop-color="#6D5BD0" stop-opacity="0.35"/>
-            </linearGradient>
-            <linearGradient id="hd-pipe-back" x1="1" y1="0" x2="0" y2="0">
-              <stop offset="0%" stop-color="#6D5BD0" stop-opacity="0.18"/>
-              <stop offset="100%" stop-color="#0B5F66" stop-opacity="0.18"/>
-            </linearGradient>
-            <radialGradient id="hd-glow" cx="0.5" cy="0.5" r="0.6">
-              <stop offset="0%" stop-color="#0B5F66" stop-opacity="0.25"/>
-              <stop offset="100%" stop-color="#0B5F66" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-
-          <!-- Glow behind milestone -->
-          <ellipse cx="500" cy="100" rx="120" ry="60" fill="url(#hd-glow)"/>
-
-          <!-- Forward pipe (events → analysis → milestone → email → users) -->
-          <path id="hd-path-fwd" d="M 100 100 L 280 100 L 500 100 L 720 100 L 900 100"
-                fill="none" stroke="url(#hd-pipe)" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- Return path (users → events) -->
-          <path id="hd-path-back" d="M 900 100 C 900 220, 700 240, 500 240 C 300 240, 100 220, 100 100"
-                fill="none" stroke="url(#hd-pipe-back)" stroke-width="1.5" stroke-dasharray="4 4" stroke-linecap="round"/>
-
-          <!-- Forward particles -->
-          <g id="hd-particles-fwd"></g>
-          <!-- Back particles -->
-          <g id="hd-particles-back"></g>
-
-          <!-- Nodes -->
-          <g id="hd-nodes"></g>
-
-          <!-- Lower label -->
-          <text x="500" y="262" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#8B96A0" letter-spacing="1.4">CONTINUOUS · BEHAVIOR-DRIVEN · APPROVED</text>
-        </svg>
+      <div class="cr-metric">
+        <div class="cr-metric-val" id="cr-metric-val">24,118</div>
+        <div class="cr-metric-lbl" id="cr-metric-lbl">trials analyzed</div>
       </div>
     </div>
+  </div>
 
-    <!-- COMPACT PROOF BAR -->
-    <div class="hero-proof fade-up">
-      <div class="hp-cell">
-        <div class="hp-label">12-week retention</div>
-        <div class="hp-val">34.0<span style="font-size:18px">%</span></div>
-        <div class="hp-foot">baseline · n = 24,118</div>
-      </div>
-      <div class="hp-cell">
-        <div class="hp-label">With Sendlyr signal</div>
-        <div class="hp-val accent">39.5<span style="font-size:18px">%</span></div>
-        <div class="hp-foot">milestone met in 14d</div>
-      </div>
-      <div class="hp-cell">
-        <div class="hp-label">Lift</div>
-        <div class="hp-val">+5.5<span style="font-size:18px">pp</span></div>
-        <div class="hp-foot">p &lt; 0.001</div>
-      </div>
-      <div class="hp-cell">
-        <div class="hp-label">Time to insight</div>
-        <div class="hp-val">48<span style="font-size:18px">h</span></div>
-        <div class="hp-foot">no integration needed</div>
-      </div>
+  <!-- ANIMATED PROOF BAR -->
+  <div class="hero-proof fade-up" id="hero-proof">
+    <div class="hp-cell">
+      <div class="hp-label">12-week retention</div>
+      <div class="hp-val" data-count="34.0" data-suffix="%">34.0<span class="hp-unit">%</span></div>
+      <div class="hp-foot">baseline · n = 24,118</div>
+    </div>
+    <div class="hp-cell">
+      <div class="hp-label">PAI reached</div>
+      <div class="hp-val accent" data-count="39.5" data-suffix="%">39.5<span class="hp-unit">%</span></div>
+      <div class="hp-foot">activation milestone met in 14d</div>
+    </div>
+    <div class="hp-cell">
+      <div class="hp-label">Lift</div>
+      <div class="hp-val" data-count="5.5" data-prefix="+" data-suffix="%">+5.5<span class="hp-unit">%</span></div>
+      <div class="hp-foot">p &lt; 0.001</div>
+    </div>
+    <div class="hp-cell">
+      <div class="hp-label">Starting point</div>
+      <div class="hp-val" data-count="48" data-suffix="h" data-decimals="0">48<span class="hp-unit">h</span></div>
+      <div class="hp-foot">export or read-only access</div>
     </div>
   </div>
 </section>
 
 <!-- ═══════════ TRUSTED ═══════════ -->
-<section class="trusted">
+<section class="trusted" data-screen-label="trusted">
   <div class="trusted-row fade-up">
-    <span class="trusted-eye">Live in production with</span>
+    <span class="trusted-eye">Validated with</span>
     <div class="trusted-logos">
       <a href="https://www.typesy.com/homeschool/" target="_blank" rel="noopener" aria-label="Typesy">
         <img src="/assets/images/typesy-logo-colored-2-scaled.png" alt="Typesy by eReflect" width="2560" height="623">
       </a>
     </div>
-    <span class="trusted-meta">Typing app · <b>24k+ users</b> · subscription</span>
+    <span class="trusted-meta">PAI discovery · <b>24,118 trials</b> · subscription</span>
+  </div>
+</section>
+
+<!-- ═══════════ PROBLEM ═══════════ -->
+<section class="block" id="problem" data-screen-label="problem">
+  <div class="block-head">
+    <div>
+      <div class="block-eye">The problem</div>
+      <h2 class="block-title">Same signup day. <em>Different behavior.</em></h2>
+    </div>
+    <p class="block-deck">Two users start a trial today. One completes meaningful product actions. The other signs up, clicks around, and stalls. Seven days later, most lifecycle tools still send both users the same message.</p>
+  </div>
+
+  <div class="comparison-card fade-up">
+    <div class="comparison-copy">
+      <p>The issue is not that the email is badly written. The issue is that the sequence does not know what each user has actually done, or which behavior predicts paid conversion.</p>
+      <p class="sharp-line">We do not replace your lifecycle stack. We tell it what behavior to drive.</p>
+      <div class="cmp-toggle" role="tablist" aria-label="Lifecycle approach">
+        <button class="cmp-tab is-active" data-mode="fixed" role="tab" aria-selected="true">Fixed sequence</button>
+        <button class="cmp-tab" data-mode="sendlyr" role="tab" aria-selected="false">Sendlyr layer</button>
+      </div>
+    </div>
+    <div class="decision-visual" id="decision-visual" data-mode="fixed" aria-label="Comparison between fixed lifecycle sequence and Sendlyr decision layer">
+      <div class="dv-eye"><span id="dv-eye-text">Fixed sequence</span></div>
+      <div class="dv-users">
+        <div class="dv-user" data-user="a">
+          <span class="dv-dot"></span>
+          <div class="dv-user-id">
+            <b>User A</b>
+            <span>meaningful actions completed</span>
+          </div>
+          <span class="dv-route" id="dv-route-a">day-7 email</span>
+        </div>
+        <div class="dv-user" data-user="b">
+          <span class="dv-dot"></span>
+          <div class="dv-user-id">
+            <b>User B</b>
+            <span>clicked around, then stalled</span>
+          </div>
+          <span class="dv-route" id="dv-route-b">day-7 email</span>
+        </div>
+      </div>
+      <div class="dv-pai" id="dv-pai">PAI</div>
+      <div class="dv-outcome" id="dv-outcome">
+        <span class="dv-outcome-chip">Both users · same day-7 email</span>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ═══════════ HOW IT WORKS ═══════════ -->
-<section class="block" id="how">
+<section class="block" id="how" data-screen-label="how-it-works">
   <div class="block-head">
     <div>
       <div class="block-eye">How it works</div>
-      <h2 class="block-title">Three steps. <em>One milestone.</em></h2>
+      <h2 class="block-title">Find the PAI. <em>Then run the experiment.</em></h2>
     </div>
-    <p class="block-deck">No instrumentation, no new tracking. We work with the behavioral events you already capture in Mixpanel, Amplitude, Firebase, or your warehouse.</p>
+    <p class="block-deck">Sendlyr compresses the analysis into a decision artifact: the Product Activation Indicator, the user-state model, and the experiment plan your team can approve.</p>
   </div>
 
   <div class="steps">
-    <!-- Step 1 -->
     <div class="step fade-up">
-      <div class="step-num"><b>01</b> · Connect</div>
+      <div class="step-num"><b>01</b> · Find the PAI</div>
       <div class="step-vis">
         <div class="sv-ingest">
           <div class="ing-src amp">
-            <span class="src-dot"></span>Amplitude
+            <span class="src-dot"></span>Candidate actions
             <span class="sv-pulse" style="right:80px"></span>
-            <span class="src-evt">2.1M events</span>
+            <span class="src-evt">lift</span>
           </div>
           <div class="ing-src mp">
-            <span class="src-dot"></span>Mixpanel
-            <span class="src-evt">1.4M events</span>
+            <span class="src-dot"></span>Outcome cohorts
+            <span class="src-evt">coverage</span>
           </div>
           <div class="ing-src fb">
-            <span class="src-dot"></span>Firebase
-            <span class="src-evt">680k events</span>
+            <span class="src-dot"></span>Confidence tests
+            <span class="src-evt">p-value</span>
           </div>
+          <div class="sv-caption">scored across historical event exports</div>
         </div>
       </div>
-      <div class="step-title">Pipe your event data</div>
-      <div class="step-desc">Read-only access to the analytics you already use. We pull the last 90 days and join it to your retention outcomes.</div>
+      <div class="step-title">Test behaviors against outcomes</div>
+      <div class="step-desc">We compare early product behaviors against conversion or retention, then score candidates by lift, coverage, and confidence.</div>
     </div>
 
-    <!-- Step 2 -->
     <div class="step fade-up">
-      <div class="step-num"><b>02</b> · Analyze</div>
+      <div class="step-num"><b>02</b> · Define states</div>
       <div class="step-vis">
         <div class="sv-test" id="sv-test">
-          <div class="tbar dim"><span class="tname">signal_a</span><span class="ttrack"><span class="tfill" data-w="62"></span></span><span class="tval">62%</span></div>
-          <div class="tbar dim"><span class="tname">signal_b</span><span class="ttrack"><span class="tfill" data-w="71"></span></span><span class="tval">71%</span></div>
-          <div class="tbar win"><span class="tname">signal_c</span><span class="ttrack"><span class="tfill" data-w="92"></span></span><span class="tval">92%</span></div>
-          <div class="tbar dim"><span class="tname">signal_d</span><span class="ttrack"><span class="tfill" data-w="48"></span></span><span class="tval">48%</span></div>
-          <div class="tbar dim"><span class="tname">signal_e</span><span class="ttrack"><span class="tfill" data-w="55"></span></span><span class="tval">55%</span></div>
+          <div class="tbar dim"><span class="tname">new</span><span class="ttrack"><span class="tfill" data-w="42"></span></span><span class="tval">watch</span></div>
+          <div class="tbar win"><span class="tname">progress</span><span class="ttrack"><span class="tfill" data-w="76"></span></span><span class="tval">drive</span></div>
+          <div class="tbar dim"><span class="tname">stuck</span><span class="ttrack"><span class="tfill" data-w="28"></span></span><span class="tval">unblock</span></div>
+          <div class="tbar dim"><span class="tname">reached</span><span class="ttrack"><span class="tfill" data-w="92"></span></span><span class="tval">reinforce</span></div>
+          <div class="tbar dim"><span class="tname">excluded</span><span class="ttrack"><span class="tfill" data-w="14"></span></span><span class="tval">hold</span></div>
         </div>
       </div>
-      <div class="step-title">Test behaviors against retention</div>
-      <div class="step-desc">We score every candidate early behavior on lift, coverage, and statistical significance. The winner becomes the milestone.</div>
+      <div class="step-title">Classify users by progress</div>
+      <div class="step-desc">Each user is mapped by how close they are to the activation behavior, so active and stalled users do not receive the same message.</div>
     </div>
 
-    <!-- Step 3 -->
     <div class="step fade-up">
-      <div class="step-num"><b>03</b> · Drive</div>
+      <div class="step-num"><b>03</b> · Run the experiment</div>
       <div class="step-vis">
         <div class="sv-route">
-          <div class="rrow"><span class="rdot" style="background:#0B5F66"></span>New user · day 1<span class="rstate">queued</span></div>
-          <div class="rrow approved"><span class="rdot" style="background:#15795E"></span>Activated · day 5<span class="rstate">sent</span></div>
-          <div class="rrow"><span class="rdot" style="background:#B5701A"></span>Stuck · day 7<span class="rstate">staged</span></div>
-          <div class="rrow approved"><span class="rdot" style="background:#15795E"></span>Reaching milestone<span class="rstate">sent</span></div>
+          <div class="rrow"><span class="rdot teal-dot"></span>State rules<span class="rstate">scoped</span></div>
+          <div class="rrow approved"><span class="rdot emerald-dot"></span>Human-approved templates<span class="rstate">reviewed</span></div>
+          <div class="rrow"><span class="rdot amber-dot"></span>Treatment/control<span class="rstate">planned</span></div>
+          <div class="rrow approved"><span class="rdot emerald-dot"></span>Existing sender stack<span class="rstate">ready</span></div>
         </div>
       </div>
-      <div class="step-title">Staged emails, your approval</div>
-      <div class="step-desc">Each user is routed by behavior toward the milestone. Every email waits in a review queue — you approve, reject, or regenerate.</div>
+      <div class="step-title">Measure before broad rollout</div>
+      <div class="step-desc">Lifecycle emails are drafted for each state, approved by your team, and tested against a control before you scale the play.</div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ BEFORE / AFTER ═══════════ -->
-<section class="block" id="problem">
-  <div class="ba-card fade-up">
-    <div class="block-head">
-      <div>
-        <div class="block-eye">Before Sendlyr</div>
-        <h2 class="block-title">Writing emails is the easy part. <em>Knowing what to drive is the hard part.</em></h2>
-      </div>
-      <p class="block-deck">Most teams optimize toward a <b>guessed</b> activation metric. Well-written sequences push users toward the wrong behavior — and retention never moves.</p>
+<!-- ═══════════ PAI EXPLORER (interactive proof) ═══════════ -->
+<section class="block" id="proof" data-screen-label="proof">
+  <div class="block-head">
+    <div>
+      <div class="block-eye">Case · Typesy</div>
+      <h2 class="block-title">We don't guess the activation moment. <em>We test it.</em></h2>
     </div>
-
-    <div class="ba-cols">
-      <div class="ba-col">
-        <div class="ba-vis">
-          <div class="mini-composer">
-            <div class="mc-bar">
-              <span class="dot"></span><span>email_2 · onboarding</span><span class="stamp">draft 7</span>
-            </div>
-            <div class="mc-row"><span class="lbl">to</span><span class="v" style="color:var(--mute)">new users</span></div>
-            <div class="mc-row"><span class="lbl">subject</span><span class="v"><span id="m-typ"></span><span class="cblink"></span></span></div>
-            <div class="mc-body">
-              <span class="ghost" id="m-l1"></span>
-              <span class="ghost" id="m-l2"></span>
-            </div>
-            <div class="mc-foot">
-              <span class="err">tone unclear</span>
-              <span class="err">cta missing</span>
-              <span class="right">2h 14m</span>
-            </div>
-          </div>
-        </div>
-        <span class="ba-tag bad">Symptom 01</span>
-        <div class="ba-name">Driving the wrong milestone</div>
-        <div class="ba-desc">The activation metric was picked because it sounded right — never tested against whether it actually predicts who stays.</div>
-      </div>
-
-      <div class="ba-col">
-        <div class="ba-vis">
-          <div class="mini-cadence">
-            <div class="mcad-top">
-              <span class="lbl">Wait between emails</span>
-              <span class="pill"><span class="pdot"></span>editing</span>
-            </div>
-            <div class="mcad-input" id="cad-input">
-              <span class="dval" id="cad-val">2<span class="strike"></span></span>
-              <span class="dunit">days</span>
-            </div>
-            <div class="mcad-feedback" id="cad-fb">Typing…</div>
-            <div class="mcad-history">
-              <span class="mcad-h-pill">2d</span>
-              <span class="mcad-h-pill">5d</span>
-              <span class="mcad-h-pill">3d</span>
-            </div>
-          </div>
-        </div>
-        <span class="ba-tag bad">Symptom 02</span>
-        <div class="ba-name">Open-rate theater</div>
-        <div class="ba-desc">Tweaking cadence and copy lifts opens. None of it lifts retention if the target behavior isn't the one that predicts staying.</div>
-      </div>
-
-      <div class="ba-col">
-        <div class="ba-vis">
-          <div class="mini-flow" id="flow-canvas">
-            <svg class="mf-svg" id="mf-svg" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <marker id="mf-arr" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto">
-                  <polygon points="0 0,6 3,0 6" fill="#D4D7D2"/>
-                </marker>
-                <marker id="mf-arr-r" markerWidth="6" markerHeight="6" refX="6" refY="3" orient="auto">
-                  <polygon points="0 0,6 3,0 6" fill="#B53D45"/>
-                </marker>
-              </defs>
-              <line id="mf-l1" class="mf-link" marker-end="url(#mf-arr)"></line>
-              <line id="mf-l2" class="mf-link dashed" marker-end="url(#mf-arr)"></line>
-              <line id="mf-l3" class="mf-link broken" marker-end="url(#mf-arr-r)"></line>
-            </svg>
-            <div class="mf-node" id="mf-n1" style="left:14px;top:14px"><span class="num">01</span>signup</div>
-            <div class="mf-node" id="mf-n2" style="left:14px;top:54px"><span class="num">02</span>send email</div>
-            <div class="mf-node warn" id="mf-n3" style="left:14px;top:94px"><span class="num">03</span>wait 2d</div>
-            <div class="mf-drag" id="mf-drag"><span class="num">04</span>follow-up</div>
-            <div class="mf-cursor" id="mf-cur">
-              <svg width="12" height="12" viewBox="0 0 14 14"><path d="M2 2L12 6L7 7.5L5.5 12L2 2Z" fill="#0B5F66" stroke="#fff" stroke-width="0.8"/></svg>
-            </div>
-          </div>
-        </div>
-        <span class="ba-tag bad">Symptom 03</span>
-        <div class="ba-name">Building before knowing</div>
-        <div class="ba-desc">Flows shipped before the analysis. Nobody can tell whether the journey is aimed at the right moment, only that it sends.</div>
-      </div>
-    </div>
+    <p class="block-deck">For Typesy, we scored early product behaviors against 12-week retention and selected the milestone with the strongest useful lift and enough coverage to matter. Select a candidate signal to see how it scored.</p>
   </div>
-</section>
 
-<!-- ═══════════ AFTER ═══════════ -->
-<section class="block">
-  <div class="ba-card ba-after fade-up">
-    <div class="block-head">
-      <div>
-        <div class="block-eye">After Sendlyr</div>
-        <h2 class="block-title">Find the milestone first. <em>Then write the lifecycle.</em></h2>
+  <div class="pai-explorer fade-up">
+    <div class="pex-left">
+      <div class="pex-eye">Candidate signal · select to compare</div>
+      <div class="pex-signals" id="pex-signals" role="tablist" aria-label="Candidate activation signals"></div>
+
+      <div class="pex-readout" id="pex-readout">
+        <div class="pex-stat">
+          <div class="pex-stat-lbl">Decision</div>
+          <div class="pex-stat-val" id="pex-decision">Primary PAI</div>
+        </div>
+        <div class="pex-stat">
+          <div class="pex-stat-lbl">Coverage</div>
+          <div class="pex-stat-val" id="pex-coverage">79%</div>
+        </div>
+        <div class="pex-stat">
+          <div class="pex-stat-lbl">Confidence</div>
+          <div class="pex-stat-val" id="pex-pvalue">p &lt; 0.001</div>
+        </div>
       </div>
-      <p class="block-deck">We test behaviors against retention, surface the one that predicts staying, and stage every email for your review before anything sends.</p>
+
+      <p class="pex-note">One activation milestone reached in the first 14 days predicted higher 12-week retention across 24,118 trials. This is activation-signal validation, not a claim that an email campaign created the lift.</p>
     </div>
 
-    <div class="ba-cols">
-      <div class="ba-col">
-        <div class="ba-vis">
-          <div class="mini-gen">
-            <div class="mg-prompt">
-              <div class="ai-i">✦</div>
-              <div class="ptext"><span id="gen-prompt"></span><span class="cblink"></span></div>
-              <button class="pgo" id="gen-go">Generate</button>
-            </div>
-            <div class="mg-grid" id="gen-grid"></div>
-          </div>
+    <div class="pex-right">
+      <div class="pex-chart-eye">12-week retention</div>
+      <div class="pex-chart" id="pex-chart">
+        <div class="pex-grid">
+          <span style="bottom:0%"></span>
+          <span style="bottom:25%"></span>
+          <span style="bottom:50%"></span>
+          <span style="bottom:75%"></span>
+          <span style="bottom:100%"></span>
         </div>
-        <span class="ba-tag good">Step 01</span>
-        <div class="ba-name">Milestone from data, not guesswork</div>
-        <div class="ba-desc">Every candidate behavior scored against 12-week retention. The winning signal becomes the target the lifecycle drives toward.</div>
-      </div>
-
-      <div class="ba-col">
-        <div class="ba-vis">
-          <div class="mini-route" id="route-stage">
-            <div class="mr-left" id="route-zone"></div>
-            <div class="mr-right">
-              <div class="mr-bucket" data-key="new"><span class="b-dot" style="background:#0B5F66"></span><span class="b-name">New</span><span class="b-count" id="rb-new">0</span></div>
-              <div class="mr-bucket" data-key="stuck"><span class="b-dot" style="background:#B5701A"></span><span class="b-name">Stuck</span><span class="b-count" id="rb-stuck">0</span></div>
-              <div class="mr-bucket" data-key="intent"><span class="b-dot" style="background:#F58025"></span><span class="b-name">High intent</span><span class="b-count" id="rb-intent">0</span></div>
-              <div class="mr-bucket" data-key="risk"><span class="b-dot" style="background:#B53D45"></span><span class="b-name">Churn risk</span><span class="b-count" id="rb-risk">0</span></div>
-              <div class="mr-bucket" data-key="activated"><span class="b-dot" style="background:#15795E"></span><span class="b-name">Activated</span><span class="b-count" id="rb-activated">0</span></div>
-            </div>
-          </div>
+        <div class="pex-col">
+          <div class="pex-bar pex-baseline" id="pex-bar-base"><span class="pex-bar-val">34.0%</span></div>
+          <div class="pex-col-lbl">Baseline</div>
         </div>
-        <span class="ba-tag good">Step 02</span>
-        <div class="ba-name">Users routed by behavior</div>
-        <div class="ba-desc">Same product, different message. Users who reach the milestone get reinforcement. Users stuck before it get the unblock email.</div>
-      </div>
-
-      <div class="ba-col">
-        <div class="ba-vis">
-          <div class="mini-app">
-            <div class="ma-list" id="app-list"></div>
-            <button class="ma-btn" id="app-btn"><span>Approve all 4 →</span></button>
-            <div class="ma-success" id="app-success">
-              <div class="check">✓</div>
-              <div class="label">queued · 8am tomorrow</div>
-            </div>
-          </div>
-        </div>
-        <span class="ba-tag good">Step 03</span>
-        <div class="ba-name">You approve every send</div>
-        <div class="ba-desc">Nothing leaves the queue without your review. Read the draft, see the reasoning, approve or reject. Judgment stays in the loop.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ TYPESY PROOF ═══════════ -->
-<section class="block" id="proof">
-  <div class="proof-card fade-up">
-    <div class="block-head">
-      <div>
-        <div class="block-eye">Case · Typesy</div>
-        <h2 class="block-title">We don't guess the activation moment. <em>We test it.</em></h2>
-      </div>
-      <p class="block-deck">For Typesy, we compared early product behaviors against 12-week retention and selected the milestone with the strongest useful lift and enough coverage to matter.</p>
-    </div>
-
-    <div class="proof-layout">
-      <div>
-        <p class="proof-lead">One milestone reached in the first 14 days retained at <b>39.5%</b> — a <b>5.5pp lift</b> over baseline. We mask the others to protect customer data.</p>
-        <div class="pai-table">
-          <div class="pai-row pai-head">
-            <span>Candidate signal</span>
-            <span>Retention</span>
-            <span>Decision</span>
-          </div>
-          <div class="pai-row pai-masked">
-            <span><span class="blurred-data">Key action B in 14 days</span></span>
-            <span><span class="blurred-data">37.9%</span></span>
-            <span><span class="blurred-data">81% cov · drop</span></span>
-          </div>
-          <div class="pai-row pai-masked">
-            <span><span class="blurred-data">Key action A in 14 days</span></span>
-            <span><span class="blurred-data">36.1%</span></span>
-            <span><span class="blurred-data">82% cov · drop</span></span>
-          </div>
-          <div class="pai-row pai-primary">
-            <span>Threshold met</span>
-            <span>39.5%</span>
-            <span>79% cov · primary</span>
-          </div>
+        <div class="pex-col">
+          <div class="pex-bar pex-candidate" id="pex-bar-cand"><span class="pex-bar-val" id="pex-cand-val">39.5%</span></div>
+          <div class="pex-col-lbl" id="pex-cand-lbl">Threshold met</div>
         </div>
       </div>
-
-      <div class="proof-stat">
-        <div class="proof-stat-eye">12-week retention · Typesy</div>
-        <div class="proof-row">
-          <div class="proof-cell">
-            <div class="proof-val">34<span style="font-size:32px">%</span></div>
-            <div class="proof-cell-lbl">Before</div>
-          </div>
-          <div class="proof-arrow">→</div>
-          <div class="proof-cell">
-            <div class="proof-val accent">39.5<span style="font-size:32px">%</span></div>
-            <div class="proof-cell-lbl">After</div>
-          </div>
-        </div>
-        <div class="proof-foot">
-          <img src="/assets/images/typesy-logo-colored-2-scaled.png" alt="Typesy" width="2560" height="623" loading="lazy">
-          <span>Typing app · eReflect · n = 24,118 trials</span>
-        </div>
+      <div class="pex-lift">
+        <span class="pex-lift-val" id="pex-lift-val">+5.5</span>
+        <span class="pex-lift-unit">%</span>
+        <span class="pex-lift-cap">absolute lift vs baseline</span>
+      </div>
+      <div class="pex-foot">
+        <img src="/assets/images/typesy-logo-colored-2-scaled.png" alt="Typesy" width="2560" height="623" loading="lazy">
+        <span>Typing app · eReflect · n = 24,118 trials</span>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ═══════════ WHY SENDLYR ═══════════ -->
-<section class="block" id="why">
+<section class="block" id="why" data-screen-label="why">
   <div class="block-head">
     <div>
-      <div class="block-eye">Why Sendlyr</div>
-      <h2 class="block-title">Every other tool assumes you already know <em>which behavior matters.</em></h2>
+      <div class="block-eye">Why teams need this</div>
+      <h2 class="block-title">Analytics and lifecycle can do this. <em>It just takes too long.</em></h2>
     </div>
-    <p class="block-deck">Sendlyr finds it first. Emails, segments, and the review queue come after the data shows which milestone is worth driving.</p>
+    <p class="block-deck">Large teams can do this internally, but lifecycle needs an activation answer while analytics has a backlog. Mid-sized teams often have the data and email tool, but not the spare analytics capacity.</p>
   </div>
 
   <div class="why-grid">
     <div class="why-cell fade-up">
-      <div class="why-num">01 · The milestone</div>
-      <div class="why-name">Find what predicts retention</div>
-      <div class="why-body">Test candidate behaviors against retention outcomes. Pick the one with real lift and meaningful coverage.</div>
-      <div class="why-out">No activation guesswork</div>
+      <div class="why-num">01 · The bottleneck</div>
+      <div class="why-name">The question waits in the queue</div>
+      <div class="why-body">The work becomes a multi-week loop of hypothesis, SQL, review, segmentation, copy, implementation, and measurement.</div>
+      <div class="why-out">Lifecycle still needs the answer</div>
     </div>
     <div class="why-cell fade-up">
-      <div class="why-num">02 · The lifecycle</div>
-      <div class="why-name">Build the sequence around it</div>
-      <div class="why-body">Every email exists to move a user closer to the proven milestone. Not a generic checklist. Not a templated drip.</div>
-      <div class="why-out">Email becomes a retention lever</div>
+      <div class="why-num">02 · The artifact</div>
+      <div class="why-name">PAI, states, experiment plan</div>
+      <div class="why-body">Sendlyr gives the team the missing decision artifact: what behavior matters, which users need intervention, and how to test it.</div>
+      <div class="why-out">Ready for your existing stack</div>
     </div>
     <div class="why-cell fade-up">
-      <div class="why-num">03 · The control</div>
-      <div class="why-name">Approve every send</div>
-      <div class="why-body">Each email waits in a review queue. Approve, reject, or regenerate before it reaches a single user.</div>
-      <div class="why-out">Human judgment in the loop</div>
+      <div class="why-num">03 · The boundary</div>
+      <div class="why-name">Decision layer, not migration</div>
+      <div class="why-body">We do not replace analytics, lifecycle, or your sender. We define what behavior the lifecycle should drive and how to prove it.</div>
+      <div class="why-out">No platform migration required</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TRUST ═══════════ -->
+<section class="block" id="trust" data-screen-label="trust">
+  <div class="trust-card fade-up">
+    <div class="block-head">
+      <div>
+        <div class="block-eye">Low-risk start</div>
+        <h2 class="block-title">Start with analysis, <em>not a deep integration.</em></h2>
+      </div>
+      <p class="block-deck">The first sprint is scoped to answer the activation question before anything touches production messaging.</p>
+    </div>
+
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="ti-top"><span class="ti-num">01</span><span class="ti-tag">Access</span></div>
+        <div class="ti-text">Read-only historical event analysis first.</div>
+      </div>
+      <div class="trust-item">
+        <div class="ti-top"><span class="ti-num">02</span><span class="ti-tag">Data scope</span></div>
+        <div class="ti-text">Minimum required fields only.</div>
+      </div>
+      <div class="trust-item">
+        <div class="ti-top"><span class="ti-num">03</span><span class="ti-tag">Onboarding</span></div>
+        <div class="ti-text">Can begin from an export before live integration.</div>
+      </div>
+      <div class="trust-item">
+        <div class="ti-top"><span class="ti-num">04</span><span class="ti-tag">Approval</span></div>
+        <div class="ti-text">No emails send without human approval.</div>
+      </div>
+      <div class="trust-item">
+        <div class="ti-top"><span class="ti-num">05</span><span class="ti-tag">Your stack</span></div>
+        <div class="ti-text">Uses your existing sender or email stack.</div>
+      </div>
+      <div class="trust-item">
+        <div class="ti-top"><span class="ti-num">06</span><span class="ti-tag">Measurement</span></div>
+        <div class="ti-text">Treatment/control experiment is scoped before broad rollout.</div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ═══════════ CTA ═══════════ -->
-<section class="block" id="demo">
+<section class="block" id="demo" data-screen-label="cta">
   <div class="cta-card fade-up">
-    <div class="cta-eye">◆ Get started</div>
-    <h2>See your signal on your users <em>in 48 hours.</em></h2>
-    <p>Book a discovery call. We'll look at your event data, test behaviors against retention, and show you the milestone that predicts who stays — before we write a single email.</p>
-    <a class="btn-primary lg" href="https://calendly.com/dquang191104/30min" target="_blank" rel="noopener">Book a discovery call <span class="btn-arrow">→</span></a>
+    <div class="cta-eye">◆ PAI discovery sprint</div>
+    <h2>Find the behavior your onboarding <em>should drive.</em></h2>
+    <p>Book a discovery sprint. We will test early product behaviors against conversion or retention, define the user states, and return the lifecycle experiment your team can approve.</p>
+    <a class="btn-primary lg" href="https://calendly.com/dquang191104/30min" target="_blank" rel="noopener">Book a discovery sprint <span class="btn-arrow">→</span></a>
     <div class="cta-meta-row">
-      <span>No commitment</span>
-      <span>No setup before the call</span>
-      <span>48-hour turnaround</span>
+      <span>Read-only first</span>
+      <span>Export-friendly</span>
+      <span>No sends without approval</span>
     </div>
   </div>
 </section>
 
 <!-- BLOG PREVIEW -->
-<section class="block blog-preview" aria-labelledby="latest-thinking-title">
+<section class="block blog-preview" aria-labelledby="latest-thinking-title" data-screen-label="blog">
   <div class="block-head">
     <div>
       <div class="block-eye">Blog</div>
       <h2 class="block-title" id="latest-thinking-title">Latest <em>thinking.</em></h2>
     </div>
-    <p class="block-deck">A closer look at how we find activation milestones, validate retention signals, and build lifecycle journeys around user state.</p>
+    <p class="block-deck">A closer look at how PAI discovery turns product usage into activation decisions, user states, and lifecycle experiments.</p>
   </div>
 
   <article class="blog-card fade-up">
@@ -522,7 +426,7 @@
     <div class="blog-card-body">
       <div class="blog-card-meta">May 2026</div>
       <h3><a href="/blog/pai-discovery-case-study">How we found the exact behavior that predicts whether a user will keep paying</a></h3>
-      <p>Inside the analysis that identified a retention-predictive activation milestone, then turned it into state-based onboarding.</p>
+      <p>Inside the analysis that identified a retention-predictive activation milestone and turned it into a state-based experiment plan.</p>
       <a class="blog-read-link" href="/blog/pai-discovery-case-study">Read article <span class="btn-arrow">&rarr;</span></a>
     </div>
   </article>
@@ -531,14 +435,14 @@
 </main>
 
 <footer>
-  <div class="nav-logo"><img src="/assets/logo/sendlyr-logo-transparent.png" alt="Sendlyr" width="1361" height="364"></div>
+  <div class="nav-logo"><img src="/assets/logo/sendlyr-logo-transparent@2x.png" alt="Sendlyr" width="1361" height="364"></div>
   <div class="f-right">
     <span>© 2026 Sendlyr</span>
-    <span>find the behavior · drive it</span>
+    <span>find the behavior · prove the experiment</span>
     <span class="footer-links"><a href="/for/fitness-apps">Fitness</a> · <a href="/for/cooking-apps">Cooking</a> · <a href="/for/edtech-apps">Edtech</a></span>
   </div>
 </footer>
 
-<script src="/scripts/landing.js"></script>
+<script src="/scripts/app.js"></script>
 </body>
 </html>
