@@ -27,7 +27,7 @@
   <circle cx="1040" cy="70" r="310" fill="url(#brandGradient)" opacity="0.12"/>
   <rect x="40" y="40" width="1120" height="550" rx="28" fill="none" stroke="#0B5F66" stroke-opacity="0.16"/>
 
-  <image href="../logo/sendlyr-logo-transparent.png" x="82" y="65" width="246" height="66" preserveAspectRatio="xMinYMid meet"/>
+  <image href="../logo/sendlyr-logo-transparent@2x.png" x="82" y="65" width="246" height="66" preserveAspectRatio="xMinYMid meet"/>
 
   <g transform="translate(892 68)">
     <rect width="226" height="42" rx="21" fill="#FFFFFF" fill-opacity="0.74" stroke="#E4E6E2"/>

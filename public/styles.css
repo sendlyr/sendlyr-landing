@@ -430,7 +430,7 @@ h1.hero-head em {
 .trusted-meta b { color: var(--ink); font-weight: 600; }
 @media (max-width: 760px) {
   .trusted-row { flex-direction: column; align-items: flex-start; gap: 16px; padding: 18px; }
-  .trusted-meta { margin-left: 0; }
+  .trusted-meta { margin-left: 0; white-space: normal; }
 }
 
 /* ═══════════════════════════════════════════════════════════════

@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════════
    Sendlyr — Landing redesign · enhancement layer
    Loads after styles.css. Reuses all base tokens; adds the
-   interactive console, PAI explorer, problem toggle, and motion.
+   interactive console, signal explorer, problem toggle, and motion.
 ═══════════════════════════════════════════════════════════════ */
 
 /* ─── Scroll progress ──────────────────────────────────────── */
@@ -125,8 +125,8 @@
 }
 .pstage.is-active .pst-node::after { background: var(--teal); transform: scale(1.4); }
 .pstage.is-active .pst-label { color: var(--teal); }
-.pstage.is-pai .pst-node { border-style: solid; }
-.pstage.is-pai.is-active .pst-node {
+.pstage.is-signal .pst-node { border-style: solid; }
+.pstage.is-signal.is-active .pst-node {
   background: linear-gradient(135deg, var(--teal-soft), var(--violet-soft, #EFEDFB));
 }
 .pstage:focus-visible { outline: none; }
@@ -307,7 +307,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   PAI EXPLORER — interactive proof
+   SIGNAL EXPLORER — interactive proof
 ═══════════════════════════════════════════════════════════════ */
 .pai-explorer {
   background: var(--surface);
@@ -317,6 +317,7 @@
   display: grid;
   grid-template-columns: 1fr 0.92fr;
   overflow: hidden;
+  padding: 0;
 }
 .pex-left { padding: 36px 36px 32px; border-right: 1px solid var(--line-soft); }
 .pex-right {
@@ -496,7 +497,7 @@
               0 1px 2px rgba(11,95,102,0.18);
 }
 
-/* PAI explorer chart — clearance + no clipping of value labels */
+/* Signal explorer chart — clearance + no clipping of value labels */
 .pex-chart { gap: 40px; padding: 30px 24px 0; }
 .pex-bar-val { top: -34px; font-size: 22px; }
 

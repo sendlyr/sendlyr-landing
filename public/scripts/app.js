@@ -65,10 +65,10 @@
   ═══════════════════════════════════════════ */
   const STAGES = [
     { label: 'USAGE', title: 'Usage', desc: 'Historical event exports and outcome cohorts — the raw material every classification is scored against.', metric: '24,118', metricLbl: 'trials analyzed', x: 6 },
-    { label: 'ANALYSIS', title: 'Analysis', desc: 'Early product behaviors are scored against conversion and retention by lift, coverage, and confidence.', metric: 'lift × coverage', metricLbl: 'scored', x: 28 },
-    { label: 'PAI', title: 'Product Activation Indicator', desc: 'The single early behavior that best predicts retention. For Typesy: an activation milestone reached within 14 days.', metric: '+5.5pp', metricLbl: 'absolute lift', pai: true, x: 50 },
-    { label: 'STATES', title: 'User states', desc: 'Live users are classified by how close they are to the PAI — active, stuck, reached — so each gets a different message.', metric: '6 states', metricLbl: 'per experiment', x: 72 },
-    { label: 'EXPERIMENT', title: 'Controlled experiment', desc: 'Human-approved templates run against a control through your existing sender, measured before broad rollout.', metric: 'treat / control', metricLbl: 'measured', x: 94 },
+    { label: 'ANALYSIS', title: 'Analysis', desc: 'Early product behaviors are scored against conversion, retention, reactivation, or churn risk by lift, coverage, sample size, and confidence.', metric: 'lift × coverage', metricLbl: 'scored', x: 28 },
+    { label: 'SIGNALS', title: 'Activation Signal', desc: 'The selected leading indicator that best predicts the outcome. For Typesy: an activation milestone reached within 14 days.', metric: '+5.5pp', metricLbl: 'absolute lift', signal: true, x: 50 },
+    { label: 'STATES', title: 'User states', desc: 'Users are classified by progress toward the selected activation signal: active, stalled, or already activated.', metric: '6 states', metricLbl: 'per experiment', x: 72 },
+    { label: 'EXPERIMENT', title: 'Controlled experiment', desc: 'State rules, segment logic, and treatment/control design are packaged for your existing stack before rollout.', metric: 'treat / control', metricLbl: 'planned', x: 94 },
   ];
 
   let activeStage = 2;
@@ -80,7 +80,7 @@
     if (!wrap) return;
     STAGES.forEach((s, i) => {
       const btn = document.createElement('button');
-      btn.className = 'pstage' + (s.pai ? ' is-pai' : '');
+      btn.className = 'pstage' + (s.signal ? ' is-signal' : '');
       btn.setAttribute('role', 'tab');
       btn.setAttribute('aria-label', s.title);
       btn.style.left = s.x + '%';
@@ -199,7 +199,7 @@
     const tabs = $$('.cmp-tab');
     const COPY = {
       fixed: { eye: 'Fixed sequence', a: 'day-7 email', b: 'day-7 email', outcome: 'Both users · same day-7 email' },
-      sendlyr: { eye: 'Sendlyr decision layer', a: 'reinforce · upgrade', b: 'unblock next action', outcome: 'Routed by state · approved in your stack' },
+      sendlyr: { eye: 'Sendlyr signal layer', a: 'signal reached', b: 'next action needed', outcome: 'State logic · approved in your stack' },
     };
     function set(mode) {
       vis.setAttribute('data-mode', mode);
@@ -231,14 +231,14 @@
   }
 
   /* ═══════════════════════════════════════════
-     PAI EXPLORER — interactive proof
+     SIGNAL EXPLORER — interactive proof
   ═══════════════════════════════════════════ */
   const BASE = 34.0;
   const DOMAIN = 50; // retention % mapped to full bar height
   const SIGNALS = [
     { id: 'a', name: 'Key action A · 14d', ret: 36.1, cov: '82%', p: 'p < 0.01', decision: 'Dropped · low lift', kind: 'drop' },
     { id: 'b', name: 'Key action B · 14d', ret: 37.9, cov: '81%', p: 'p < 0.01', decision: 'Dropped · low lift', kind: 'drop' },
-    { id: 'primary', name: 'Threshold met · 14d', ret: 39.5, cov: '79%', p: 'p < 0.001', decision: 'Primary PAI', kind: 'primary', primary: true },
+    { id: 'primary', name: 'Signal reached · 14d', ret: 39.5, cov: '79%', p: 'p < 0.001', decision: 'Signal reached', kind: 'primary', primary: true },
   ];
   let pexActive = 'primary';
 

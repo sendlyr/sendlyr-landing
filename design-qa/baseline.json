@@ -1,0 +1,25 @@
+{
+  "_comment": "Accepted deviations. The design-QA agent must NOT report anything that matches an entry here. Add a finding here (with a reason) once you've reviewed it and decided it's intentional, so the agent stops re-flagging it.",
+  "allowlisted_colors": [
+    { "value": "#E07360", "where": ".hd-bar .b-lights, .mc-bar dot family", "reason": "Console traffic-light dots — deliberate macOS-window motif, not brand palette." },
+    { "value": "#DFB152", "where": ".hd-bar .b-lights", "reason": "Console traffic-light (amber light)." },
+    { "value": "#84BC68", "where": ".hd-bar .b-lights", "reason": "Console traffic-light (green light)." },
+    { "value": "#2965FF", "where": ".sv-ingest .ing-src.amp .src-dot", "reason": "Amplitude brand color in the data-source diagram." },
+    { "value": "#7856FF", "where": ".sv-ingest .ing-src.mp .src-dot", "reason": "Mixpanel brand color in the data-source diagram." },
+    { "value": "#F58025", "where": ".sv-ingest .ing-src.fb .src-dot", "reason": "Third-party source brand color in the data-source diagram." },
+    { "value": "#000", "where": ".btn-primary:hover", "reason": "Intentional pure-black hover on the ink button." },
+    { "value": "#fff", "where": "button/badge text on dark fills", "reason": "Intentional white text on ink/teal/gradient fills." },
+    { "value": "#FBFCFB", "where": ".ba-card.ba-after, .ba-after gradient stop", "reason": "One-off near-white gradient stop, visually within the surface family." }
+  ],
+  "allowlisted_patterns": [
+    { "pattern": "body { overflow-x: hidden }", "reason": "Intentional guard against ambient-gradient bleed. Agent must still reason about real overflow rather than trusting scroll state." },
+    { "pattern": "infinite keyframe animations (pulse, sv-blink, cblnk, cadence)", "reason": "Intentional 'live' motion. NOTE: still report the missing prefers-reduced-motion override until that is added — that is a real a11y gap, not an accepted deviation." }
+  ],
+  "ignore_paths": [
+    "node_modules/",
+    ".git/",
+    "design-qa/reports/",
+    "upgrade_v2/"
+  ],
+  "notes": "upgrade_v2/ is an in-progress redesign sandbox, not live — exclude it from drift reports unless explicitly asked. Audit only what is served from public/."
+}
