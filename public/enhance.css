@@ -501,6 +501,17 @@
 .pex-chart { gap: 40px; padding: 30px 24px 0; }
 .pex-bar-val { top: -34px; font-size: 22px; }
 
+/* QA polish — keep the first proof surface visible and prevent tiny viz label clipping */
+.console { margin-top: 0; }
+.sv-test .tbar .ttrack { min-width: 0; }
+.sv-test .tbar .tval {
+  flex: 0 0 58px;
+  width: 58px;
+}
+@media (max-width: 600px) {
+  .pstage { width: 40px; }
+}
+
 /* Low-risk start — refined cards (was plain single-line tiles) */
 .trust-grid { gap: 14px; }
 .trust-item {
