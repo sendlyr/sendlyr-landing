@@ -249,7 +249,9 @@
       const btn = document.createElement('button');
       btn.className = 'pex-chip' + (s.primary ? ' is-primary' : '');
       btn.dataset.sig = s.id;
+      btn.type = 'button';
       btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', 'false');
       btn.innerHTML = `<span class="pex-chip-dot"></span><span class="pex-chip-name">${s.name}</span><span class="pex-chip-ret">${s.ret.toFixed(1)}%</span>`;
       btn.addEventListener('click', () => selectSignal(s.id));
       list.appendChild(btn);
@@ -281,7 +283,11 @@
     pexActive = id;
     const s = SIGNALS.find(x => x.id === id);
     if (!s) return;
-    $$('.pex-chip').forEach(c => c.classList.toggle('is-active', c.dataset.sig === id));
+    $$('.pex-chip').forEach(c => {
+      const isActive = c.dataset.sig === id;
+      c.classList.toggle('is-active', isActive);
+      c.setAttribute('aria-selected', String(isActive));
+    });
 
     const cand = $('pex-bar-cand');
     const candVal = $('pex-cand-val');
