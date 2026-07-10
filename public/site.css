@@ -15,7 +15,7 @@
 .site-footer { display: grid; grid-template-columns: 1fr 2fr auto; gap: 40px; align-items: end; padding-block: 56px 42px; border-top: 1px solid var(--line); }
 .footer-brand p, .footer-meta { margin: 8px 0 0; font-size: 13px; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 12px 22px; }
-.footer-links a { display: inline-flex; min-height: 44px; align-items: center; color: var(--mute); font-size: 13px; text-decoration: none; }
+.footer-links a { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; color: var(--mute); font-size: 13px; text-decoration: none; }
 .footer-links a:hover { color: var(--teal); text-decoration: underline; }
 .footer-meta { white-space: nowrap; }
 
