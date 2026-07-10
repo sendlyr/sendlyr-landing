@@ -36,9 +36,6 @@ const LEAF_ASSETS = [
   "assets/blog/pai-discovery-case-study/cover-image-1680.webp",
   "assets/blog/pai-discovery-case-study/cover-image-840.png",
   "assets/blog/pai-discovery-case-study/cover-image.png",
-  "assets/blog/pai-discovery-case-study/visual-1-trial-timeline-840.webp",
-  "assets/blog/pai-discovery-case-study/visual-1-trial-timeline-1680.webp",
-  "assets/blog/pai-discovery-case-study/visual-1-trial-timeline-840.png",
 ];
 
 const CSS_ASSETS = [
