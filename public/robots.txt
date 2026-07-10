@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
-Sitemap: https://www.sendlyr.com/sitemap.xml
+Sitemap: https://sendlyr.com/sitemap.xml

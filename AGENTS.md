@@ -4,20 +4,23 @@ This repo is a simple static landing page served by a small Node.js file server.
 
 ## Project Shape
 
-- `server.js` serves static files from `public/` and accepts lead form submissions at `POST /api/leads` for local development.
-- `api/leads.js` is the Vercel serverless endpoint for production lead submissions.
-- `lib/lead-handler.js` owns lead validation and storage.
-- `public/index.html` contains the landing page markup and inline JavaScript.
-- `public/styles.css` contains all page styles.
+- `server.js` serves static files and local lead or event API requests.
+- `api/` contains the Vercel lead and pseudonymous event endpoints.
+- `lib/` owns validation, server storage, attribution, and reporting logic.
+- `src/pages/` contains canonical page markup.
+- `src/partials/` contains shared static header and footer markup.
+- `scripts/build-site.js` deterministically renders committed static output to `public/`.
+- `public/styles.css`, `public/site.css`, and page styles contain the design implementation.
 - `public/assets/images/` is reserved for future image assets.
 - `public/assets/icons/` is reserved for future icon assets.
-- `supabase.sql` defines the Supabase `leads` table.
+- `supabase.sql` defines leads; `supabase-analytics.sql` defines server-only analytics tables.
 - `data/leads.jsonl` stores local lead submissions and is ignored by git.
 
 ## Constraints
 
 - Keep the project static and dependency-light.
-- Do not add React, Vite, Next.js, Tailwind, TypeScript, or a build step.
+- Do not add React, Vite, Next.js, Tailwind, TypeScript, a bundler, or runtime rendering.
+- The only approved build step is the dependency-free Node pre-renderer in `scripts/build-site.js`.
 - Do not add auth, email sending, or extra integrations unless explicitly requested.
 - Keep `server.js` minimal. Production form handling should stay in `api/leads.js` and shared logic should stay in `lib/lead-handler.js`.
 - Never expose Supabase secret/service-role keys in browser JavaScript or committed files.
@@ -28,5 +31,6 @@ This repo is a simple static landing page served by a small Node.js file server.
 
 - Put new public assets under `public/assets/images/` or `public/assets/icons/`.
 - Reference public files from HTML with root-relative paths such as `/styles.css` or `/assets/images/example.png`.
-- Keep JavaScript minimal and page-specific unless the project direction changes.
-- Verify changes by running `node server.js` and opening `http://127.0.0.1:4173`.
+- Edit canonical files under `src/`; never hand-edit generated `public/**/index.html` files.
+- Keep JavaScript minimal. Shared progressive enhancement belongs in `public/scripts/site.js`; homepage-only interactions belong in `public/scripts/app.js`.
+- Verify changes with `npm run build`, `npm test`, and `npm run dev` at `http://127.0.0.1:4173`.

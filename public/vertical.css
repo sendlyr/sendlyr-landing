@@ -1,0 +1,13 @@
+.vertical-hero h1 { max-width: 900px; }
+.signal-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 48px; border-block: 1px solid var(--ink); }
+.signal-strip > div { padding: 22px; border-right: 1px solid var(--line); }
+.signal-strip > div:last-child { border-right: 0; }
+.signal-strip strong { display: block; margin-top: 8px; font: 550 22px var(--display); }
+.candidate-note { margin: 22px 0 0; padding: 14px 18px; border-left: 3px solid var(--amber); color: var(--mute); background: var(--warning-soft); font-size: 14px; }
+.fit-check { list-style: none; margin: 0; padding: 0; }
+.fit-check li { position: relative; padding: 18px 0 18px 34px; border-bottom: 1px solid var(--line); }
+.fit-check li::before { content: "✓"; position: absolute; left: 0; color: var(--emerald); font-weight: 800; }
+@media (max-width: 760px) {
+  .signal-strip { grid-template-columns: 1fr; }
+  .signal-strip > div { border-right: 0; border-bottom: 1px solid var(--line); }
+}

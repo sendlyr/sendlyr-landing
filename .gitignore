@@ -1,5 +1,13 @@
 data/leads.jsonl
+node_modules/
+data/events.jsonl
+data/bookings.jsonl
+data/analytics-sync.json
 .env
 .vercel
 .gstack/
 .DS_Store
+test-results/
+playwright-report/
+public/assets/blog/pai-discovery-case-study/visual-2-hypothesis-table-840.webp
+public/assets/blog/pai-discovery-case-study/visual-2-hypothesis-table-1680.webp

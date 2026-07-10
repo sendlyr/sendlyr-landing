@@ -19,3 +19,12 @@ Key routing rules:
 - Save progress → invoke `/context-save`
 - Resume context → invoke `/context-restore`
 - Author a backlog-ready spec/issue → invoke `/spec`
+
+## Testing
+
+- Run `npm run build` after changing source pages, partials, CSS, JavaScript, or hashed assets.
+- Run `npm run test:unit` for renderer, validation, analytics, and attribution changes.
+- Run `npm run test:e2e` for navigation, layout, accessibility, or interaction changes.
+- Run `npm test` before handoff. It includes generated-output and performance checks.
+- Add a regression test with every bug fix when practical.
+- See `TESTING.md` for production smoke and browser setup.
