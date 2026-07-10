@@ -42,8 +42,6 @@
 
 @media (max-width: 760px) {
   .site-header { padding-top: 8px; }
-  .nav-cta span:first-child { font-size: 0; }
-  .nav-cta span:first-child::after { content: "Book sprint"; font-size: 13px; }
   .site-footer { grid-template-columns: 1fr; align-items: start; }
   .footer-meta { grid-column: auto; }
   .page-hero { padding-top: 58px; }
