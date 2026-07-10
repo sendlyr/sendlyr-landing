@@ -1,387 +1,248 @@
-/* ═══════════════════════════════════════════════════════════════
-   Sendlyr — Landing redesign · interactions
-   Vanilla JS, no dependencies. Calm motion, reduced-motion aware.
-═══════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
-  const $ = (id) => document.getElementById(id);
-  const $$ = (sel, root) => (root || document).querySelectorAll(sel);
-  const NS = 'http://www.w3.org/2000/svg';
-  const RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ─── Reveal ─────────────────────────────── */
-  function initReveal() {
-    if (!('IntersectionObserver' in window)) {
-      $$('.fade-up').forEach(el => el.classList.add('visible'));
-      return;
-    }
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 });
-    $$('.fade-up').forEach(el => obs.observe(el));
+  const body = document.body;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function initMotion() {
+    if (reducedMotion) return;
+    body.classList.add('motion-enabled');
+    requestAnimationFrame(() => requestAnimationFrame(() => body.classList.add('is-ready')));
   }
 
-  /* ─── Scroll progress ─────────────────────── */
   function initScrollProgress() {
-    const bar = $('scroll-progress');
+    const bar = document.getElementById('scroll-progress');
     if (!bar) return;
-    let ticking = false;
-    function update() {
-      const h = document.documentElement;
-      const max = h.scrollHeight - h.clientHeight;
-      const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
-      bar.style.width = pct + '%';
-      ticking = false;
-    }
+
+    let queued = false;
+    const update = () => {
+      const root = document.documentElement;
+      const distance = root.scrollHeight - root.clientHeight;
+      bar.style.width = `${distance > 0 ? (root.scrollTop / distance) * 100 : 0}%`;
+      queued = false;
+    };
+
     window.addEventListener('scroll', () => {
-      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(update);
     }, { passive: true });
+
     update();
   }
 
-  /* ─── Nav active link ─────────────────────── */
-  function initNavActive() {
-    const map = {};
-    $$('.nav-mid a[data-nav]').forEach(a => {
-      const id = a.getAttribute('href').replace('#', '');
-      if (id) map[id] = a;
-    });
-    const ids = Object.keys(map);
-    if (!ids.length || !('IntersectionObserver' in window)) return;
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          ids.forEach(id => map[id].classList.toggle('is-current', id === e.target.id));
-        }
+  function initActiveNav() {
+    if (!('IntersectionObserver' in window)) return;
+
+    const links = [...document.querySelectorAll('.nav-links a[href^="#"]')];
+    const entries = links
+      .map(link => ({ link, section: document.querySelector(link.getAttribute('href')) }))
+      .filter(item => item.section);
+
+    const observer = new IntersectionObserver(changes => {
+      const visible = changes.find(change => change.isIntersecting);
+      if (!visible) return;
+
+      entries.forEach(item => {
+        if (item.section === visible.target) item.link.setAttribute('aria-current', 'location');
+        else item.link.removeAttribute('aria-current');
       });
-    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-    ids.forEach(id => { const s = $(id); if (s) obs.observe(s); });
+    }, { rootMargin: '-35% 0px -58%', threshold: 0 });
+
+    entries.forEach(item => observer.observe(item.section));
   }
 
-  /* ═══════════════════════════════════════════
-     PIPELINE CONSOLE — interactive
-  ═══════════════════════════════════════════ */
-  const STAGES = [
-    { label: 'USAGE', title: 'Usage', desc: 'Historical event exports and outcome cohorts — the raw material every classification is scored against.', metric: '24,118', metricLbl: 'trials analyzed', x: 6 },
-    { label: 'ANALYSIS', title: 'Analysis', desc: 'Early product behaviors are scored against conversion, retention, reactivation, or churn risk by lift, coverage, sample size, and confidence.', metric: 'lift × coverage', metricLbl: 'scored', x: 28 },
-    { label: 'SIGNALS', title: 'Activation Signal', desc: 'The selected leading indicator that best predicts the outcome. For Typesy: an activation milestone reached within 14 days.', metric: '+5.5pp', metricLbl: 'absolute lift', signal: true, x: 50 },
-    { label: 'STATES', title: 'User states', desc: 'Users are classified by progress toward the selected activation signal: active, stalled, or already activated.', metric: '6 states', metricLbl: 'per experiment', x: 72 },
-    { label: 'EXPERIMENT', title: 'Controlled experiment', desc: 'State rules, segment logic, and treatment/control design are packaged for your existing stack before rollout.', metric: 'treat / control', metricLbl: 'planned', x: 94 },
-  ];
+  function initLiftSwitch() {
+    const consoleEl = document.getElementById('result-console');
+    const value = document.getElementById('lift-value');
+    const label = document.getElementById('lift-label');
+    const note = document.getElementById('lift-note');
+    const buttons = [...document.querySelectorAll('[data-lift-mode]')];
+    if (!consoleEl || !value || !label || !note || !buttons.length) return;
 
-  let activeStage = 2;
-  let autoTimer = null;
-  let paused = false;
-
-  function buildConsole() {
-    const wrap = $('pipe-stages');
-    if (!wrap) return;
-    STAGES.forEach((s, i) => {
-      const btn = document.createElement('button');
-      btn.className = 'pstage' + (s.signal ? ' is-signal' : '');
-      btn.setAttribute('role', 'tab');
-      btn.setAttribute('aria-label', s.title);
-      btn.style.left = s.x + '%';
-      btn.innerHTML = `<span class="pst-node"></span><span class="pst-label">${s.label}</span>`;
-      btn.addEventListener('click', () => { selectStage(i); pauseFor(6000); });
-      btn.addEventListener('mouseenter', () => { selectStage(i); paused = true; });
-      btn.addEventListener('focus', () => { selectStage(i); paused = true; });
-      wrap.appendChild(btn);
-    });
-    selectStage(activeStage, true);
-
-    const stage = $('console-svg') && $('console-svg').parentElement;
-    if (stage) {
-      stage.addEventListener('mouseleave', () => { paused = false; });
-    }
-
-    if (!RM) {
-      spawnParticles('pipe-particles-fwd', 'pipe-path-fwd', 'forward');
-      spawnParticles('pipe-particles-back', 'pipe-path-back', 'back');
-      startAuto();
-    }
-  }
-
-  function selectStage(i, instant) {
-    activeStage = i;
-    const btns = $$('.pstage');
-    btns.forEach((b, idx) => {
-      b.classList.toggle('is-active', idx === i);
-      b.setAttribute('aria-selected', idx === i ? 'true' : 'false');
-    });
-    const s = STAGES[i];
-    const main = $('console-readout');
-    if (!main) return;
-    const num = $('cr-num'), title = $('cr-title'), desc = $('cr-desc'),
-          mv = $('cr-metric-val'), ml = $('cr-metric-lbl');
-    const apply = () => {
-      if (num) num.textContent = String(i + 1).padStart(2, '0');
-      if (title) title.textContent = s.title;
-      if (desc) desc.textContent = s.desc;
-      if (mv) mv.textContent = s.metric;
-      if (ml) ml.textContent = s.metricLbl;
+    const modes = {
+      relative: {
+        value: '+19.9%',
+        label: 'relative lift',
+        note: '69.4% treatment versus 57.9% control.',
+      },
+      absolute: {
+        value: '+11.5',
+        label: 'percentage points',
+        note: 'An 11.5-point treatment gap.',
+      },
     };
-    if (instant || RM) { apply(); return; }
-    const groups = [$('cr-num') && $('cr-num').parentElement, $('cr-title') && $('cr-title').parentElement, $('cr-metric-val') && $('cr-metric-val').parentElement];
-    groups.forEach(g => g && g.classList.add('cr-fade'));
-    setTimeout(() => { apply(); groups.forEach(g => g && g.classList.remove('cr-fade')); }, 150);
-  }
 
-  function startAuto() {
-    clearInterval(autoTimer);
-    autoTimer = setInterval(() => {
-      if (paused) return;
-      selectStage((activeStage + 1) % STAGES.length);
-    }, 2900);
-  }
-  function pauseFor(ms) {
-    paused = true;
-    clearTimeout(pauseFor._t);
-    pauseFor._t = setTimeout(() => { paused = false; }, ms);
-  }
-
-  function spawnParticles(groupId, pathId, dir) {
-    const group = $(groupId), path = $(pathId);
-    if (!group || !path) return;
-    const total = path.getTotalLength();
-    const COUNT = dir === 'forward' ? 5 : 3;
-    const parts = [];
-    for (let i = 0; i < COUNT; i++) {
-      const p = document.createElementNS(NS, 'circle');
-      p.setAttribute('r', dir === 'forward' ? 3.2 : 2.3);
-      const color = dir === 'forward' ? (i % 2 === 0 ? '#0B5F66' : '#6D5BD0') : '#B4BFBC';
-      p.setAttribute('fill', color);
-      p.setAttribute('opacity', dir === 'forward' ? '0.9' : '0.5');
-      group.appendChild(p);
-      parts.push({ el: p, offset: i / COUNT });
-    }
-    let t = 0;
-    (function tick() {
-      t += dir === 'forward' ? 0.0024 : 0.0016;
-      parts.forEach(part => {
-        const pos = (t + part.offset) % 1;
-        const pt = path.getPointAtLength(pos * total);
-        part.el.setAttribute('cx', pt.x);
-        part.el.setAttribute('cy', pt.y);
-        if (dir === 'forward') {
-          const fade = Math.min(pos * 8, (1 - pos) * 8, 1);
-          part.el.setAttribute('opacity', String(0.2 + 0.7 * fade));
-        }
+    const select = mode => {
+      const next = modes[mode];
+      if (!next) return;
+      consoleEl.dataset.activeLiftMode = mode;
+      value.textContent = next.value;
+      label.textContent = next.label;
+      note.textContent = next.note;
+      buttons.forEach(button => {
+        const active = button.dataset.liftMode === mode;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-pressed', String(active));
       });
-      requestAnimationFrame(tick);
-    })();
-  }
-
-  /* ═══════════════════════════════════════════
-     HOW IT WORKS — fill bars on scroll
-  ═══════════════════════════════════════════ */
-  function initStepBars() {
-    const stage = $('sv-test');
-    if (!stage) return;
-    const fill = () => stage.querySelectorAll('.tfill').forEach(f => {
-      setTimeout(() => { f.style.width = f.getAttribute('data-w') + '%'; }, 60);
-    });
-    if (RM || !('IntersectionObserver' in window)) { fill(); return; }
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { fill(); obs.unobserve(stage); } });
-    }, { threshold: 0.4 });
-    obs.observe(stage);
-  }
-
-  /* ═══════════════════════════════════════════
-     PROBLEM — comparison toggle
-  ═══════════════════════════════════════════ */
-  function initComparison() {
-    const vis = $('decision-visual');
-    if (!vis) return;
-    const tabs = $$('.cmp-tab');
-    const COPY = {
-      fixed: { eye: 'Fixed sequence', a: 'day-7 email', b: 'day-7 email', outcome: 'Both users · same day-7 email' },
-      sendlyr: { eye: 'Sendlyr signal layer', a: 'signal reached', b: 'next action needed', outcome: 'State logic · approved in your stack' },
     };
-    function set(mode) {
-      vis.setAttribute('data-mode', mode);
-      const c = COPY[mode];
-      const eye = $('dv-eye-text'); if (eye) eye.textContent = c.eye;
-      const ra = $('dv-route-a'); if (ra) ra.textContent = c.a;
-      const rb = $('dv-route-b'); if (rb) rb.textContent = c.b;
-      const out = vis.querySelector('.dv-outcome-chip'); if (out) out.textContent = c.outcome;
-      tabs.forEach(t => {
-        const on = t.dataset.mode === mode;
-        t.classList.toggle('is-active', on);
-        t.setAttribute('aria-selected', on ? 'true' : 'false');
-      });
-    }
-    tabs.forEach(t => t.addEventListener('click', () => set(t.dataset.mode)));
-    set('fixed');
-    // auto-demo once when scrolled into view (then leave it to the user)
-    if (!RM && 'IntersectionObserver' in window) {
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            obs.unobserve(vis);
-            setTimeout(() => set('sendlyr'), 1100);
-          }
-        });
-      }, { threshold: 0.4 });
-      obs.observe(vis);
-    }
+
+    buttons.forEach(button => button.addEventListener('click', () => select(button.dataset.liftMode)));
+    select('relative');
   }
 
-  /* ═══════════════════════════════════════════
-     SIGNAL EXPLORER — interactive proof
-  ═══════════════════════════════════════════ */
-  const BASE = 34.0;
-  const DOMAIN = 50; // retention % mapped to full bar height
-  const SIGNALS = [
-    { id: 'a', name: 'Key action A · 14d', ret: 36.1, cov: '82%', p: 'p < 0.01', decision: 'Dropped · low lift', kind: 'drop' },
-    { id: 'b', name: 'Key action B · 14d', ret: 37.9, cov: '81%', p: 'p < 0.01', decision: 'Dropped · low lift', kind: 'drop' },
-    { id: 'primary', name: 'Signal reached · 14d', ret: 39.5, cov: '79%', p: 'p < 0.001', decision: 'Signal reached', kind: 'primary', primary: true },
-  ];
-  let pexActive = 'primary';
+  function initConsoleGlow() {
+    const consoleEl = document.getElementById('result-console');
+    if (!consoleEl || reducedMotion) return;
 
-  function initExplorer() {
-    const list = $('pex-signals');
-    if (!list) return;
-    SIGNALS.forEach(s => {
-      const btn = document.createElement('button');
-      btn.className = 'pex-chip' + (s.primary ? ' is-primary' : '');
-      btn.dataset.sig = s.id;
-      btn.type = 'button';
-      btn.setAttribute('role', 'tab');
-      btn.setAttribute('aria-selected', 'false');
-      btn.innerHTML = `<span class="pex-chip-dot"></span><span class="pex-chip-name">${s.name}</span><span class="pex-chip-ret">${s.ret.toFixed(1)}%</span>`;
-      btn.addEventListener('click', () => selectSignal(s.id));
-      list.appendChild(btn);
+    consoleEl.addEventListener('pointermove', event => {
+      const bounds = consoleEl.getBoundingClientRect();
+      const x = ((event.clientX - bounds.left) / bounds.width) * 100;
+      const y = ((event.clientY - bounds.top) / bounds.height) * 100;
+      consoleEl.style.setProperty('--spot-x', `${x.toFixed(1)}%`);
+      consoleEl.style.setProperty('--spot-y', `${y.toFixed(1)}%`);
     });
+  }
 
-    // set baseline bar + initial selection when scrolled into view
-    const chart = $('pex-chart');
-    const drawBaseline = () => {
-      const base = $('pex-bar-base');
-      if (base) base.style.height = (BASE / DOMAIN * 100) + '%';
+  function initDecisionBoard() {
+    const board = document.getElementById('decision-board');
+    const label = document.getElementById('decision-label');
+    const heading = document.getElementById('decision-heading');
+    const description = document.getElementById('decision-description');
+    const routeA = document.getElementById('route-action-a');
+    const routeB = document.getElementById('route-action-b');
+    const buttons = [...document.querySelectorAll('[data-decision-mode]')];
+    if (!board || !label || !heading || !description || !routeA || !routeB) return;
+
+    const modes = {
+      calendar: {
+        label: 'Fixed schedule',
+        heading: 'Same day. Same message.',
+        description: 'Different users enter the same journey.',
+        routeA: 'Day-7 email',
+        routeB: 'Day-7 email',
+      },
+      signal: {
+        label: 'Activation decision layer',
+        heading: 'Different state. Different next action.',
+        description: 'Each message follows proven product progress.',
+        routeA: 'Reinforce progress',
+        routeB: 'Unblock first course',
+      },
     };
-    if (RM || !('IntersectionObserver' in window)) {
-      drawBaseline(); selectSignal('primary', true);
-    } else {
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            obs.unobserve(chart);
-            drawBaseline();
-            setTimeout(() => selectSignal('primary'), 200);
-          }
-        });
-      }, { threshold: 0.3 });
-      if (chart) obs.observe(chart); else { drawBaseline(); selectSignal('primary', true); }
-    }
+
+    const select = mode => {
+      const next = modes[mode];
+      if (!next) return;
+      board.dataset.mode = mode;
+      label.textContent = next.label;
+      heading.textContent = next.heading;
+      description.textContent = next.description;
+      routeA.textContent = next.routeA;
+      routeB.textContent = next.routeB;
+      buttons.forEach(button => {
+        const active = button.dataset.decisionMode === mode;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-pressed', String(active));
+      });
+    };
+
+    buttons.forEach(button => button.addEventListener('click', () => select(button.dataset.decisionMode)));
+    select('calendar');
   }
 
-  function selectSignal(id, instant) {
-    pexActive = id;
-    const s = SIGNALS.find(x => x.id === id);
-    if (!s) return;
-    $$('.pex-chip').forEach(c => {
-      const isActive = c.dataset.sig === id;
-      c.classList.toggle('is-active', isActive);
-      c.setAttribute('aria-selected', String(isActive));
+  function initMethodWorkbench() {
+    const panel = document.getElementById('method-panel');
+    const kicker = document.getElementById('method-kicker');
+    const heading = document.getElementById('method-heading');
+    const description = document.getElementById('method-description');
+    const visual = document.getElementById('method-visual');
+    const buttons = [...document.querySelectorAll('[data-method]')];
+    if (!panel || !kicker || !heading || !description || !visual || !buttons.length) return;
+
+    const stages = {
+      signal: {
+        kicker: 'Find the behavior',
+        heading: 'Score early actions against the outcome.',
+        description: 'Rank candidates by lift, coverage, sample, and confidence.',
+        visual: `
+          <div class="score-line"><span>Lift</span><i style="--score: 88%"></i><b>High</b></div>
+          <div class="score-line"><span>Coverage</span><i style="--score: 76%"></i><b>Useful</b></div>
+          <div class="score-line"><span>Confidence</span><i style="--score: 94%"></i><b>Strong</b></div>
+        `,
+      },
+      states: {
+        kicker: 'Define the states',
+        heading: 'Map progress toward the signal.',
+        description: 'Separate active, stalled, reached, and excluded users.',
+        visual: `
+          <div class="state-map">
+            <div class="state-node"><span>New</span><strong>Watch</strong></div>
+            <div class="state-node"><span>Stalled</span><strong>Unblock</strong></div>
+            <div class="state-node"><span>Signal reached</span><strong>Reinforce</strong></div>
+            <div class="state-node"><span>Excluded</span><strong>Hold</strong></div>
+          </div>
+        `,
+      },
+      experiment: {
+        kicker: 'Prove the outcome',
+        heading: 'Package one controlled test.',
+        description: 'Ship rules, cohorts, measures, and implementation notes.',
+        visual: `
+          <div class="experiment-map">
+            <div class="experiment-node"><span>Signal rule</span><strong>Locked</strong></div>
+            <div class="experiment-node"><span>Treatment / control</span><strong>Scoped</strong></div>
+            <div class="experiment-node"><span>Success event</span><strong>Defined</strong></div>
+            <div class="experiment-node"><span>Existing stack</span><strong>Ready</strong></div>
+          </div>
+        `,
+      },
+    };
+
+    const select = (name, focus = false) => {
+      const next = stages[name];
+      const activeButton = buttons.find(button => button.dataset.method === name);
+      if (!next || !activeButton) return;
+
+      kicker.textContent = next.kicker;
+      heading.textContent = next.heading;
+      description.textContent = next.description;
+      visual.dataset.stage = name;
+      visual.innerHTML = next.visual;
+      panel.setAttribute('aria-labelledby', activeButton.id);
+
+      buttons.forEach(button => {
+        const active = button === activeButton;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-selected', String(active));
+        button.tabIndex = active ? 0 : -1;
+      });
+
+      if (focus) activeButton.focus();
+    };
+
+    buttons.forEach((button, index) => {
+      button.addEventListener('click', () => select(button.dataset.method));
+      button.addEventListener('keydown', event => {
+        let nextIndex = null;
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % buttons.length;
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (index - 1 + buttons.length) % buttons.length;
+        if (event.key === 'Home') nextIndex = 0;
+        if (event.key === 'End') nextIndex = buttons.length - 1;
+        if (nextIndex === null) return;
+        event.preventDefault();
+        select(buttons[nextIndex].dataset.method, true);
+      });
     });
 
-    const cand = $('pex-bar-cand');
-    const candVal = $('pex-cand-val');
-    const candLbl = $('pex-cand-lbl');
-    if (cand) {
-      // height starts at 0 (CSS default); the transition animates from the
-      // current height to the new target — no reset needed.
-      cand.style.height = (s.ret / DOMAIN * 100) + '%';
-    }
-    if (candVal) candVal.textContent = s.ret.toFixed(1) + '%';
-    if (candLbl) candLbl.textContent = s.name.split(' · ')[0];
-
-    const lift = (s.ret - BASE);
-    const lv = $('pex-lift-val');
-    if (lv) animateLift(lv, lift, instant);
-
-    const dec = $('pex-decision'), cov = $('pex-coverage'), pv = $('pex-pvalue');
-    if (dec) dec.textContent = s.decision;
-    if (cov) cov.textContent = s.cov;
-    if (pv) pv.innerHTML = s.p.replace('<', '&lt;');
-
-    const decStat = dec && dec.closest('.pex-stat');
-    if (decStat) {
-      decStat.classList.toggle('is-primary', s.kind === 'primary');
-      decStat.classList.toggle('is-drop', s.kind === 'drop');
-    }
+    select('signal');
   }
 
-  function animateLift(el, target, instant) {
-    const txt = (v) => '+' + v.toFixed(1);
-    if (instant || RM) { el.textContent = txt(target); return; }
-    const start = parseFloat((el.textContent || '0').replace('+', '')) || 0;
-    const dur = 480, t0 = performance.now();
-    (function step(now) {
-      const k = Math.min((now - t0) / dur, 1);
-      const e = 1 - Math.pow(1 - k, 3);
-      el.textContent = txt(start + (target - start) * e);
-      if (k < 1) requestAnimationFrame(step);
-      else el.textContent = txt(target);
-    })(t0);
-  }
-
-  /* ═══════════════════════════════════════════
-     PROOF BAR — count up on view
-  ═══════════════════════════════════════════ */
-  function initCounters() {
-    const proof = $('hero-proof');
-    if (!proof) return;
-    const cells = $$('.hp-val[data-count]', proof);
-    const run = () => cells.forEach(el => countUp(el));
-    if (RM || !('IntersectionObserver' in window)) {
-      cells.forEach(el => setVal(el, parseFloat(el.dataset.count)));
-      return;
-    }
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { run(); obs.unobserve(proof); } });
-    }, { threshold: 0.4 });
-    obs.observe(proof);
-  }
-
-  function setVal(el, v) {
-    const pre = el.dataset.prefix || '';
-    const suf = el.dataset.suffix || '';
-    const dec = el.dataset.decimals != null ? +el.dataset.decimals : (String(el.dataset.count).indexOf('.') >= 0 ? 1 : 0);
-    el.innerHTML = pre + v.toFixed(dec) + (suf ? `<span class="hp-unit">${suf}</span>` : '');
-  }
-  function countUp(el) {
-    const target = parseFloat(el.dataset.count);
-    const dur = 1100, t0 = performance.now();
-    (function step(now) {
-      const k = Math.min((now - t0) / dur, 1);
-      const e = 1 - Math.pow(1 - k, 3);
-      setVal(el, target * e);
-      if (k < 1) requestAnimationFrame(step);
-      else setVal(el, target);
-    })(t0);
-  }
-
-  /* ─── Boot ─── */
-  document.addEventListener('DOMContentLoaded', () => {
-    initReveal();
-    initScrollProgress();
-    initNavActive();
-    buildConsole();
-    initStepBars();
-    initComparison();
-    initExplorer();
-    initCounters();
-    // fail-safe: pop any fade-ups already in view
-    setTimeout(() => {
-      $$('.fade-up').forEach(el => {
-        const r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('visible');
-      });
-    }, 500);
-  });
+  initMotion();
+  initScrollProgress();
+  initActiveNav();
+  initLiftSwitch();
+  initConsoleGlow();
+  initDecisionBoard();
+  initMethodWorkbench();
 })();

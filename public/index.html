@@ -1,448 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sendlyr | Activation Signal Analytics for Lifecycle Teams</title>
-<meta name="description" content="Sendlyr finds the leading indicators that predict conversion, retention, reactivation, or churn risk, then turns them into experiment plans lifecycle teams can run through their existing stack.">
-<meta name="robots" content="index,follow">
-<link rel="canonical" href="https://www.sendlyr.com">
-<meta property="og:title" content="Sendlyr | Activation Signal Analytics for Lifecycle Teams">
-<meta property="og:description" content="Find the leading indicators that predict conversion, retention, reactivation, or churn risk, then turn them into experiment plans lifecycle teams can run through their existing stack.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.sendlyr.com">
-<meta property="og:image" content="https://www.sendlyr.com/assets/og/og-default.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Sendlyr: Find the activation signal your lifecycle team should drive.">
-<meta property="og:site_name" content="Sendlyr">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Sendlyr | Activation Signal Analytics for Lifecycle Teams">
-<meta name="twitter:description" content="Find the leading indicators that predict conversion, retention, reactivation, or churn risk, then turn them into experiment plans lifecycle teams can run through their existing stack.">
-<meta name="twitter:image" content="https://www.sendlyr.com/assets/og/og-default.png">
-<link rel="icon" type="image/png" href="/assets/logo/sendlyr-icon-512.png">
-<link rel="apple-touch-icon" href="/assets/logo/sendlyr-icon-512.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/styles.css">
-<link rel="stylesheet" href="/enhance.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sendlyr | Find and Prove Your Activation Signal</title>
+  <meta name="description" content="Sendlyr finds the product behavior that predicts activation, then turns it into a controlled lifecycle experiment.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://www.sendlyr.com">
+  <meta property="og:title" content="Sendlyr | Find and Prove Your Activation Signal">
+  <meta property="og:description" content="Find one activation signal. Prove it with one controlled experiment.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.sendlyr.com">
+  <meta property="og:image" content="https://www.sendlyr.com/assets/og/og-default.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sendlyr finds and proves the activation signal your lifecycle team should drive.">
+  <meta property="og:site_name" content="Sendlyr">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sendlyr | Find and Prove Your Activation Signal">
+  <meta name="twitter:description" content="Find one activation signal. Prove it with one controlled experiment.">
+  <meta name="twitter:image" content="https://www.sendlyr.com/assets/og/og-default.png">
+  <link rel="icon" type="image/png" href="/assets/logo/sendlyr-icon-512.png">
+  <link rel="apple-touch-icon" href="/assets/logo/sendlyr-icon-512.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400;1,8..60,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/enhance.css">
 </head>
-<body>
+<body class="landing-v3">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
-<!-- scroll progress -->
-<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
-
-<!-- ═══════════ NAV ═══════════ -->
-<nav data-screen-label="nav">
-  <div class="nav-logo"><img src="/assets/logo/sendlyr-logo-transparent@2x.png" alt="Sendlyr" width="1361" height="364"></div>
-  <div class="nav-mid">
-    <a href="#problem" data-nav>Problem</a>
-    <a href="#how" data-nav>How it works</a>
-    <a href="#proof" data-nav>Results</a>
-    <a href="#why" data-nav>Why Sendlyr</a>
-    <a href="/blog">Blog</a>
-  </div>
-  <div class="nav-right">
-    <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Book an Activation Signal Sprint <span class="btn-arrow">→</span></button>
-  </div>
-</nav>
-
-<main>
-
-<!-- ═══════════ HERO ═══════════ -->
-<section class="hero" data-screen-label="hero">
-  <div class="hero-inner">
-    <div class="hero-tag">
-      <span class="tag-pill"><span class="live-dot"></span>LIVE</span>
-      <span>Typesy · activation signal predicted <b>39.5%</b> 12-week retention</span>
-    </div>
-    <h1 class="hero-head">Find the activation signal your lifecycle team <em>should drive.</em></h1>
-    <p class="hero-value">Sendlyr analyzes historical product data to identify the leading indicators that predict conversion, retention, reactivation, or churn risk, then turns them into an experiment plan your team can run through its existing stack.</p>
-    <div class="hero-cta-row">
-      <button class="btn-primary lg" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Book an Activation Signal Sprint <span class="btn-arrow">→</span></button>
-      <a class="btn-ghost lg" href="/blog/pai-discovery-case-study">See the Typesy signal analysis</a>
-      <span class="hero-cta-meta">Signal analysis · experiment plan</span>
-    </div>
-  </div>
-
-  <!-- INTERACTIVE PIPELINE CONSOLE -->
-  <div class="console fade-up" id="console">
-    <div class="console-bar">
-      <span class="cb-lights"><span></span><span></span><span></span></span>
-      <span class="cb-title">sendlyr · activation signal analytics</span>
-      <span class="cb-stamp" id="cb-stamp">running</span>
-    </div>
-    <div class="console-stage">
-      <svg class="console-svg" id="console-svg" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <linearGradient id="pipe-fwd" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#0B5F66" stop-opacity="0.35"/>
-            <stop offset="100%" stop-color="#6D5BD0" stop-opacity="0.35"/>
-          </linearGradient>
-          <linearGradient id="pipe-back" x1="1" y1="0" x2="0" y2="0">
-            <stop offset="0%" stop-color="#6D5BD0" stop-opacity="0.16"/>
-            <stop offset="100%" stop-color="#0B5F66" stop-opacity="0.16"/>
-          </linearGradient>
-        </defs>
-        <path id="pipe-path-fwd" d="M 60 70 L 280 70 L 500 70 L 720 70 L 940 70" fill="none" stroke="url(#pipe-fwd)" stroke-width="2" stroke-linecap="round"/>
-        <path id="pipe-path-back" d="M 940 70 C 940 170, 720 184, 500 184 C 280 184, 60 170, 60 70" fill="none" stroke="url(#pipe-back)" stroke-width="1.5" stroke-dasharray="4 5" stroke-linecap="round"/>
-        <g id="pipe-particles-fwd"></g>
-        <g id="pipe-particles-back"></g>
-      </svg>
-      <div class="pipe-stages" id="pipe-stages" role="tablist" aria-label="Activation signal analytics stages"></div>
-      <div class="pipe-loop-label">SIGNAL DISCOVERY · USER STATES · CONTROLLED EXPERIMENT</div>
-    </div>
-    <div class="console-readout" id="console-readout" role="tabpanel" aria-live="polite">
-      <div class="cr-index"><span id="cr-num">01</span><span class="cr-of">/ 05</span></div>
-      <div class="cr-main">
-        <div class="cr-title" id="cr-title">Usage</div>
-        <div class="cr-desc" id="cr-desc">Historical event exports and outcome cohorts — the raw material every classification is scored against.</div>
-      </div>
-      <div class="cr-metric">
-        <div class="cr-metric-val" id="cr-metric-val">24,118</div>
-        <div class="cr-metric-lbl" id="cr-metric-lbl">trials analyzed</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ANIMATED PROOF BAR -->
-  <div class="hero-proof fade-up" id="hero-proof">
-    <div class="hp-cell">
-      <div class="hp-label">12-week retention</div>
-      <div class="hp-val" data-count="34.0" data-suffix="%">34.0<span class="hp-unit">%</span></div>
-      <div class="hp-foot">baseline · n = 24,118</div>
-    </div>
-    <div class="hp-cell">
-      <div class="hp-label">Signal reached</div>
-      <div class="hp-val accent" data-count="39.5" data-suffix="%">39.5<span class="hp-unit">%</span></div>
-      <div class="hp-foot">selected signal met in 14d</div>
-    </div>
-    <div class="hp-cell">
-      <div class="hp-label">Lift</div>
-      <div class="hp-val" data-count="5.5" data-prefix="+" data-suffix="%">+5.5<span class="hp-unit">%</span></div>
-      <div class="hp-foot">p &lt; 0.001</div>
-    </div>
-    <div class="hp-cell">
-      <div class="hp-label">Starting point</div>
-      <div class="hp-val" data-count="48" data-suffix="h" data-decimals="0">48<span class="hp-unit">h</span></div>
-      <div class="hp-foot">export or read-only access</div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ TRUSTED ═══════════ -->
-<section class="trusted" data-screen-label="trusted">
-  <div class="trusted-row fade-up">
-    <span class="trusted-eye">Validated with</span>
-    <div class="trusted-logos">
-      <a href="https://www.typesy.com/homeschool/" target="_blank" rel="noopener" aria-label="Typesy">
-        <img src="/assets/images/typesy-logo-colored-2-scaled.png" alt="Typesy by eReflect" width="2560" height="623">
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="brand-link" href="/" aria-label="Sendlyr home">
+        <img src="/assets/logo/sendlyr-logo-transparent@2x.png" alt="Sendlyr" width="1361" height="364">
       </a>
-    </div>
-    <span class="trusted-meta">Activation signal analysis · <b>24,118 trials</b> · subscription</span>
-  </div>
-</section>
-
-<!-- ═══════════ PROBLEM ═══════════ -->
-<section class="block" id="problem" data-screen-label="problem">
-  <div class="block-head">
-    <div>
-      <div class="block-eye">The problem</div>
-      <h2 class="block-title">Same signup day. <em>Different behavior.</em></h2>
-    </div>
-    <p class="block-deck">Two users start a trial today. One completes meaningful product actions. The other signs up, clicks around, and stalls. Seven days later, most lifecycle tools still send both users the same message.</p>
-  </div>
-
-  <div class="comparison-card fade-up">
-    <div class="comparison-copy">
-      <p>The issue is not that the email is badly written. The issue is that the team has not proven which behavior predicts the outcome, so every downstream journey is optimizing toward a guess.</p>
-      <p class="sharp-line">We do not replace your lifecycle stack. We give it the leading indicator, state logic, and experiment plan it needs.</p>
-      <div class="cmp-toggle" role="tablist" aria-label="Lifecycle approach">
-        <button class="cmp-tab is-active" data-mode="fixed" role="tab" aria-selected="true">Fixed sequence</button>
-        <button class="cmp-tab" data-mode="sendlyr" role="tab" aria-selected="false">Signal layer</button>
+      <div class="nav-links">
+        <a href="#method">Method</a>
+        <a href="#result">Result</a>
+        <a href="#fit">Where it fits</a>
+        <a href="/blog">Blog</a>
       </div>
-    </div>
-    <div class="decision-visual" id="decision-visual" data-mode="fixed" aria-label="Comparison between a fixed lifecycle sequence and Sendlyr signal layer">
-      <div class="dv-eye"><span id="dv-eye-text">Fixed sequence</span></div>
-      <div class="dv-users">
-        <div class="dv-user" data-user="a">
-          <span class="dv-dot"></span>
-          <div class="dv-user-id">
-            <b>User A</b>
-            <span>meaningful actions completed</span>
+      <a class="nav-cta" href="https://calendly.com/dquang191104/30min" target="_blank" rel="noopener">
+        <span>Book a sprint</span>
+        <span class="button-arrow" aria-hidden="true">↗</span>
+      </a>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span></span> Activation decision layer</p>
+        <h1 id="hero-title">Find the behavior that <em>makes users stay.</em></h1>
+        <p class="hero-lede">Sendlyr turns product data into one signal, one test, and a controlled experiment plan.</p>
+        <div class="hero-actions">
+          <a class="primary-cta" href="https://calendly.com/dquang191104/30min" target="_blank" rel="noopener">
+            <span>Book a signal sprint</span>
+            <span class="button-arrow" aria-hidden="true">↗</span>
+          </a>
+          <a class="text-cta" href="#result">See the Typesy result <span aria-hidden="true">↓</span></a>
+        </div>
+        <ul class="hero-guardrails" aria-label="Sprint guardrails">
+          <li>Read-only start</li>
+          <li>Existing stack</li>
+          <li>Controlled test</li>
+        </ul>
+      </div>
+
+      <article class="result-console" id="result-console" aria-labelledby="result-console-title">
+        <div class="result-console-glow" aria-hidden="true"></div>
+        <header class="console-header">
+          <div class="case-brand">
+            <span class="live-mark" aria-hidden="true"></span>
+            <span>Typesy VIP</span>
           </div>
-          <span class="dv-route" id="dv-route-a">day-7 email</span>
-        </div>
-        <div class="dv-user" data-user="b">
-          <span class="dv-dot"></span>
-          <div class="dv-user-id">
-            <b>User B</b>
-            <span>clicked around, then stalled</span>
+          <span class="case-status">Experiment outcome</span>
+        </header>
+
+        <div class="console-body">
+          <p class="console-kicker">Leading indicator</p>
+          <h2 id="result-console-title">First course within four days</h2>
+
+          <div class="lift-switch" role="group" aria-label="Choose lift calculation">
+            <button type="button" class="lift-option is-active" data-lift-mode="relative" aria-pressed="true">Relative</button>
+            <button type="button" class="lift-option" data-lift-mode="absolute" aria-pressed="false">Absolute</button>
           </div>
-          <span class="dv-route" id="dv-route-b">day-7 email</span>
-        </div>
-      </div>
-      <div class="dv-pai" id="dv-pai">Signal</div>
-      <div class="dv-outcome" id="dv-outcome">
-        <span class="dv-outcome-chip">Both users · same day-7 email</span>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ═══════════ HOW IT WORKS ═══════════ -->
-<section class="block" id="how" data-screen-label="how-it-works">
-  <div class="block-head">
-    <div>
-      <div class="block-eye">How it works</div>
-      <h2 class="block-title">Find the activation signal. <em>Then design the experiment.</em></h2>
-    </div>
-    <p class="block-deck">Sendlyr compresses the analysis into the selected activation signal, the lifecycle state model, and the experiment plan your team can approve.</p>
-  </div>
-
-  <div class="steps">
-    <div class="step fade-up">
-      <div class="step-num"><b>01</b> · Find the leading indicators</div>
-      <div class="step-vis">
-        <div class="sv-ingest">
-          <div class="ing-src amp">
-            <span class="src-dot"></span>Candidate actions
-            <span class="sv-pulse" style="right:80px"></span>
-            <span class="src-evt">lift</span>
+          <div class="lift-readout" aria-live="polite">
+            <strong id="lift-value">+19.9%</strong>
+            <span id="lift-label">relative lift</span>
           </div>
-          <div class="ing-src mp">
-            <span class="src-dot"></span>Outcome cohorts
-            <span class="src-evt">coverage</span>
+          <p class="lift-note" id="lift-note">69.4% treatment versus 57.9% control.</p>
+
+          <div class="outcome-bars" aria-label="PAI hit rate comparison">
+            <div class="outcome-row treatment-row">
+              <div class="outcome-meta"><span>Treatment</span><span>121 users</span></div>
+              <div class="bar-track"><span class="bar-fill" style="--bar-size: 69.4%"></span></div>
+              <strong>69.4%</strong>
+            </div>
+            <div class="outcome-row control-row">
+              <div class="outcome-meta"><span>Control</span><span>57 users</span></div>
+              <div class="bar-track"><span class="bar-fill" style="--bar-size: 57.9%"></span></div>
+              <strong>57.9%</strong>
+            </div>
           </div>
-          <div class="ing-src fb">
-            <span class="src-dot"></span>Confidence tests
-            <span class="src-evt">p-value</span>
+        </div>
+
+        <footer class="console-footer">
+          <span>PAI hit rate</span>
+          <span>178 users</span>
+        </footer>
+      </article>
+    </section>
+
+    <section class="signal-ribbon" aria-label="Sendlyr workflow">
+      <div><span>01</span><strong>Find the signal</strong></div>
+      <div><span>02</span><strong>Define the states</strong></div>
+      <div><span>03</span><strong>Prove the lift</strong></div>
+    </section>
+
+    <section class="decision-section page-section" aria-labelledby="decision-title">
+      <div class="section-intro">
+        <p class="eyebrow"><span></span> The missing decision</p>
+        <h2 id="decision-title">Most tools start <em>after</em> the hardest question.</h2>
+        <p>They automate a journey before proving which behavior matters.</p>
+      </div>
+
+      <div class="decision-board" id="decision-board">
+        <div class="decision-tabs" role="group" aria-label="Compare lifecycle approaches">
+          <button type="button" class="decision-tab is-active" data-decision-mode="calendar" aria-pressed="true">Calendar-led</button>
+          <button type="button" class="decision-tab" data-decision-mode="signal" aria-pressed="false">Signal-led</button>
+        </div>
+
+        <div class="decision-copy">
+          <p class="decision-label" id="decision-label">Fixed schedule</p>
+          <h3 id="decision-heading">Same day. Same message.</h3>
+          <p id="decision-description">Different users enter the same journey.</p>
+        </div>
+
+        <div class="user-routes" aria-live="polite">
+          <div class="user-route route-a">
+            <span class="user-dot" aria-hidden="true">A</span>
+            <div><strong>Course started</strong><span>Making progress</span></div>
+            <span class="route-action" id="route-action-a">Day-7 email</span>
           </div>
-          <div class="sv-caption">scored across historical event exports</div>
+          <div class="user-route route-b">
+            <span class="user-dot" aria-hidden="true">B</span>
+            <div><strong>No course started</strong><span>Stalled after signup</span></div>
+            <span class="route-action" id="route-action-b">Day-7 email</span>
+          </div>
         </div>
       </div>
-      <div class="step-title">Find the leading indicators</div>
-      <div class="step-desc">We compare early product behaviors against conversion, retention, reactivation, or churn-risk outcomes, then score candidates by lift, coverage, sample size, and confidence.</div>
-    </div>
+    </section>
 
-    <div class="step fade-up">
-      <div class="step-num"><b>02</b> · Define states</div>
-      <div class="step-vis">
-        <div class="sv-test" id="sv-test">
-          <div class="tbar dim"><span class="tname">new</span><span class="ttrack"><span class="tfill" data-w="42"></span></span><span class="tval">watch</span></div>
-          <div class="tbar win"><span class="tname">progress</span><span class="ttrack"><span class="tfill" data-w="76"></span></span><span class="tval">drive</span></div>
-          <div class="tbar dim"><span class="tname">stuck</span><span class="ttrack"><span class="tfill" data-w="28"></span></span><span class="tval">unblock</span></div>
-          <div class="tbar dim"><span class="tname">reached</span><span class="ttrack"><span class="tfill" data-w="92"></span></span><span class="tval">reinforce</span></div>
-          <div class="tbar dim"><span class="tname">excluded</span><span class="ttrack"><span class="tfill" data-w="14"></span></span><span class="tval">hold</span></div>
+    <section class="method-section page-section" id="method" aria-labelledby="method-title">
+      <div class="section-intro method-intro">
+        <p class="eyebrow"><span></span> The sprint</p>
+        <h2 id="method-title">One signal. One test. <em>One answer.</em></h2>
+        <p>Start with an export. End with a plan your team can run.</p>
+      </div>
+
+      <div class="method-workbench">
+        <div class="method-rail" role="tablist" aria-label="Activation signal sprint stages">
+          <button type="button" class="method-step is-active" id="method-tab-signal" role="tab" aria-selected="true" aria-controls="method-panel" data-method="signal">
+            <span>01</span><strong>Signal</strong>
+          </button>
+          <button type="button" class="method-step" id="method-tab-states" role="tab" aria-selected="false" aria-controls="method-panel" data-method="states" tabindex="-1">
+            <span>02</span><strong>States</strong>
+          </button>
+          <button type="button" class="method-step" id="method-tab-experiment" role="tab" aria-selected="false" aria-controls="method-panel" data-method="experiment" tabindex="-1">
+            <span>03</span><strong>Experiment</strong>
+          </button>
+        </div>
+
+        <div class="method-panel" id="method-panel" role="tabpanel" aria-live="polite" aria-labelledby="method-tab-signal">
+          <div class="method-panel-copy">
+            <p id="method-kicker">Find the behavior</p>
+            <h3 id="method-heading">Score early actions against the outcome.</h3>
+            <p id="method-description">Rank candidates by lift, coverage, sample, and confidence.</p>
+          </div>
+          <div class="method-visual" id="method-visual" data-stage="signal" aria-hidden="true">
+            <div class="score-line"><span>Lift</span><i style="--score: 88%"></i><b>High</b></div>
+            <div class="score-line"><span>Coverage</span><i style="--score: 76%"></i><b>Useful</b></div>
+            <div class="score-line"><span>Confidence</span><i style="--score: 94%"></i><b>Strong</b></div>
+          </div>
         </div>
       </div>
-      <div class="step-title">Define lifecycle states</div>
-      <div class="step-desc">Each user is mapped by progress toward the selected activation signal, so active, stalled, and already-activated users are not treated as the same segment.</div>
-    </div>
+    </section>
 
-    <div class="step fade-up">
-      <div class="step-num"><b>03</b> · Create the experiment plan</div>
-      <div class="step-vis">
-        <div class="sv-route">
-          <div class="rrow"><span class="rdot teal-dot"></span>State rules<span class="rstate">scoped</span></div>
-          <div class="rrow approved"><span class="rdot emerald-dot"></span>Segment logic<span class="rstate">mapped</span></div>
-          <div class="rrow"><span class="rdot amber-dot"></span>Treatment/control<span class="rstate">planned</span></div>
-          <div class="rrow approved"><span class="rdot emerald-dot"></span>Existing stack<span class="rstate">ready</span></div>
+    <section class="result-section" id="result" aria-labelledby="typesy-result-title">
+      <div class="result-shell">
+        <header class="result-heading">
+          <p class="eyebrow light"><span></span> Typesy VIP outcome</p>
+          <h2 id="typesy-result-title">The leading indicator <em>moved.</em></h2>
+          <p>Treatment users hit the first-course milestone more often.</p>
+        </header>
+
+        <div class="evidence-grid">
+          <div class="evidence-main">
+            <span>PAI hit rate</span>
+            <strong>69.4%</strong>
+            <p>Treatment · 121 users</p>
+          </div>
+          <div class="evidence-control">
+            <span>Control</span>
+            <strong>57.9%</strong>
+            <p>57 users</p>
+          </div>
+          <div class="evidence-lifts">
+            <div><strong>+19.9%</strong><span>relative lift</span></div>
+            <div><strong>+11.5</strong><span>percentage points</span></div>
+          </div>
+        </div>
+
+        <div class="result-footnote">
+          <p><strong>Leading indicator:</strong> first course within four days.</p>
+          <a href="/blog/pai-discovery-case-study">Read the signal analysis <span aria-hidden="true">→</span></a>
         </div>
       </div>
-      <div class="step-title">Create the experiment plan</div>
-      <div class="step-desc">Sendlyr returns state rules, segment logic, treatment/control design, conversion event, measurement window, and implementation notes your team can run through Braze, Customer.io, Iterable, Klaviyo, or your existing stack.</div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- ═══════════ SIGNAL EXPLORER (interactive proof) ═══════════ -->
-<section class="block" id="proof" data-screen-label="proof">
-  <div class="block-head">
-    <div>
-      <div class="block-eye">Case · Typesy</div>
-      <h2 class="block-title">We don't guess the activation moment. <em>We test it.</em></h2>
-    </div>
-    <p class="block-deck">For Typesy, we scored early product behaviors against 12-week retention and selected the milestone with the strongest useful lift and enough coverage to matter. Select a candidate signal to see how it scored.</p>
-  </div>
-
-  <div class="pai-explorer fade-up">
-    <div class="pex-left">
-      <div class="pex-eye">Selected Activation Signal · compare candidates</div>
-      <div class="pex-signals" id="pex-signals" role="tablist" aria-label="Candidate activation signals"></div>
-
-      <div class="pex-readout" id="pex-readout">
-        <div class="pex-stat">
-          <div class="pex-stat-lbl">Selected Activation Signal</div>
-          <div class="pex-stat-val" id="pex-decision">Signal reached</div>
-        </div>
-        <div class="pex-stat">
-          <div class="pex-stat-lbl">Coverage</div>
-          <div class="pex-stat-val" id="pex-coverage">79%</div>
-        </div>
-        <div class="pex-stat">
-          <div class="pex-stat-lbl">Confidence</div>
-          <div class="pex-stat-val" id="pex-pvalue">p &lt; 0.001</div>
-        </div>
+    <section class="fit-section page-section" id="fit" aria-labelledby="fit-title">
+      <div class="section-intro">
+        <p class="eyebrow"><span></span> Where Sendlyr fits</p>
+        <h2 id="fit-title">Keep your stack. <em>Add the decision.</em></h2>
+        <p>Sendlyr sits before execution, not instead of it.</p>
       </div>
 
-      <p class="pex-note">One activation milestone reached in the first 14 days predicted higher 12-week retention across 24,118 trials. This is leading-indicator validation, not a claim that an email campaign created the lift.</p>
-    </div>
+      <div class="stack-flow" aria-label="Sendlyr workflow through the existing lifecycle stack">
+        <div><span>01</span><strong>Product data</strong><small>Events and outcomes</small></div>
+        <i aria-hidden="true">→</i>
+        <div class="flow-highlight"><span>02</span><strong>Sendlyr</strong><small>Signal and test</small></div>
+        <i aria-hidden="true">→</i>
+        <div><span>03</span><strong>Your stack</strong><small>Braze, Iterable, Klaviyo</small></div>
+        <i aria-hidden="true">→</i>
+        <div><span>04</span><strong>Experiment</strong><small>Treatment and control</small></div>
+      </div>
+    </section>
 
-    <div class="pex-right">
-      <div class="pex-chart-eye">Leading indicator validation</div>
-      <div class="pex-chart" id="pex-chart">
-        <div class="pex-grid">
-          <span style="bottom:0%"></span>
-          <span style="bottom:25%"></span>
-          <span style="bottom:50%"></span>
-          <span style="bottom:75%"></span>
-          <span style="bottom:100%"></span>
-        </div>
-        <div class="pex-col">
-          <div class="pex-bar pex-baseline" id="pex-bar-base"><span class="pex-bar-val">34.0%</span></div>
-          <div class="pex-col-lbl">Baseline</div>
-        </div>
-        <div class="pex-col">
-          <div class="pex-bar pex-candidate" id="pex-bar-cand"><span class="pex-bar-val" id="pex-cand-val">39.5%</span></div>
-          <div class="pex-col-lbl" id="pex-cand-lbl">Signal reached</div>
-        </div>
+    <section class="closing-section" aria-labelledby="closing-title">
+      <p class="eyebrow light"><span></span> Activation Signal Sprint</p>
+      <h2 id="closing-title">Bring one activation question.<br><em>Leave with a signal worth testing.</em></h2>
+      <a class="closing-cta" href="https://calendly.com/dquang191104/30min" target="_blank" rel="noopener">
+        <span>Book the sprint</span>
+        <span class="button-arrow" aria-hidden="true">↗</span>
+      </a>
+      <div class="closing-meta">
+        <span>Read-only first</span>
+        <span>No migration</span>
+        <span>Human approval</span>
       </div>
-      <div class="pex-lift">
-        <span class="pex-lift-val" id="pex-lift-val">+5.5</span>
-        <span class="pex-lift-unit">%</span>
-        <span class="pex-lift-cap">absolute lift vs baseline</span>
-      </div>
-      <div class="pex-foot">
-        <img src="/assets/images/typesy-logo-colored-2-scaled.png" alt="Typesy" width="2560" height="623" loading="lazy">
-        <span>Typing app · eReflect · n = 24,118 trials</span>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
+  </main>
 
-<!-- ═══════════ WHY SENDLYR ═══════════ -->
-<section class="block" id="why" data-screen-label="why">
-  <div class="block-head">
-    <div>
-      <div class="block-eye">Why teams need this</div>
-      <h2 class="block-title">Analytics and lifecycle can do this. <em>It just takes too long.</em></h2>
-    </div>
-    <p class="block-deck">Large teams can do this internally, but lifecycle needs an activation answer while analytics has a backlog. Mid-sized teams often have the data and email tool, but not the spare analytics capacity.</p>
-  </div>
-
-  <div class="why-grid">
-    <div class="why-cell fade-up">
-      <div class="why-num">01 · The bottleneck</div>
-      <div class="why-name">The question waits in the queue</div>
-      <div class="why-body">The work becomes a multi-week loop of hypothesis, SQL, review, segmentation, copy, implementation, and measurement.</div>
-      <div class="why-out">Lifecycle still needs the answer</div>
-    </div>
-    <div class="why-cell fade-up">
-      <div class="why-num">02 · The artifact</div>
-      <div class="why-name">Activation signal, states, experiment plan</div>
-      <div class="why-body">Sendlyr gives the team the missing decision artifact: what behavior matters, which users need intervention, and how to test it.</div>
-      <div class="why-out">Ready for your existing stack</div>
-    </div>
-    <div class="why-cell fade-up">
-      <div class="why-num">03 · The boundary</div>
-      <div class="why-name">Signal layer, not migration</div>
-      <div class="why-body">We do not replace analytics, lifecycle, or your sender. We define the leading indicator, state logic, and measurement plan before your team executes downstream.</div>
-      <div class="why-out">No platform migration required</div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ TRUST ═══════════ -->
-<section class="block" id="trust" data-screen-label="trust">
-  <div class="trust-card fade-up">
-    <div class="block-head">
-      <div>
-        <div class="block-eye">Low-risk start</div>
-        <h2 class="block-title">Start with analysis, <em>not a deep integration.</em></h2>
-      </div>
-      <p class="block-deck">The first sprint is scoped to answer the activation question before anything touches production messaging.</p>
-    </div>
-
-    <div class="trust-grid">
-      <div class="trust-item">
-        <div class="ti-top"><span class="ti-num">01</span><span class="ti-tag">Access</span></div>
-        <div class="ti-text">Read-only historical event analysis first.</div>
-      </div>
-      <div class="trust-item">
-        <div class="ti-top"><span class="ti-num">02</span><span class="ti-tag">Data scope</span></div>
-        <div class="ti-text">Minimum required fields only.</div>
-      </div>
-      <div class="trust-item">
-        <div class="ti-top"><span class="ti-num">03</span><span class="ti-tag">Onboarding</span></div>
-        <div class="ti-text">Can begin from an export before live integration.</div>
-      </div>
-      <div class="trust-item">
-        <div class="ti-top"><span class="ti-num">04</span><span class="ti-tag">Approval</span></div>
-        <div class="ti-text">No production changes without human approval.</div>
-      </div>
-      <div class="trust-item">
-        <div class="ti-top"><span class="ti-num">05</span><span class="ti-tag">Your stack</span></div>
-        <div class="ti-text">Runs through your existing lifecycle stack.</div>
-      </div>
-      <div class="trust-item">
-        <div class="ti-top"><span class="ti-num">06</span><span class="ti-tag">Measurement</span></div>
-        <div class="ti-text">Treatment/control experiment is scoped before broad rollout.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ CTA ═══════════ -->
-<section class="block" id="demo" data-screen-label="cta">
-  <div class="cta-card fade-up">
-    <div class="cta-eye">◆ Activation Signal Sprint</div>
-    <h2>Find the leading indicator your lifecycle team <em>should drive.</em></h2>
-    <p>Book an Activation Signal Sprint. We test early product behaviors against conversion or retention, define lifecycle states, and return the experiment plan your team can approve and run through its existing stack.</p>
-    <a class="btn-primary lg" href="https://calendly.com/dquang191104/30min" target="_blank" rel="noopener">Book an Activation Signal Sprint <span class="btn-arrow">→</span></a>
-    <div class="cta-meta-row">
-      <span>Read-only first</span>
-      <span>Export-friendly</span>
-      <span>No production changes without approval</span>
-    </div>
-  </div>
-</section>
-
-<!-- BLOG PREVIEW -->
-<section class="block blog-preview" aria-labelledby="latest-thinking-title" data-screen-label="blog">
-  <div class="block-head">
-    <div>
-      <div class="block-eye">Blog</div>
-      <h2 class="block-title" id="latest-thinking-title">Latest <em>thinking.</em></h2>
-    </div>
-    <p class="block-deck">A closer look at how activation signal analysis turns product usage into leading indicators, lifecycle states, and controlled experiments.</p>
-  </div>
-
-  <article class="blog-card fade-up">
-    <a class="blog-card-media" href="/blog/pai-discovery-case-study" aria-label="Read article: How we found the exact behavior that predicts whether a user will keep paying">
-      <img src="/assets/blog/pai-discovery-case-study/cover-image.png" alt="Cover image for the Sendlyr activation signal analysis case study" width="1733" height="907" loading="lazy">
+  <footer class="site-footer">
+    <a class="brand-link" href="/" aria-label="Sendlyr home">
+      <img src="/assets/logo/sendlyr-logo-transparent@2x.png" alt="Sendlyr" width="1361" height="364">
     </a>
-    <div class="blog-card-body">
-      <div class="blog-card-meta">May 2026</div>
-      <h3><a href="/blog/pai-discovery-case-study">How we found the exact behavior that predicts whether a user will keep paying</a></h3>
-      <p>Inside the analysis that identified a retention-predictive activation milestone and turned it into a state-based experiment plan.</p>
-      <a class="blog-read-link" href="/blog/pai-discovery-case-study">Read article <span class="btn-arrow">&rarr;</span></a>
+    <p>© 2026 Sendlyr</p>
+    <div>
+      <a href="/for/fitness-apps">Fitness</a>
+      <a href="/for/cooking-apps">Cooking</a>
+      <a href="/for/edtech-apps">Edtech</a>
     </div>
-  </article>
-</section>
+  </footer>
 
-</main>
-
-<footer>
-  <div class="nav-logo"><img src="/assets/logo/sendlyr-logo-transparent@2x.png" alt="Sendlyr" width="1361" height="364"></div>
-  <div class="f-right">
-    <span>© 2026 Sendlyr</span>
-    <span>find the signal · prove the experiment</span>
-    <span class="footer-links"><a href="/for/fitness-apps">Fitness</a> · <a href="/for/cooking-apps">Cooking</a> · <a href="/for/edtech-apps">Edtech</a></span>
-  </div>
-</footer>
-
-<script src="/scripts/app.js"></script>
+  <script src="/scripts/app.js"></script>
 </body>
 </html>
