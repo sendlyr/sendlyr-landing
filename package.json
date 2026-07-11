@@ -2,8 +2,29 @@
   "name": "sendlyr-landing",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
+    "build": "node scripts/build-site.js",
+    "check:generated": "node scripts/build-site.js --check",
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "npm run build && node server.js",
+    "test:unit": "node --test tests/unit/*.test.js",
+    "test:coverage": "node --experimental-test-coverage --test-coverage-include=lib/analytics-stats.js --test-coverage-include=lib/booking-utils.js --test-coverage-include=lib/event-handler.js --test-coverage-include=lib/supabase-rest.js --test-coverage-include=scripts/analytics-io.js --test-coverage-include=scripts/anonymize-attribution.js --test-coverage-include=scripts/mark-qualified-booking.js --test-coverage-include=scripts/prune-analytics.js --test-coverage-include=scripts/retention-utils.js --test-coverage-lines=80 --test-coverage-branches=75 --test tests/unit/*.test.js",
+    "test:e2e": "playwright test",
+    "check:performance": "node scripts/check-performance.js",
+    "test": "npm run check:generated && npm run test:unit && npm run check:performance && npm run test:e2e",
+    "analytics:sync-bookings": "node scripts/sync-calendly-bookings.js",
+    "analytics:list-bookings": "node scripts/list-bookings.js",
+    "analytics:mark-qualified": "node scripts/mark-qualified-booking.js",
+    "analytics:anonymize": "node scripts/anonymize-attribution.js",
+    "analytics:report": "node scripts/report-analytics.js",
+    "analytics:aggregate": "node scripts/aggregate-analytics.js",
+    "analytics:prune": "node scripts/prune-analytics.js",
+    "check:production": "node scripts/check-production.js"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.61.1"
   }
 }

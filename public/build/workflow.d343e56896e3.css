@@ -1,0 +1,14 @@
+.workflow-map { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-block: 1px solid var(--ink); }
+.workflow-stage { position: relative; padding: 34px; border-right: 1px solid var(--line); }
+.workflow-stage:last-child { border-right: 0; }
+.workflow-stage::after { content: "→"; position: absolute; top: 34px; right: -12px; z-index: 2; display: grid; width: 24px; height: 24px; place-items: center; background: var(--bg); }
+.workflow-stage:last-child::after { display: none; }
+.workflow-stage h3 { margin-top: 24px; }
+.guardrail { display: grid; grid-template-columns: 160px 1fr; gap: 26px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.guardrail p { margin: 0; }
+@media (max-width: 760px) {
+  .workflow-map { grid-template-columns: 1fr; }
+  .workflow-stage { border-right: 0; border-bottom: 1px solid var(--line); padding-inline: 0; }
+  .workflow-stage::after { content: "↓"; top: auto; right: auto; bottom: -12px; left: 0; }
+  .guardrail { grid-template-columns: 1fr; gap: 6px; }
+}

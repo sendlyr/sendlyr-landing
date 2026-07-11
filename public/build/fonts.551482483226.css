@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "Inter";
+  src: url("/build/assets-fonts-inter-latin-variable.3100e775e861.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/build/assets-fonts-source-serif-4-latin-variable.f2ea9c12d2fe.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("/build/assets-fonts-source-serif-4-latin-italic-variable.96e639320972.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 200 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/build/assets-fonts-jetbrains-mono-latin-variable.18be452724bf.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 800;
+  font-display: swap;
+}
