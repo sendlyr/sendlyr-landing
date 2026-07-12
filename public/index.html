@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="/build/fonts.551482483226.css">
   <link rel="stylesheet" href="/build/styles.e03542bcecd1.css">
   <link rel="stylesheet" href="/build/site.d4e2962c36cd.css">
-  <link rel="stylesheet" href="/build/enhance.065eddddafe0.css">
+  <link rel="stylesheet" href="/build/enhance.223ae4e42b40.css">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://sendlyr.com/#organization","name":"Sendlyr","url":"https://sendlyr.com/","logo":"https://sendlyr.com/build/assets-logo-sendlyr-icon-512.6610a6e29850.png"},{"@type":"WebSite","@id":"https://sendlyr.com/#website","url":"https://sendlyr.com/","name":"Sendlyr","publisher":{"@id":"https://sendlyr.com/#organization"}},{"@type":"Service","@id":"https://sendlyr.com/#activation-signal-sprint","name":"Activation Signal Sprint","provider":{"@id":"https://sendlyr.com/#organization"},"description":"Rank activation signals, design the first controlled test, and define the monitoring plan."}]}</script>
 </head>
 <body class="home-page">
@@ -54,16 +54,16 @@
         <div class="home-hero-copy reveal">
           <p class="eyebrow">Activation signals for changing products</p>
           <h1 id="home-title">Know what drives progress now.</h1>
-          <p class="lede">Sendlyr ranks leading indicators, then designs product and lifecycle tests with a monitoring plan.</p>
+          <p class="lede">Rank leading indicators. See what moved. Design the next Product or Lifecycle test.</p>
           <div class="button-row">
             <a class="button" href="https://calendly.com/dquang191104/30min" target="_blank" rel="noopener" data-book-sprint data-placement="hero">
               <span>Book a signal sprint</span><span class="button-arrow" aria-hidden="true">↗</span>
             </a>
-            <a class="text-link" href="#signal-dashboard" data-dashboard-anchor data-track="workflow_open">Explore the signal dashboard ↓</a>
+            <a class="text-link" href="#signal-dashboard" data-dashboard-anchor data-track="workflow_open">Explore the console ↓</a>
           </div>
         </div>
 
-        <section class="signal-instrument reveal" id="signal-dashboard" aria-labelledby="signal-preview-title" data-signal-preview data-preview-state="success">
+        <section class="signal-instrument reveal" id="signal-dashboard" aria-labelledby="signal-preview-title" data-signal-preview>
           <header class="instrument-top">
             <div>
               <p class="instrument-label">Signal ranking · Snapshot 04</p>
@@ -72,86 +72,142 @@
             <span class="preview-label">Interactive concept preview using illustrative data. Not a live customer account.</span>
           </header>
 
-          <div class="preview-state-message" role="status" aria-live="polite" hidden>
-            <div class="preview-skeleton" aria-hidden="true"><i></i><i></i><i></i></div>
-            <h3 data-state-title></h3>
-            <p data-state-copy></p>
-            <a class="instrument-link" href="#sprint-method" data-state-link hidden>See how the Sprint starts ↓</a>
-          </div>
+          <fieldset class="signal-selector" data-signal-selector>
+            <legend class="visually-hidden">Illustrative activation signal ranking</legend>
+            <input class="signal-input" type="radio" name="signal-preview" id="signal-task" value="task" data-signal-key="task" checked>
+            <input class="signal-input" type="radio" name="signal-preview" id="signal-session" value="session" data-signal-key="session">
+            <input class="signal-input" type="radio" name="signal-preview" id="signal-core" value="core" data-signal-key="core">
 
-          <div class="preview-success">
-            <div class="signal-ledger-head" aria-hidden="true">
-              <span>Rank</span><span>Activation signal</span><span>Lift</span><span>Coverage</span><span>Test</span>
-            </div>
-            <ol class="signal-ledger" role="listbox" aria-label="Illustrative activation signal ranking" aria-activedescendant="signal-task">
-              <li role="none">
-                <button class="signal-option" id="signal-task" type="button" role="option" aria-selected="true" aria-controls="signal-detail" tabindex="0" data-signal-key="task">
+            <div class="signal-ranking-zone">
+              <div class="signal-ledger-head" aria-hidden="true">
+                <span>Rank</span><span>Activation signal</span><span>Lift</span><span>Coverage</span><span>Test</span>
+              </div>
+              <div class="signal-ledger">
+                <label class="signal-option" for="signal-task">
                   <span class="signal-rank">1</span>
                   <span class="signal-name">Complete a first meaningful task<small class="movement up">↑ two positions</small></span>
-                  <span class="signal-lift"><small>Lift</small><strong data-value="+18%">+18%</strong></span>
-                  <span class="signal-coverage"><small>Coverage</small><strong data-value="44%">44%</strong></span>
+                  <span class="signal-lift"><small>Lift</small><strong>+18%</strong></span>
+                  <span class="signal-coverage"><small>Coverage</small><strong>44%</strong></span>
                   <span class="signal-status">Draft</span>
-                </button>
-              </li>
-              <li role="none">
-                <button class="signal-option" id="signal-session" type="button" role="option" aria-selected="false" aria-controls="signal-detail" tabindex="-1" data-signal-key="session">
+                </label>
+                <label class="signal-option" for="signal-session">
                   <span class="signal-rank">2</span>
                   <span class="signal-name">Return for a second active session<small class="movement down">↓ one position</small></span>
-                  <span class="signal-lift"><small>Lift</small><strong data-value="+15%">+15%</strong></span>
-                  <span class="signal-coverage"><small>Coverage</small><strong data-value="61%">61%</strong></span>
+                  <span class="signal-lift"><small>Lift</small><strong>+15%</strong></span>
+                  <span class="signal-coverage"><small>Coverage</small><strong>61%</strong></span>
                   <span class="signal-status">Review</span>
-                </button>
-              </li>
-              <li role="none">
-                <button class="signal-option" id="signal-core" type="button" role="option" aria-selected="false" aria-controls="signal-detail" tabindex="-1" data-signal-key="core">
+                </label>
+                <label class="signal-option" for="signal-core">
                   <span class="signal-rank">3</span>
                   <span class="signal-name">Use a core feature three times<small class="movement down">↓ one position</small></span>
-                  <span class="signal-lift"><small>Lift</small><strong data-value="+12%">+12%</strong></span>
-                  <span class="signal-coverage"><small>Coverage</small><strong data-value="28%">28%</strong></span>
+                  <span class="signal-lift"><small>Lift</small><strong>+12%</strong></span>
+                  <span class="signal-coverage"><small>Coverage</small><strong>28%</strong></span>
                   <span class="signal-status">Running</span>
-                </button>
-              </li>
-            </ol>
-
-            <section class="signal-detail" id="signal-detail" aria-labelledby="signal-detail-title">
-              <div class="signal-detail-context">
-                <p class="instrument-label">Selected signal</p>
-                <h3 id="signal-detail-title" data-bind="signal">Complete a first meaningful task</h3>
-                <p class="signal-prior" data-bind="prior">Previously 3 of 3</p>
-                <p data-bind="observation">Coverage moved from 38% to 44%. The timing coincides with an onboarding release; cause is unknown.</p>
+                </label>
               </div>
-              <div class="test-view" data-test-views>
-                <div class="test-tab-list" role="tablist" aria-label="Proposed test views">
-                  <button id="test-product" type="button" role="tab" aria-selected="true" aria-controls="panel-product">Product</button>
-                  <button id="test-lifecycle" type="button" role="tab" aria-selected="false" aria-controls="panel-lifecycle" tabindex="-1">Lifecycle</button>
-                  <button id="test-combined" type="button" role="tab" aria-selected="false" aria-controls="panel-combined" tabindex="-1">Combined</button>
-                </div>
-                <section class="test-panel" id="panel-product" role="tabpanel" aria-labelledby="test-product">
-                  <span class="instrument-label">Product test</span>
-                  <p data-bind="product">Test a clearer first-task prompt for eligible new users.</p>
-                </section>
-                <section class="test-panel" id="panel-lifecycle" role="tabpanel" aria-labelledby="test-lifecycle">
-                  <span class="instrument-label">Lifecycle test</span>
-                  <p data-bind="lifecycle">Test a day-one reminder for users who have not completed the task.</p>
-                </section>
-                <section class="test-panel" id="panel-combined" role="tabpanel" aria-labelledby="test-combined">
-                  <span class="instrument-label">Test sequence</span>
-                  <p data-bind="combined">Run the product prompt first while lifecycle stays unchanged. Test the reminder second.</p>
-                </section>
-              </div>
-            </section>
-          </div>
-
-          <details class="preview-state-inspector">
-            <summary>Inspect preview states</summary>
-            <div class="state-options" aria-label="Concept preview states">
-              <button type="button" data-preview-option="loading" aria-pressed="false">Loading</button>
-              <button type="button" data-preview-option="empty" aria-pressed="false">Empty</button>
-              <button type="button" data-preview-option="error" aria-pressed="false">Error</button>
-              <button type="button" data-preview-option="success" aria-pressed="true">Success</button>
-              <button type="button" data-preview-option="partial" aria-pressed="false">Partial</button>
             </div>
-          </details>
+
+            <div class="signal-details">
+              <section class="signal-detail" data-signal-detail="task" aria-labelledby="signal-task-title">
+                <div class="signal-detail-context">
+                  <p class="instrument-label">Selected signal</p>
+                  <h3 id="signal-task-title">Complete a first meaningful task</h3>
+                  <p class="signal-prior">Previously 3 of 3</p>
+                  <p class="signal-observation">Coverage moved from 38% to 44%. The timing overlaps an onboarding release; cause remains unknown.</p>
+                </div>
+                <div class="test-view" data-test-views>
+                  <div class="test-tab-list" aria-label="Proposed test views">
+                    <button id="test-task-product" type="button" data-test-view="product" aria-controls="panel-task-product" hidden>Product</button>
+                    <button id="test-task-lifecycle" type="button" data-test-view="lifecycle" aria-controls="panel-task-lifecycle" hidden>Lifecycle</button>
+                    <button id="test-task-combined" type="button" data-test-view="combined" aria-controls="panel-task-combined" hidden>Combined</button>
+                  </div>
+                  <section class="test-panel" id="panel-task-product" data-test-panel="product">
+                    <span class="instrument-label">Recommended Product test</span>
+                    <strong data-recommendation-title>Clarify the first-task prompt</strong>
+                    <p>Change one in-product surface for eligible new users. Keep lifecycle messages unchanged.</p>
+                  </section>
+                  <section class="test-panel" id="panel-task-lifecycle" data-test-panel="lifecycle">
+                    <span class="instrument-label">Recommended Lifecycle test</span>
+                    <strong data-recommendation-title>Remind users before day one ends</strong>
+                    <p>Message users who have not completed the task. Keep the product prompt unchanged.</p>
+                  </section>
+                  <section class="test-panel" id="panel-task-combined" data-test-panel="combined">
+                    <span class="instrument-label">Recommended test sequence</span>
+                    <strong data-recommendation-title>Test the prompt, then the reminder</strong>
+                    <p>Change the product prompt first and hold lifecycle constant, so any movement is attributable to that surface.</p>
+                  </section>
+                </div>
+              </section>
+
+              <section class="signal-detail" data-signal-detail="session" aria-labelledby="signal-session-title">
+                <div class="signal-detail-context">
+                  <p class="instrument-label">Selected signal</p>
+                  <h3 id="signal-session-title">Return for a second active session</h3>
+                  <p class="signal-prior">Previously 1 of 3</p>
+                  <p class="signal-observation">Descriptive lift moved from +17% to +15%. Cohort and event definitions remain under review.</p>
+                </div>
+                <div class="test-view" data-test-views>
+                  <div class="test-tab-list" aria-label="Proposed test views">
+                    <button id="test-session-product" type="button" data-test-view="product" aria-controls="panel-session-product" hidden>Product</button>
+                    <button id="test-session-lifecycle" type="button" data-test-view="lifecycle" aria-controls="panel-session-lifecycle" hidden>Lifecycle</button>
+                    <button id="test-session-combined" type="button" data-test-view="combined" aria-controls="panel-session-combined" hidden>Combined</button>
+                  </div>
+                  <section class="test-panel" id="panel-session-product" data-test-panel="product">
+                    <span class="instrument-label">Recommended Product test</span>
+                    <strong data-recommendation-title>Strengthen the return path</strong>
+                    <p>Show one clear next action after session one. Keep return messaging unchanged.</p>
+                  </section>
+                  <section class="test-panel" id="panel-session-lifecycle" data-test-panel="lifecycle">
+                    <span class="instrument-label">Recommended Lifecycle test</span>
+                    <strong data-recommendation-title>Test one day-two return reminder</strong>
+                    <p>Message users who ended session one without returning. Keep the product path unchanged.</p>
+                  </section>
+                  <section class="test-panel" id="panel-session-combined" data-test-panel="combined">
+                    <span class="instrument-label">Recommended test sequence</span>
+                    <strong data-recommendation-title>Test the reminder before the path</strong>
+                    <p>Hold the product experience constant, so any movement is attributable to the day-two reminder.</p>
+                  </section>
+                </div>
+              </section>
+
+              <section class="signal-detail" data-signal-detail="core" aria-labelledby="signal-core-title">
+                <div class="signal-detail-context">
+                  <p class="instrument-label">Selected signal</p>
+                  <h3 id="signal-core-title">Use a core feature three times</h3>
+                  <p class="signal-prior">Previously 2 of 3</p>
+                  <p class="signal-observation">Coverage moved from 32% to 28%. The signal remains exploratory while repeat-use definitions are reviewed.</p>
+                </div>
+                <div class="test-view" data-test-views>
+                  <div class="test-tab-list" aria-label="Proposed test views">
+                    <button id="test-core-product" type="button" data-test-view="product" aria-controls="panel-core-product" hidden>Product</button>
+                    <button id="test-core-lifecycle" type="button" data-test-view="lifecycle" aria-controls="panel-core-lifecycle" hidden>Lifecycle</button>
+                    <button id="test-core-combined" type="button" data-test-view="combined" aria-controls="panel-core-combined" hidden>Combined</button>
+                  </div>
+                  <section class="test-panel" id="panel-core-product" data-test-panel="product">
+                    <span class="instrument-label">Recommended Product test</span>
+                    <strong data-recommendation-title>Make the repeat path obvious</strong>
+                    <p>Guide first-time users back to the core feature. Keep lifecycle reminders unchanged.</p>
+                  </section>
+                  <section class="test-panel" id="panel-core-lifecycle" data-test-panel="lifecycle">
+                    <span class="instrument-label">Recommended Lifecycle test</span>
+                    <strong data-recommendation-title>Nudge users after their first use</strong>
+                    <p>Message users who used the feature once but did not return. Keep the product path unchanged.</p>
+                  </section>
+                  <section class="test-panel" id="panel-core-combined" data-test-panel="combined">
+                    <span class="instrument-label">Recommended test sequence</span>
+                    <strong data-recommendation-title>Test the path before the nudge</strong>
+                    <p>Clarify the repeat path first and hold lifecycle constant, so any movement is attributable to that surface.</p>
+                  </section>
+                </div>
+              </section>
+            </div>
+          </fieldset>
+
+          <div class="console-trust" aria-label="Illustrative snapshot status">
+            <span class="trust-summary"><span>Definition status shown per signal</span><span>Illustrative snapshot</span></span>
+            <span>Ranking review · recurring</span>
+          </div>
+          <div class="visually-hidden" aria-live="polite" aria-atomic="true" data-signal-announcement></div>
         </section>
       </div>
     </section>
@@ -286,6 +342,6 @@
 </footer>
 
   <script src="/build/scripts-site.8ef75b412cbc.js" defer></script>
-  <script src="/build/scripts-app.8c4a156ce4e0.js" defer></script>
+  <script src="/build/scripts-app.8a87bf242b1e.js" defer></script>
 </body>
 </html>

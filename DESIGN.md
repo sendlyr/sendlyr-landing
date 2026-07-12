@@ -44,7 +44,7 @@ Spacing uses a 4px rhythm. Main steps are 8, 12, 16, 20, 24, 32, 40, 48, 64, 80,
 ## Layout
 
 ```text
-wide desktop 1080+       composed tablet 761–1079       editorial mobile ≤760
+wide desktop 1240+       composed tablet 761–1239       editorial mobile ≤760
 ┌───────┬───────────┐    ┌──────────────────────┐       ┌─────────────────┐
 │ thesis│ signal    │    │ thesis               │       │ brand + action  │
 │       │ instrument│    │ signal instrument    │       │ route rail      │
@@ -80,6 +80,8 @@ Use one ranked list of activation signals or leading indicators. Each row shows 
 
 Signal examples must work across industries. Prefer “complete a first meaningful task” over internal acronyms or lifecycle-only events.
 
+On the homepage, signal selection uses native radios. Do not combine listbox roles, option buttons, and `aria-activedescendant`. JavaScript may update downstream illustrative bindings and announce the changed recommendation, but native radios own selection semantics.
+
 ### Movement annotation
 
 Show when a signal changes rank after a release or new observation window. State what changed and what remains unknown. Never use a causal arrow unless causality is established.
@@ -92,7 +94,9 @@ Every selected signal can reveal a Product test, a Lifecycle test, and a coordin
 
 The homepage instrument is an illustrative, interactive concept. It is not a live customer account or a claim that the monitoring product already exists. Keep that boundary visible beside the preview.
 
-The preview supports loading, empty, error, success, and partial-data states. Semantic content and the Sprint offer remain available without JavaScript.
+The enhanced console uses four fixed zones: 80px header, 244px ranking, 258px decision detail, and 38px trust footer. Signal and Product/Lifecycle/Combined changes never resize the desktop console.
+
+The public landing page does not simulate loading, empty, error, success, or partial states. Those belong to a future live-product component, not visitor controls. Semantic signal and recommendation content remains available without JavaScript.
 
 ### Result summary
 
@@ -100,7 +104,7 @@ Treatment 84/121 (69.4%), Control 33/57 (57.9%), +19.9% relative lift, and +11.5
 
 ### Disclosure and tabs
 
-Semantic content exists before JavaScript. Enhancements add roving tab focus, arrow/Home/End keys, selected state, and `aria-controls`. Mobile disclosures return focus to their trigger when closed.
+Semantic content exists before JavaScript. Tab buttons remain natively hidden until enhancement; Product, Lifecycle, and Combined sections remain readable without scripts. Enhancement adds horizontal Left/Right navigation, Home/End keys, selected state, controlled panels, and a polite recommendation announcement.
 
 ## Page archetypes
 
