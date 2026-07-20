@@ -4,7 +4,7 @@
 
 ## Primary pages
 
-- [Home](https://sendlyr.com/): Activation Signal Sprint overview and Typesy VIP result.
+- [Home](https://sendlyr.com/): Revenue Leak Map and continuous decision-layer overview.
 - [How it works](https://sendlyr.com/how-it-works): Discover, validate, and operate method.
 - [Typesy VIP case study](https://sendlyr.com/blog/pai-discovery-case-study): Controlled leading-indicator experiment.
 - [Fitness apps](https://sendlyr.com/for/fitness-apps): Fitness activation use case.

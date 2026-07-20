@@ -107,7 +107,7 @@
   min-width: 0;
   padding: 25px 4px 0;
   color: var(--faint);
-  font-size: 9px;
+  font-size: 14px;
   font-weight: 680;
   line-height: 1.25;
   text-align: center;
@@ -127,7 +127,7 @@
   border-radius: 50%;
   color: var(--faint);
   background: var(--surface);
-  font: 600 7px var(--mono);
+  font: 600 10px var(--mono);
   transform: translateX(-50%);
 }
 .journey-rail li.is-complete::before { border-color: var(--teal); }
@@ -138,7 +138,7 @@
 .leak-readout {
   display: grid;
   grid-template-columns: .85fr 1.15fr;
-  grid-auto-rows: 92px;
+  grid-auto-rows: minmax(96px, auto);
   margin-top: 24px;
   border: 1px solid var(--line);
   background: var(--surface-2);
@@ -155,7 +155,7 @@
   text-transform: uppercase;
 }
 .leak-readout strong,
-.flow-fact strong { display: block; margin-top: 7px; color: var(--ink-2); font-size: 11px; line-height: 1.32; }
+.flow-fact strong { display: block; margin-top: 7px; color: var(--ink-2); font-size: 15px; line-height: 1.4; }
 .leak-readout .readout-action { background: var(--instrument); }
 .leak-readout .readout-action span { color: var(--treatment-bright); }
 .leak-readout .readout-action strong { color: #fff; font: italic 480 18px/1.12 var(--display); }
@@ -172,10 +172,10 @@
 .evidence-contract-title .eyebrow { margin-bottom: 10px; }
 .evidence-contract-title h2 { max-width: 360px; margin: 0; font-size: clamp(27px, 3vw, 38px); }
 .evidence-contract ol { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; padding: 0; list-style: none; }
-.evidence-contract li { min-width: 0; min-height: 108px; padding: 4px 16px 4px 18px; border-left: 1px solid var(--line); }
+.evidence-contract li { min-width: 0; min-height: 126px; padding: 4px 16px 4px 18px; border-left: 1px solid var(--line); }
 .evidence-contract li > span { color: var(--teal); font: 650 8px var(--mono); }
-.evidence-contract strong { display: block; margin-top: 12px; color: var(--ink); font-size: 12px; }
-.evidence-contract small { display: block; margin-top: 5px; color: var(--faint); font-size: 10px; line-height: 1.4; }
+.evidence-contract strong { display: block; margin-top: 12px; color: var(--ink); font-size: 15px; }
+.evidence-contract small { display: block; margin-top: 5px; color: var(--mute); font-size: 14px; line-height: 1.45; }
 
 /* Continuous decision flow */
 .decision-layer-section { scroll-margin-top: 24px; }
@@ -258,7 +258,7 @@
 .package-summary dt,
 .decision-rationale dt { color: var(--teal); font: 650 8px/1.35 var(--mono); letter-spacing: .04em; text-transform: uppercase; }
 .package-summary dd,
-.decision-rationale dd { margin: 9px 0 0; color: var(--ink-2); font-size: 11px; font-weight: 690; line-height: 1.4; }
+.decision-rationale dd { margin: 9px 0 0; color: var(--ink-2); font-size: 15px; font-weight: 690; line-height: 1.45; }
 .package-summary .package-action { color: #fff; background: var(--instrument); }
 .package-summary .package-action dt { color: var(--treatment-bright); }
 .package-summary .package-action dd { color: #fff; font: italic 480 19px/1.15 var(--display); }
@@ -266,7 +266,7 @@
 .package-summary .package-approval dt { color: var(--violet-soft); }
 .package-summary .package-approval dd { color: #fff; }
 .decision-rationale { border-top: 1px solid var(--ink); }
-.decision-rationale summary { min-height: 54px; padding: 17px 46px 15px 20px; color: var(--ink); background: var(--surface-2); font-size: 12px; font-weight: 760; cursor: pointer; }
+.decision-rationale summary { min-height: 54px; padding: 17px 46px 15px 20px; color: var(--ink); background: var(--surface-2); font-size: 15px; font-weight: 760; cursor: pointer; }
 .decision-rationale summary::marker { color: var(--teal); }
 .decision-rationale dl { display: grid; grid-template-columns: repeat(5, 1fr); margin: 0; border-top: 1px solid var(--line); }
 .decision-rationale dl > div { min-width: 0; padding: 18px; border-right: 1px solid var(--line); }
@@ -284,7 +284,7 @@
 .offer-io section { min-width: 0; align-self: stretch; padding: 18px; border: 1px solid rgba(255,255,255,.18); }
 .offer-io section > p { margin: 0 0 13px; color: var(--treatment-bright); font: 650 9px var(--mono); text-transform: uppercase; }
 .offer-io ul { margin: 0; padding: 0; list-style: none; }
-.offer-io li { padding: 8px 0 8px 14px; border-top: 1px solid rgba(255,255,255,.12); color: var(--instrument-soft); font-size: 9px; line-height: 1.4; }
+.offer-io li { padding: 8px 0 8px 14px; border-top: 1px solid rgba(255,255,255,.12); color: var(--instrument-soft); font-size: 14px; line-height: 1.45; }
 .offer-io li::before { content: "+"; float: left; margin-left: -14px; color: var(--treatment-bright); font-family: var(--mono); }
 .offer-arrow { color: var(--treatment-bright); font: 650 16px var(--mono); }
 
@@ -337,14 +337,14 @@
   .leak-tabs { display: flex; overflow-x: auto; scroll-padding-inline: 10px 38px; scrollbar-width: none; }
   .leak-tabs::-webkit-scrollbar { display: none; }
   .leak-tabs button { min-width: 142px; min-height: 52px; flex: 0 0 auto; }
-  .leak-panel { height: 434px; padding: 22px 14px; }
-  .journey-rail li { padding-inline: 2px; font-size: 7px; }
-  .leak-readout { grid-template-columns: 1fr; grid-auto-rows: 82px; }
+  .leak-panel { min-height: 520px; padding: 22px 14px; }
+  .journey-rail li { padding-inline: 2px; font-size: 14px; }
+  .leak-readout { grid-template-columns: 1fr; grid-auto-rows: minmax(92px, auto); }
   .leak-readout > div { border-right: 0; border-bottom: 1px solid var(--line); }
   .leak-readout > div:nth-last-child(-n + 2) { border-bottom: 1px solid var(--line); }
   .leak-readout > div:last-child { border-bottom: 0; }
   .evidence-contract ol { grid-template-columns: 1fr; }
-  .evidence-contract li { min-height: 86px; padding: 14px 0; border-top: 1px solid var(--line); border-left: 0; }
+  .evidence-contract li { min-height: 0; padding: 14px 0; border-top: 1px solid var(--line); border-left: 0; }
   .evidence-contract li:nth-child(n + 3) { padding-top: 14px; }
   .decision-flow { margin-inline: -1px; padding: 12px; border-radius: 12px; box-shadow: 7px 7px 0 var(--teal-soft); }
   .activation-sequence { grid-template-columns: 1fr; }
