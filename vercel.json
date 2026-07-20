@@ -4,7 +4,7 @@
   "outputDirectory": "public",
   "cleanUrls": true,
   "functions": {
-    "api/*.js": { "runtime": "nodejs24.x", "maxDuration": 10 }
+    "api/*.js": { "maxDuration": 10 }
   },
   "headers": [
     {

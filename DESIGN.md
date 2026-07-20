@@ -1,10 +1,10 @@
 # Sendlyr landing design system
 
-Sendlyr should feel like an activation-signal instrument: precise, calm, and evidence-led. The audience is lifecycle, growth, and product leaders. Every page has one job: make the Activation Signal Sprint credible enough to book.
+Sendlyr should feel like a calm decision instrument for Product, Growth, and Lifecycle leaders. The homepage helps a team find one customer-journey leak, while the supporting routes explain the Activation Signal Sprint and its evidence.
 
 ## Signature
 
-The 178-user Typesy cohort observatory is the memorable element. It turns sample size, treatment, control, and lift into one inspectable object. Other sections stay quiet: editorial rows, hairlines, short copy, and restrained controls.
+The homepage Revenue Leak Map is the primary visual anchor. It connects one customer state to one behavior, one action, and one measurement plan. The continuous decision layer shows how evidence returns after a measured outcome. The Typesy result remains supporting proof on its dedicated routes.
 
 ## Tokens
 
@@ -42,12 +42,12 @@ Spacing uses a 4px rhythm. Main steps are 8, 12, 16, 20, 24, 32, 40, 48, 64, 80,
 ## Layout
 
 ```text
-wide desktop 1080+       composed tablet 761–1079       editorial mobile ≤760
+wide desktop 1100+       composed tablet 761–1099       editorial mobile ≤760
 ┌───────┬───────────┐    ┌──────────────────────┐       ┌─────────────────┐
-│ thesis│ proof     │    │ thesis               │       │ brand + action  │
-│       │ instrument│    │ proof instrument     │       │ route rail      │
+│ thesis│ leak map  │    │ thesis               │       │ brand + action  │
+│       │           │    │ leak map             │       │ route rail      │
 └───────┴───────────┘    └──────────────────────┘       │ thesis          │
-                                                       │ result summary  │
+                                                       │ leak map        │
                                                        └─────────────────┘
 ```
 
@@ -65,15 +65,23 @@ Compact logo/action row plus route rail. On mobile the route rail scrolls horizo
 
 ### Buttons
 
-Primary buttons use ink or teal, a 100px pill radius, and a contained arrow. Hover moves at most 1px. Focus uses a visible 2px teal outline. The label is always “Book an Activation Signal Sprint” or the compact “Book a sprint.”
+Primary buttons use ink or teal, a 100px pill radius, and a contained arrow. Hover moves at most 1px. Focus uses a visible 2px teal outline. Public booking actions use “Find your first revenue leak.”
 
 ### Evidence ledger
 
 Use divided rows with a mono label, a concise serif statement, and one supporting sentence. Do not turn static information into hoverable cards.
 
+### Revenue Leak Map
+
+The homepage uses one tab system for Activation, Conversion, and Retention. Each tab keeps the same four fields: customer-journey leak, customer state, leading behavior, and recommended next action. The instrument stays stable across states and retains its content without JavaScript.
+
+### Continuous decision layer
+
+Show one path from existing evidence through Sendlyr, human approval, delivery, measurement, and the return loop. Platform marks provide context and never imply endorsement. The diagram must remain understandable when a mark becomes text.
+
 ### Result summary
 
-Treatment 84/121 (69.4%), Control 33/57 (57.9%), +19.9% relative lift, and +11.5pp absolute lift stay together. The leading-indicator and long-term-retention boundary stays adjacent.
+Treatment 84/121 (69.4%), Control 33/57 (57.9%), +19.9% relative lift, and +11.5pp absolute lift stay together wherever the Typesy result appears. The leading-indicator and long-term-retention boundary stays adjacent.
 
 ### Disclosure and tabs
 
@@ -86,6 +94,8 @@ Semantic content exists before JavaScript. Enhancements add roving tab focus, ar
 - Editorial: thesis → evidence → interpretation → limitation → method/next step.
 
 Page tailoring changes the problem, examples, evidence, and metadata. It does not invent a new product or visual identity.
+
+- Homepage: revenue-leak thesis → interactive example → evidence contract → continuous decision layer → reviewable package → CTA.
 
 ## Motion
 
@@ -102,11 +112,13 @@ Three families only: one brand/promise entrance, one cohort evidence fill, and s
 
 ## Quantitative claims
 
-Every number needs a source, cohort, method, qualifier, limitation, permitted pages, and approval status. The pre-approved public result is the Typesy VIP first-course-within-four-days leading indicator. It does not prove long-term retention lift.
+Every number needs a source, cohort, method, qualifier, limitation, permitted pages, and approval status. The Typesy VIP result stays on the approved supporting routes and does not prove long-term retention lift. `RELEASE_CHECKLIST.md` records the publication decision and evidence boundary.
 
 ## Hard constraints
 
 - Static output only. No React, Vite, Next.js, Tailwind, TypeScript, or runtime templates.
 - No new hue, font, generic stat-card grid, stock imagery, or decorative dashboard chrome.
+- Do not use PAI or PP in public positioning. Use “activation signal” or “leading indicator.”
+- Do not position Sendlyr as lifecycle-only or email-only. Product and Lifecycle teams share one decision layer.
 - No raw secret keys in public code or committed files.
 - No sentence longer than 20 words where the message can be split cleanly.

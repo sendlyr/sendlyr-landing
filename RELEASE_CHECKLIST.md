@@ -10,7 +10,10 @@ Deployment is intentionally blocked until every unchecked release gate is resolv
 - [x] Keep human approval, existing-stack delivery, a measurable outcome, and the return loop visible.
 - [x] Use the same activation scenario in the decision loop and decision package.
 - [x] Add the homepage-specific 1200×630 Open Graph asset without a customer logo or metric.
-- [x] Pass the deterministic build, 27 unit checks, performance budgets, and 48 desktop/mobile browser checks.
+- [x] Pass the deterministic build, 27 unit checks, performance budgets, and 52 desktop/mobile browser checks.
+- [x] Align public booking actions on the shared wedge-first CTA without changing the Calendly destination.
+- [x] Restore the Vercel function configuration to the production `main` contract.
+- [x] Reconcile `DESIGN.md` with the Revenue Leak Map, continuous decision layer, and Typesy supporting-proof role.
 - [ ] Show the page to five qualified Product, Growth, or Lifecycle leaders for 15 seconds and record their exact understanding and first hesitation.
 - [ ] Replace the complete `revenue leak` copy package if at least three participants interpret it as finance, billing, or generic consulting.
 - [ ] Review PostgreSQL, SQL Server, PostHog, Braze, and Customer.io mark usage against each vendor's current trademark guidelines. Replace any uncleared image mark with text.
@@ -26,7 +29,7 @@ Deployment is intentionally blocked until every unchecked release gate is resolv
 | `/blog/pai-discovery-case-study` | Named 178-user result and observed 19.9% relative difference | Typesy VIP experiment outcome supplied for publication | 2026-07-10 | Page states the descriptive result and that significance is not established | Stephen | **Written status not recorded — release blocker** |
 | Shared Open Graph asset | Named Typesy result and metrics in `og-default` | Typesy VIP experiment outcome supplied for publication | 2026-07-10 | Asset states `Descriptive result · significance not established` | Stephen | **Written status not recorded — release blocker** |
 
-If written publication permission cannot be produced, remove or anonymize every blocked Typesy surface before deployment. The homepage already avoids the claim.
+Stephen directed the release branch to retain the full Typesy details on 2026-07-20. The homepage still avoids the claim. Written publication status remains a pre-deployment check unless Stephen explicitly accepts that release risk.
 
 ## Platform-mark boundary
 
@@ -38,8 +41,8 @@ SendGrid remains text-only. The diagram must remain understandable if every thir
 
 | Route | Current phrase | Assessment | Proposed correction | Owner | Target |
 | --- | --- | --- | --- | --- | --- |
-| `/how-it-works` | `Activation Signal Sprint` | Acceptable as the fulfillment format for the first revenue-leak engagement | Clarify the relationship on the route when its body copy is next revised | Stephen | Before production or record as accepted |
-| `/for/fitness-apps` | `Book an Activation Signal Sprint` | CTA wording differs from the shared wedge-first action | Change to `Find your first revenue leak` without changing the Calendly destination | Stephen | Before production |
-| `/for/cooking-apps` | `Book an Activation Signal Sprint` | CTA wording differs from the shared wedge-first action | Change to `Find your first revenue leak` without changing the Calendly destination | Stephen | Before production |
-| `/for/edtech-apps` | `Book an Activation Signal Sprint` | CTA wording differs and the route contains blocked named proof | Align the CTA and resolve the Typesy permission gate | Stephen | Before production |
-| `/blog` and case study | Named Typesy proof | Commercial proof is useful but publication permission is not recorded | Preserve only after written permission is attached to this register | Stephen | Before production |
+| `/how-it-works` | `Activation Signal Sprint` plus `Find your first revenue leak` | Resolved: the route identifies the Sprint as Sendlyr’s first focused engagement | None | Stephen | Complete |
+| `/for/fitness-apps` | `Find your first revenue leak` | Resolved | None | Stephen | Complete |
+| `/for/cooking-apps` | `Find your first revenue leak` | Resolved | None | Stephen | Complete |
+| `/for/edtech-apps` | `Find your first revenue leak` plus the named Typesy proof | CTA resolved; Typesy details retained by Stephen’s direction | Record publication status before deployment | Stephen | CTA complete; proof check open |
+| `/blog` and case study | Named Typesy proof | Retained by Stephen’s direction | Record publication status before deployment | Stephen | Proof check open |

@@ -245,6 +245,18 @@ test("one primary CTA phrase is used across the homepage", async ({ page }) => {
   ]);
 });
 
+test("all public booking actions use the wedge-first CTA", async ({ page }) => {
+  for (const route of routes) {
+    await page.goto(route);
+    const links = page.locator("[data-book-sprint]");
+    expect(await links.count(), route).toBeGreaterThan(0);
+    for (const link of await links.all()) {
+      await expect(link, route).toContainText("Find your first revenue leak");
+      await expect(link, route).toHaveAttribute("href", "https://calendly.com/dquang191104/30min");
+    }
+  }
+});
+
 test("reduced motion resolves immediately", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
