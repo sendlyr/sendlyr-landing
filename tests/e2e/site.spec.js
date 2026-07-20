@@ -63,12 +63,41 @@ test("revenue leak map supports arrow, Home, and End keys", async ({ page }) => 
   await page.goto("/");
   const activation = page.getByRole("tab", { name: "Activation Onboarding" });
   await activation.focus();
+  await page.keyboard.press("ArrowLeft");
+  await expect(page.getByRole("tab", { name: "Retention Early habit" })).toHaveAttribute("aria-selected", "true");
   await page.keyboard.press("ArrowRight");
-  await expect(page.getByRole("tab", { name: "Conversion First value" })).toHaveAttribute("aria-selected", "true");
+  await expect(activation).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("ArrowUp");
+  await expect(page.getByRole("tab", { name: "Retention Early habit" })).toHaveAttribute("aria-selected", "true");
   await page.keyboard.press("End");
   await expect(page.getByRole("tab", { name: "Retention Early habit" })).toHaveAttribute("aria-selected", "true");
   await page.keyboard.press("Home");
   await expect(activation).toHaveAttribute("aria-selected", "true");
+});
+
+test("homepage Open Graph and platform assets decode at their declared dimensions", async ({ page }) => {
+  await page.goto("/");
+  const og = await page.locator('meta[property="og:image"]').getAttribute("content");
+  expect(og).toBe("https://sendlyr.com/assets/og/og-home.png");
+
+  const dimensions = await page.evaluate(async () => {
+    const load = (src) => new Promise((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => resolve({ src, width: image.naturalWidth, height: image.naturalHeight });
+      image.onerror = () => reject(new Error(`Unable to decode ${src}`));
+      image.src = src;
+    });
+    return Promise.all([
+      load("/assets/og/og-home.png"),
+      ...[...document.querySelectorAll(".source-databases img, .provider-marks img")].map((image) => load(image.getAttribute("src"))),
+    ]);
+  });
+
+  expect(dimensions[0]).toEqual({ src: "/assets/og/og-home.png", width: 1200, height: 630 });
+  for (const asset of dimensions.slice(1)) {
+    expect(asset.width, asset.src).toBeGreaterThan(0);
+    expect(asset.height, asset.src).toBeGreaterThan(0);
+  }
 });
 
 test("hero decision instrument remains stable across states", async ({ page }) => {

@@ -33,6 +33,10 @@ test("event builder permits only the public taxonomy", () => {
   assert.match(validateEvent({ ...event, properties: { email: "nope" } }), /properties/);
   assert.match(validateEvent({ ...event, event_name: "cohort_toggle", properties: { state: "maybe" } }), /state/);
   assert.equal(validateEvent({ ...event, event_name: "decision_loop_step", properties: { step: "learn" } }), "");
+  assert.equal(validateEvent({ ...event, event_name: "decision_trace_change", properties: { state: "at_risk" } }), "");
+  assert.equal(validateEvent({ ...event, event_name: "journey_archetype_change", properties: { archetype: "goal_driven_novice" } }), "");
+  assert.equal(validateEvent({ ...event, event_name: "delivery_path_change", properties: { path: "existing_lifecycle_stack" } }), "");
+  assert.match(validateEvent({ ...event, event_name: "decision_loop_step", properties: { step: "unknown" } }), /loop/);
   assert.match(validateEvent({ ...event, event_name: "decision_trace_change", properties: { state: "unknown" } }), /trace/);
   assert.match(validateEvent({ ...event, event_name: "journey_archetype_change", properties: { archetype: "demographic_label" } }), /archetype/);
   assert.match(validateEvent({ ...event, event_name: "delivery_path_change", properties: { path: "replacement_platform" } }), /delivery/);
