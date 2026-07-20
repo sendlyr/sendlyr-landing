@@ -12,6 +12,10 @@
     "book_sprint_click",
     "cohort_toggle",
     "proof_tab_change",
+    "decision_trace_change",
+    "decision_loop_step",
+    "journey_archetype_change",
+    "delivery_path_change",
   ]);
   let eventCount = 0;
 
