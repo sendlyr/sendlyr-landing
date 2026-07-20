@@ -10,7 +10,7 @@ Deployment is intentionally blocked until every unchecked release gate is resolv
 - [x] Keep human approval, existing-stack delivery, a measurable outcome, and the return loop visible.
 - [x] Use the same activation scenario in the decision loop and decision package.
 - [x] Add the homepage-specific 1200×630 Open Graph asset without a customer logo or metric.
-- [x] Pass the deterministic build, 27 unit checks, performance budgets, and 52 desktop/mobile browser checks.
+- [x] Pass the deterministic build, 27 unit checks, performance budgets, and 54 desktop/mobile browser checks.
 - [x] Align public booking actions on the shared wedge-first CTA without changing the Calendly destination.
 - [x] Restore the Vercel function configuration to the production `main` contract.
 - [x] Reconcile `DESIGN.md` with the Revenue Leak Map, continuous decision layer, and Typesy supporting-proof role.

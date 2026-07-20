@@ -13,9 +13,6 @@
     "cohort_toggle",
     "proof_tab_change",
     "decision_trace_change",
-    "decision_loop_step",
-    "journey_archetype_change",
-    "delivery_path_change",
   ]);
   let eventCount = 0;
 
@@ -120,7 +117,7 @@
     const target = event.target.closest("a[data-track]");
     if (target) track(target.dataset.track, { href: target.pathname || target.href });
     const navigation = event.target.closest(".nav-route-row a, .footer-links a");
-    if (navigation) track("navigation_click", { href: navigation.pathname, placement: navigation.closest("footer") ? "footer" : "header" });
+    if (navigation) track("navigation_click", { href: `${navigation.pathname}${navigation.hash}`, placement: navigation.closest("footer") ? "footer" : "header" });
   });
 
   track("page_view", { title: document.title });

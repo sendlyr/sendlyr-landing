@@ -4,14 +4,28 @@
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
 
   for (const tabs of document.querySelectorAll("[data-instrument-tabs]")) {
-    const controls = [...tabs.querySelectorAll('[role="tab"]')];
-    const panels = [...tabs.querySelectorAll('[role="tabpanel"]')];
+    const tablist = tabs.querySelector(".leak-tabs");
+    const controls = [...tabs.querySelectorAll("[data-instrument-tab]")];
+    const panels = [...tabs.querySelectorAll("[data-instrument-panel]")];
     const eventName = tabs.dataset.event;
     const propertyName = tabs.dataset.property;
 
+    tablist?.setAttribute("role", "tablist");
+    controls.forEach((control, index) => {
+      control.hidden = false;
+      control.setAttribute("role", "tab");
+      control.setAttribute("aria-controls", control.dataset.controls);
+      control.setAttribute("aria-selected", String(index === 0));
+      control.tabIndex = index === 0 ? 0 : -1;
+    });
+    panels.forEach((panel, index) => {
+      panel.setAttribute("role", "tabpanel");
+      panel.setAttribute("aria-labelledby", controls[index]?.id || "");
+    });
+
     function reveal(control) {
-      const tablist = control.closest('[role="tablist"]');
-      if (!tablist || tablist.scrollWidth <= tablist.clientWidth) return;
+      const list = control.closest('[role="tablist"]');
+      if (!list || list.scrollWidth <= list.clientWidth) return;
       control.scrollIntoView({
         behavior: reduceMotion.matches ? "auto" : "smooth",
         block: "nearest",

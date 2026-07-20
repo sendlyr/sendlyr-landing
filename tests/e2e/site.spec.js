@@ -141,6 +141,10 @@ test("continuous decision layer uses one activation scenario and a connected fee
     "First meaningful task completed within 48h",
     "Raise the rule’s priority only if the pattern repeats",
   ]) await expect(flow).toContainText(value);
+  const undersizedDecisionText = await flow.locator(".flow-fact strong, .sendlyr-core dd, .activation-sequence strong, .feedback-loop li strong").evaluateAll((items) => items
+    .map((item) => ({ text: item.textContent.trim(), size: Number.parseFloat(getComputedStyle(item).fontSize) }))
+    .filter(({ size }) => size < 16));
+  expect(undersizedDecisionText).toEqual([]);
   await expect(flow.getByAltText("Braze")).toBeVisible();
   await expect(flow.getByAltText("Customer.io")).toBeVisible();
   await expect(flow).toContainText("SendGrid");
@@ -221,12 +225,44 @@ test("analytics is disabled by default", async ({ page }) => {
   expect(eventRequests).toHaveLength(0);
 });
 
+test("enabled analytics records one decision event for each changed tab", async ({ page }) => {
+  const events = [];
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "sendBeacon", { configurable: true, value: undefined });
+  });
+  await page.route((url) => url.pathname === "/", async (route) => {
+    const response = await route.fetch();
+    const body = (await response.text()).replace('data-analytics-enabled="false"', 'data-analytics-enabled="true"');
+    await route.fulfill({ response, body, headers: { ...response.headers(), "content-type": "text/html; charset=utf-8" } });
+  });
+  await page.route("**/api/events", async (route) => {
+    events.push(route.request().postDataJSON());
+    await route.fulfill({ status: 202, contentType: "application/json", body: '{"ok":true,"stored":true}' });
+  });
+
+  await page.goto("/");
+  await page.getByRole("tab", { name: "Conversion First value" }).click();
+  await expect.poll(() => events.filter((event) => event.event_name === "decision_trace_change").length).toBe(1);
+  expect(events.find((event) => event.event_name === "decision_trace_change").properties).toEqual({ state: "exploring" });
+
+  await page.getByRole("tab", { name: "Conversion First value" }).click();
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  expect(events.filter((event) => event.event_name === "decision_trace_change")).toHaveLength(1);
+
+  await page.getByLabel("Explore Sendlyr").getByRole("link", { name: "Decision layer" }).click();
+  await expect.poll(() => events.filter((event) => event.event_name === "navigation_click").length).toBe(1);
+  expect(events.find((event) => event.event_name === "navigation_click").properties).toEqual({ href: "/#decision-layer", placement: "header" });
+});
+
 test("essential buying information survives without JavaScript", async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "Find the customer-journey leak worth fixing first." })).toBeVisible();
-  await expect(page.getByRole("tabpanel", { name: "Activation Onboarding" })).toBeVisible();
+  await expect(page.getByRole("tab")).toHaveCount(0);
+  await expect(page.locator("[data-instrument-tab]:visible")).toHaveCount(0);
+  await expect(page.locator("[data-instrument-panel]")).toHaveCount(3);
+  for (const panel of await page.locator("[data-instrument-panel]").all()) await expect(panel).toBeVisible();
   await expect(page.locator(".evidence-contract")).toBeVisible();
   await expect(page.locator(".decision-flow")).toBeVisible();
   await expect(page.locator(".decision-package")).toBeVisible();

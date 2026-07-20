@@ -17,11 +17,11 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/build/assets-logo-sendlyr-icon-512.6610a6e29850.png">
   <link rel="preload" href="/build/assets-fonts-inter-latin-variable.3100e775e861.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/build/assets-fonts-source-serif-4-latin-italic-variable.96e639320972.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/build/home-fonts.5e83db321c84.css">
+  <link rel="preload" href="/build/assets-fonts-source-serif-4-latin-variable.f2ea9c12d2fe.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/build/home-fonts.f040cdb0843e.css">
   <link rel="stylesheet" href="/build/styles.e03542bcecd1.css">
   <link rel="stylesheet" href="/build/site.15269b4d183a.css">
-  <link rel="stylesheet" href="/build/enhance.3b32915befe1.css">
+  <link rel="stylesheet" href="/build/enhance.1d665b987360.css">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://sendlyr.com/#organization","name":"Sendlyr","url":"https://sendlyr.com/","logo":"https://sendlyr.com/build/assets-logo-sendlyr-icon-512.6610a6e29850.png"},{"@type":"WebSite","@id":"https://sendlyr.com/#website","url":"https://sendlyr.com/","name":"Sendlyr","publisher":{"@id":"https://sendlyr.com/#organization"}},{"@type":"Service","@id":"https://sendlyr.com/#revenue-leak-analysis","name":"Sendlyr revenue leak analysis","provider":{"@id":"https://sendlyr.com/#organization"},"description":"Sendlyr turns existing product behavior into one priority customer state, one next best action, and a measurable test."}]}</script>
 </head>
 <body class="home-page">
@@ -56,7 +56,7 @@
       <div class="hero-copy">
         <p class="eyebrow">Activation · Conversion · Retention</p>
         <h1 id="home-title">Find the customer-journey leak worth fixing first.</h1>
-        <p class="hero-lede">Sendlyr turns the behavioral data you already have into one priority customer state, one next best action, and a test your team can run.</p>
+        <p class="hero-lede">Sendlyr turns your behavioral data into one priority customer state and one next best action. Your team gets a measurable test.</p>
         <div class="button-row">
           <a class="button" href="https://calendly.com/dquang191104/30min" target="_blank" rel="noopener" data-book-sprint data-placement="hero">
             <span>Find your first revenue leak</span><span class="button-arrow" aria-hidden="true">↗</span>
@@ -73,13 +73,13 @@
           </div>
           <span class="map-status">Illustrative</span>
         </div>
-        <div class="leak-tabs scroll-cue" role="tablist" aria-label="Customer-journey problem">
-          <button id="leak-activation" type="button" role="tab" aria-selected="true" aria-controls="leak-panel-activation" data-value="new_user"><span>Activation</span><small>Onboarding</small></button>
-          <button id="leak-conversion" type="button" role="tab" aria-selected="false" aria-controls="leak-panel-conversion" data-value="exploring" tabindex="-1"><span>Conversion</span><small>First value</small></button>
-          <button id="leak-retention" type="button" role="tab" aria-selected="false" aria-controls="leak-panel-retention" data-value="at_risk" tabindex="-1"><span>Retention</span><small>Early habit</small></button>
+        <div class="leak-tabs scroll-cue" aria-label="Customer-journey problem">
+          <button id="leak-activation" type="button" hidden data-instrument-tab data-controls="leak-panel-activation" data-value="new_user"><span>Activation</span><small>Onboarding</small></button>
+          <button id="leak-conversion" type="button" hidden data-instrument-tab data-controls="leak-panel-conversion" data-value="exploring"><span>Conversion</span><small>First value</small></button>
+          <button id="leak-retention" type="button" hidden data-instrument-tab data-controls="leak-panel-retention" data-value="at_risk"><span>Retention</span><small>Early habit</small></button>
         </div>
         <div class="leak-panels">
-          <section class="instrument-panel leak-panel" id="leak-panel-activation" role="tabpanel" aria-labelledby="leak-activation">
+          <section class="instrument-panel leak-panel" id="leak-panel-activation" data-instrument-panel>
             <ol class="journey-rail" aria-label="Activation journey">
               <li class="is-complete"><span>01</span>Signed up</li><li class="is-leak"><span>02</span>Onboarding</li><li><span>03</span>First value</li><li><span>04</span>Habit</li><li><span>05</span>Converted</li>
             </ol>
@@ -90,7 +90,7 @@
               <div class="readout-action"><span>Recommended next action</span><strong>Guide the shortest path to first value</strong></div>
             </div>
           </section>
-          <section class="instrument-panel leak-panel" id="leak-panel-conversion" role="tabpanel" aria-labelledby="leak-conversion">
+          <section class="instrument-panel leak-panel" id="leak-panel-conversion" data-instrument-panel>
             <ol class="journey-rail" aria-label="Conversion journey">
               <li class="is-complete"><span>01</span>Signed up</li><li class="is-complete"><span>02</span>Onboarding</li><li class="is-leak"><span>03</span>First value</li><li><span>04</span>Habit</li><li><span>05</span>Converted</li>
             </ol>
@@ -101,7 +101,7 @@
               <div class="readout-action"><span>Recommended next action</span><strong>Show one relevant use case in context</strong></div>
             </div>
           </section>
-          <section class="instrument-panel leak-panel" id="leak-panel-retention" role="tabpanel" aria-labelledby="leak-retention">
+          <section class="instrument-panel leak-panel" id="leak-panel-retention" data-instrument-panel>
             <ol class="journey-rail" aria-label="Retention journey">
               <li class="is-complete"><span>01</span>Signed up</li><li class="is-complete"><span>02</span>Onboarding</li><li class="is-complete"><span>03</span>First value</li><li class="is-leak"><span>04</span>Habit</li><li><span>05</span>Retained</li>
             </ol>
@@ -141,9 +141,9 @@
             <div class="flow-stage-head"><span>01</span><h3 id="source-title">Journey evidence</h3></div>
             <div class="source-stack">
               <div class="source-databases" aria-label="Example data platforms">
-                <span><img src="/build/assets-icons-platforms-postgresql.bc45b1c56d0b.svg" alt="" width="24" height="24">PostgreSQL</span>
-                <span><img src="/build/assets-icons-platforms-sql-server.f19b9e670246.svg" alt="" width="48" height="48">SQL Server</span>
-                <span><img src="/build/assets-icons-platforms-posthog.85191881b464.svg" alt="" width="24" height="24">PostHog</span>
+                <span><img src="/build/assets-icons-platforms-postgresql.bc45b1c56d0b.svg" alt="" width="24" height="24" loading="lazy" decoding="async">PostgreSQL</span>
+                <span><img src="/build/assets-icons-platforms-sql-server.f19b9e670246.svg" alt="" width="48" height="48" loading="lazy" decoding="async">SQL Server</span>
+                <span><img src="/build/assets-icons-platforms-posthog.85191881b464.svg" alt="" width="24" height="24" loading="lazy" decoding="async">PostHog</span>
               </div>
               <div class="flow-fact"><span>Observed</span><strong>Onboarding opened; first task absent after 24h</strong></div>
             </div>
@@ -173,8 +173,8 @@
               <li class="delivery-node">
                 <span>Destination</span><strong>Existing engagement stack · Email first</strong>
                 <div class="provider-marks" aria-label="Example delivery platforms">
-                  <span><img src="/build/assets-icons-platforms-braze.656a7b5842a6.png" alt="Braze" width="738" height="347"></span>
-                  <span><img src="/build/assets-icons-platforms-customerio.0aec6b618458.png" alt="Customer.io" width="850" height="180"></span>
+                  <span><img src="/build/assets-icons-platforms-braze.656a7b5842a6.png" alt="Braze" width="738" height="347" loading="lazy" decoding="async"></span>
+                  <span><img src="/build/assets-icons-platforms-customerio.0aec6b618458.png" alt="Customer.io" width="850" height="180" loading="lazy" decoding="async"></span>
                   <span class="provider-wordmark">SendGrid</span>
                 </div>
               </li>
@@ -273,7 +273,7 @@
   <p class="footer-meta">© 2026 Sendlyr</p>
 </footer>
 
-  <script src="/build/scripts-site.36756fccf779.js" defer></script>
-  <script src="/build/scripts-app.960d9241078a.js" defer></script>
+  <script src="/build/scripts-site.b6d98f0f7a77.js" defer></script>
+  <script src="/build/scripts-app.991c4c7af0e0.js" defer></script>
 </body>
 </html>

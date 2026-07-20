@@ -1,6 +1,6 @@
 {
-  "/scripts/site.js": "/build/scripts-site.36756fccf779.js",
-  "/scripts/app.js": "/build/scripts-app.960d9241078a.js",
+  "/scripts/site.js": "/build/scripts-site.b6d98f0f7a77.js",
+  "/scripts/app.js": "/build/scripts-app.991c4c7af0e0.js",
   "/assets/logo/sendlyr-wordmark-400.webp": "/build/assets-logo-sendlyr-wordmark-400.22ff5e66775f.webp",
   "/assets/logo/sendlyr-wordmark-400.png": "/build/assets-logo-sendlyr-wordmark-400.c91a2f525b13.png",
   "/assets/logo/sendlyr-icon-512.png": "/build/assets-logo-sendlyr-icon-512.6610a6e29850.png",
@@ -22,10 +22,10 @@
   "/assets/blog/pai-discovery-case-study/cover-image-840.png": "/build/assets-blog-pai-discovery-case-study-cover-image-840.4bfd2d7b407d.png",
   "/assets/blog/pai-discovery-case-study/cover-image.png": "/build/assets-blog-pai-discovery-case-study-cover-image.2869c570a3e9.png",
   "/fonts.css": "/build/fonts.551482483226.css",
-  "/home-fonts.css": "/build/home-fonts.5e83db321c84.css",
+  "/home-fonts.css": "/build/home-fonts.f040cdb0843e.css",
   "/styles.css": "/build/styles.e03542bcecd1.css",
   "/site.css": "/build/site.15269b4d183a.css",
-  "/enhance.css": "/build/enhance.3b32915befe1.css",
+  "/enhance.css": "/build/enhance.1d665b987360.css",
   "/vertical.css": "/build/vertical.11daca5ce5d6.css",
   "/workflow.css": "/build/workflow.d343e56896e3.css",
   "/editorial.css": "/build/editorial.93f21bb94562.css"
