@@ -10,9 +10,9 @@ This repo is a simple static landing page served by a small Node.js file server.
 - `src/pages/` contains canonical page markup.
 - `src/partials/` contains shared static header and footer markup.
 - `scripts/build-site.js` deterministically renders committed static output to `public/`.
-- `public/styles.css`, `public/site.css`, and page styles contain the design implementation.
-- `public/assets/images/` is reserved for future image assets.
-- `public/assets/icons/` is reserved for future icon assets.
+- `public/styles.css`, `public/site.css`, `public/enhance.css`, and page styles contain the design implementation.
+- `public/assets/images/` contains approved public image assets, including supporting proof media.
+- `public/assets/icons/` contains approved public icon assets; third-party platform marks keep their source and usage notes beside the assets.
 - `supabase.sql` defines leads; `supabase-analytics.sql` defines server-only analytics tables.
 - `data/leads.jsonl` stores local lead submissions and is ignored by git.
 
