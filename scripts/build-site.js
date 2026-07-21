@@ -27,7 +27,13 @@ const LEAF_ASSETS = [
   "assets/logo/sendlyr-icon-512.png",
   "assets/og/og-default.png",
   "assets/og/og-default.svg",
+  "assets/images/typesy-logo-colored-512.webp",
   "assets/images/typesy-logo-colored-2-scaled.png",
+  "assets/icons/platforms/postgresql.svg",
+  "assets/icons/platforms/sql-server.svg",
+  "assets/icons/platforms/posthog.svg",
+  "assets/icons/platforms/braze.png",
+  "assets/icons/platforms/customerio.png",
   "assets/fonts/inter-latin-variable.woff2",
   "assets/fonts/source-serif-4-latin-variable.woff2",
   "assets/fonts/source-serif-4-latin-italic-variable.woff2",
@@ -40,6 +46,7 @@ const LEAF_ASSETS = [
 
 const CSS_ASSETS = [
   "fonts.css",
+  "home-fonts.css",
   "styles.css",
   "site.css",
   "enhance.css",

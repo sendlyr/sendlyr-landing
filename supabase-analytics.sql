@@ -8,10 +8,13 @@ create table if not exists public.analytics_events (
   properties jsonb not null default '{}'::jsonb,
   occurred_at timestamptz not null,
   received_at timestamptz not null default now(),
-  constraint analytics_event_name_check check (event_name in ('page_view', 'navigation_click', 'workflow_open', 'case_study_open', 'book_sprint_click', 'cohort_toggle', 'proof_tab_change')),
+  constraint analytics_event_name_check check (event_name in ('page_view', 'navigation_click', 'workflow_open', 'case_study_open', 'book_sprint_click', 'cohort_toggle', 'proof_tab_change', 'decision_trace_change')),
   constraint analytics_event_path_check check (length(path) between 1 and 240 and left(path, 1) = '/'),
   constraint analytics_event_properties_check check (jsonb_typeof(properties) = 'object')
 );
+
+alter table public.analytics_events drop constraint if exists analytics_event_name_check;
+alter table public.analytics_events add constraint analytics_event_name_check check (event_name in ('page_view', 'navigation_click', 'workflow_open', 'case_study_open', 'book_sprint_click', 'cohort_toggle', 'proof_tab_change', 'decision_trace_change'));
 
 create table if not exists public.analytics_bookings (
   calendly_invitee_id text primary key,

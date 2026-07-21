@@ -12,226 +12,294 @@ for (const route of routes) {
     await expect(page.locator("main")).toBeVisible();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow).toBeLessThanOrEqual(1);
-    const missingAlt = await page.locator("img:not([alt])").count();
-    expect(missingAlt).toBe(0);
+    expect(await page.locator("img:not([alt])").count()).toBe(0);
   });
 }
 
-test("homepage balances supporting evidence with an accessible signal preview", async ({ page }) => {
+test("homepage metadata, schema, and Open Graph asset match the wedge-first offer", async ({ page }) => {
   await page.goto("/");
-
-  await expect(page.getByText("69.4%", { exact: true })).toBeVisible();
-  await expect(page.getByText("57.9%", { exact: true })).toBeVisible();
-  await expect(page.getByText("+19.9%", { exact: true })).toBeVisible();
-  await expect(page.getByText("Interactive concept preview using illustrative data. Not a live customer account.", { exact: true })).toBeVisible();
-  await expect(page.getByText("Ranking review · recurring", { exact: true })).toBeVisible();
-
-  const signals = page.getByRole("radio");
-  await expect(signals).toHaveCount(3);
-  await expect(signals.nth(0)).toBeChecked();
-  await signals.nth(0).focus();
-  await page.keyboard.press("ArrowDown");
-  await expect(signals.nth(1)).toBeChecked();
-  await expect(page.getByText("Previously 1 of 3", { exact: true })).toBeVisible();
-  await expect(page.locator('[role="listbox"], [role="option"]')).toHaveCount(0);
-
-  const product = page.getByRole("tab", { name: "Product" });
-  const productTarget = await product.evaluate((node) => ({
-    rendered: node.getBoundingClientRect().height,
-    minimum: getComputedStyle(node).minHeight
-  }));
-  expect(productTarget.minimum).toBe("44px");
-  expect(productTarget.rendered).toBeGreaterThanOrEqual(43.99);
-  await product.focus();
-  await page.keyboard.press("ArrowRight");
-  await expect(page.getByRole("tab", { name: "Lifecycle" })).toHaveAttribute("aria-selected", "true");
-  await expect(page.getByRole("tabpanel", { name: "Lifecycle" })).toBeVisible();
-  await expect(page.locator("[data-signal-announcement]")).toHaveText("Recommendation updated: Test one day-two return reminder.");
-
-  await page.keyboard.press("End");
-  await expect(page.getByRole("tab", { name: "Combined" })).toBeFocused();
-  await expect(page.getByRole("tabpanel", { name: "Combined" })).toBeVisible();
-  await page.keyboard.press("ArrowRight");
-  await expect(page.getByRole("tab", { name: "Product" })).toBeFocused();
-  await page.keyboard.press("ArrowLeft");
-  await expect(page.getByRole("tab", { name: "Combined" })).toBeFocused();
-  await page.keyboard.press("Home");
-  await expect(page.getByRole("tab", { name: "Product" })).toBeFocused();
-
-  await page.getByRole("tab", { name: "Lifecycle" }).click();
-  await page.locator('label[for="signal-core"]').click();
-  await expect(page.locator('[data-signal-detail="core"] [data-test-view="lifecycle"]')).toHaveAttribute("aria-selected", "true");
-  await expect(page.getByText("Nudge users after their first use", { exact: true })).toBeVisible();
-
-  const mainText = await page.locator("main").innerText();
-  expect(mainText).not.toMatch(/\bPAI\b/);
+  await expect(page).toHaveTitle("Find the customer-journey leak worth fixing first | Sendlyr");
+  const description = "Sendlyr turns existing product behavior into one priority customer state, one next best action, and a measurable test.";
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", description);
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "Find the customer-journey leak worth fixing first | Sendlyr");
+  await expect(page.locator('meta[property="og:description"]')).toHaveAttribute("content", description);
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", "https://sendlyr.com/assets/og/og-home.png");
+  const schema = await page.locator('script[type="application/ld+json"]').textContent();
+  expect(schema).toContain("Sendlyr revenue leak analysis");
+  expect(schema).toContain(description);
+  expect(schema).not.toContain("offers");
 });
 
-test("desktop hero and decision console remain inside the first viewport", async ({ page, isMobile }) => {
-  test.skip(isMobile, "Desktop first-viewport assertion");
+test("homepage uses five narrative units and the evidence contract instead of unapproved customer proof", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator("main > section")).toHaveCount(5);
+  const contract = page.locator(".evidence-contract");
+  for (const label of ["Scoped data", "Reviewed definitions", "Controlled change", "Declared measure"]) {
+    await expect(contract).toContainText(label);
+  }
+  await expect(page.getByText("Trusted by", { exact: true })).toHaveCount(0);
+  await expect(page.getByRole("img", { name: "Typesy" })).toHaveCount(0);
+  await expect(page.getByText("Behavioral Journey Simulation", { exact: false })).toHaveCount(0);
+  await expect(page.getByRole("tab", { name: "Existing engagement stack" })).toHaveCount(0);
+});
+
+test("revenue leak map exposes the exact activation, conversion, and retention decisions", async ({ page }) => {
+  await page.goto("/");
+  const cases = [
+    ["Activation Onboarding", "Onboarding started, not finished", "Unstarted", "First meaningful task", "Guide the shortest path to first value"],
+    ["Conversion First value", "Exploration without a value moment", "In progress", "Core feature completed", "Show one relevant use case in context"],
+    ["Retention Early habit", "Early habit fading", "At risk", "Return for a second active session", "Reinforce the next reason to return"],
+  ];
+  for (const [tabName, leak, state, behavior, action] of cases) {
+    const tab = page.getByRole("tab", { name: tabName });
+    await tab.click();
+    await expect(tab).toHaveAttribute("aria-selected", "true");
+    const panel = page.getByRole("tabpanel", { name: tabName });
+    for (const value of [leak, state, behavior, action]) await expect(panel).toContainText(value);
+  }
+});
+
+test("revenue leak map supports arrow, Home, and End keys", async ({ page }) => {
+  await page.goto("/");
+  const activation = page.getByRole("tab", { name: "Activation Onboarding" });
+  await activation.focus();
+  await page.keyboard.press("ArrowLeft");
+  await expect(page.getByRole("tab", { name: "Retention Early habit" })).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("ArrowRight");
+  await expect(activation).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("ArrowUp");
+  await expect(page.getByRole("tab", { name: "Retention Early habit" })).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("End");
+  await expect(page.getByRole("tab", { name: "Retention Early habit" })).toHaveAttribute("aria-selected", "true");
+  await page.keyboard.press("Home");
+  await expect(activation).toHaveAttribute("aria-selected", "true");
+});
+
+test("homepage Open Graph and platform assets decode at their declared dimensions", async ({ page }) => {
+  await page.goto("/");
+  const og = await page.locator('meta[property="og:image"]').getAttribute("content");
+  expect(og).toBe("https://sendlyr.com/assets/og/og-home.png");
+
+  const dimensions = await page.evaluate(async () => {
+    const load = (src) => new Promise((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => resolve({ src, width: image.naturalWidth, height: image.naturalHeight });
+      image.onerror = () => reject(new Error(`Unable to decode ${src}`));
+      image.src = src;
+    });
+    return Promise.all([
+      load("/assets/og/og-home.png"),
+      ...[...document.querySelectorAll(".source-databases img, .provider-marks img")].map((image) => load(image.getAttribute("src"))),
+    ]);
+  });
+
+  expect(dimensions[0]).toEqual({ src: "/assets/og/og-home.png", width: 1200, height: 630 });
+  for (const asset of dimensions.slice(1)) {
+    expect(asset.width, asset.src).toBeGreaterThan(0);
+    expect(asset.height, asset.src).toBeGreaterThan(0);
+  }
+});
+
+test("hero decision instrument remains stable across states", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+  const map = page.locator(".leak-map");
+  const heights = [];
+  for (const name of ["Activation Onboarding", "Conversion First value", "Retention Early habit"]) {
+    await page.getByRole("tab", { name }).click();
+    heights.push(await map.evaluate((element) => element.getBoundingClientRect().height));
+  }
+  expect(Math.max(...heights) - Math.min(...heights)).toBeLessThanOrEqual(1);
+});
+
+test("desktop hero value unit fits the first viewport", async ({ page }) => {
   for (const viewport of [{ width: 1280, height: 800 }, { width: 1440, height: 900 }]) {
     await page.setViewportSize(viewport);
     await page.goto("/");
     await page.evaluate(() => document.fonts.ready);
-    const geometry = await page.evaluate(() => {
-      const header = document.querySelector(".site-header").getBoundingClientRect();
-      const grid = document.querySelector(".home-hero-grid").getBoundingClientRect();
-      const required = [
-        ".home-hero-copy h1",
-        ".home-hero-copy .lede",
-        ".home-hero-copy .button-row",
-        ".signal-instrument",
-        ".console-trust"
-      ].map((selector) => document.querySelector(selector).getBoundingClientRect().bottom);
-      return { headerTop: header.top, headerBottom: header.bottom, gridTop: grid.top, maxBottom: Math.max(...required), innerHeight: window.innerHeight };
-    });
-    expect(geometry.headerTop).toBe(0);
-    expect(Math.abs(geometry.headerBottom - 112)).toBeLessThanOrEqual(1);
-    expect(Math.abs(geometry.gridTop - 140)).toBeLessThanOrEqual(1);
-    expect(geometry.maxBottom).toBeLessThanOrEqual(geometry.innerHeight - 20);
+    const bottom = await page.locator(".product-hero").evaluate((element) => element.getBoundingClientRect().bottom);
+    expect(bottom, `${viewport.width}x${viewport.height}`).toBeLessThanOrEqual(viewport.height - 20);
   }
 });
 
-test("signal and test selections keep the console height stable", async ({ page, isMobile }) => {
-  test.skip(isMobile, "Desktop stability assertion");
-  await page.setViewportSize({ width: 1280, height: 800 });
-  await page.emulateMedia({ reducedMotion: "reduce" });
+test("continuous decision layer uses one activation scenario and a connected feedback path", async ({ page }) => {
   await page.goto("/");
-  await page.evaluate(() => document.fonts.ready);
-
-  const instrument = page.locator(".signal-instrument");
-  const initialHeight = await instrument.evaluate((node) => node.getBoundingClientRect().height);
-  for (const key of ["task", "session", "core"]) {
-    await page.locator(`label[for="signal-${key}"]`).click();
-    for (const view of ["product", "lifecycle", "combined"]) {
-      await page.locator(`[data-signal-detail="${key}"] [data-test-view="${view}"]`).click();
-      await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(resolve)));
-      const height = await instrument.evaluate((node) => node.getBoundingClientRect().height);
-      expect(Math.abs(height - initialHeight)).toBeLessThanOrEqual(1);
-    }
+  const flow = page.locator(".decision-flow");
+  for (const value of [
+    "PostgreSQL",
+    "SQL Server",
+    "PostHog",
+    "Onboarding opened; first task absent after 24h",
+    "New user, onboarding opened, no first task 24h after signup",
+    "Unstarted",
+    "First meaningful task",
+    "Return to the unfinished task with one clear next step",
+    "Lifecycle owner approval required",
+    "Existing engagement stack · Email first",
+    "One reminder: subject, body, and deep link",
+    "First meaningful task completed within 48h",
+    "Raise the rule’s priority only if the pattern repeats",
+  ]) await expect(flow).toContainText(value);
+  const undersizedDecisionText = await flow.locator(".flow-fact strong, .sendlyr-core dd, .activation-sequence strong, .feedback-loop li strong").evaluateAll((items) => items
+    .map((item) => ({ text: item.textContent.trim(), size: Number.parseFloat(getComputedStyle(item).fontSize) }))
+    .filter(({ size }) => size < 16));
+  expect(undersizedDecisionText).toEqual([]);
+  await expect(flow.getByAltText("Braze")).toBeVisible();
+  await expect(flow.getByAltText("Customer.io")).toBeVisible();
+  await expect(flow).toContainText("SendGrid");
+  const width = await page.evaluate(() => window.innerWidth);
+  if (width > 900) {
+    await expect(page.locator(".feedback-loop svg")).toBeVisible();
+  } else {
+    await expect(page.locator(".feedback-loop")).toBeVisible();
+    expect(await page.locator(".feedback-loop").evaluate((element) => getComputedStyle(element).borderTopWidth)).toBe("2px");
   }
-
-  await page.locator('label[for="signal-core"] .signal-lift strong').evaluate((node) => { node.textContent = "Under review"; });
-  const partialHeight = await instrument.evaluate((node) => node.getBoundingClientRect().height);
-  expect(Math.abs(partialHeight - initialHeight)).toBeLessThanOrEqual(1);
-  await expect(page.getByText("Inspect preview states", { exact: true })).toHaveCount(0);
+  await expect(page.locator(".connector-boundary")).toHaveText("Example systems shown for context. Connector scope is configured with each team; platform marks do not imply vendor endorsement.");
 });
 
-test("console typography and reduced-motion focus meet the accessibility contract", async ({ page, isMobile }) => {
-  test.skip(isMobile, "Desktop typography assertion");
-  await page.setViewportSize({ width: 1280, height: 800 });
+test("decision package keeps essential output visible and rationale collapsed by default", async ({ page }) => {
+  await page.goto("/");
+  const artifact = page.locator(".decision-package");
+  for (const field of ["Customer state", "Leading behavior", "Recommended action", "Human approval", "Delivery destination", "Outcome to measure"]) {
+    await expect(artifact).toContainText(field);
+  }
+  const details = artifact.locator("details");
+  await expect(details).not.toHaveAttribute("open", "");
+  await expect(details.getByText("Observation", { exact: true })).not.toBeVisible();
+  await details.getByText("Why this recommendation", { exact: true }).click();
+  await expect(details).toHaveAttribute("open", "");
+  for (const field of ["Observation", "Rule threshold", "Changed surface", "Held constant", "Evidence boundary"]) {
+    await expect(details).toContainText(field);
+  }
+  await expect(details).toContainText("Illustrative recommendation; customer data and a controlled measurement determine whether this behavior predicts the outcome.");
+});
+
+test("mobile tabs expose overflow, reveal selection, and keep stable dimensions", async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await page.evaluate(() => document.fonts.ready);
-
-  const typography = await page.evaluate(() => {
-    const style = (selector) => {
-      const computed = getComputedStyle(document.querySelector(selector));
-      return { fontSize: computed.fontSize, lineHeight: computed.lineHeight };
-    };
-    return {
-      signal: style(".signal-name"),
-      observation: style(".signal-observation"),
-      title: style(".test-panel:not([hidden]) strong"),
-      explanation: style(".test-panel:not([hidden]) p")
-    };
-  });
-  expect(typography).toEqual({
-    signal: { fontSize: "16px", lineHeight: "20px" },
-    observation: { fontSize: "14px", lineHeight: "21px" },
-    title: { fontSize: "16px", lineHeight: "20px" },
-    explanation: { fontSize: "14px", lineHeight: "21px" }
-  });
-
-  await page.getByRole("link", { name: "Explore the console ↓" }).click();
-  await expect(page.locator("#signal-preview-title")).toBeFocused();
+  const tablist = page.locator(".leak-tabs");
+  expect(await tablist.evaluate((element) => getComputedStyle(element).maskImage)).not.toBe("none");
+  expect(await tablist.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true);
+  const map = page.locator(".leak-map");
+  const firstHeight = await map.evaluate((element) => element.getBoundingClientRect().height);
+  await page.getByRole("tab", { name: "Activation Onboarding" }).focus();
+  await page.keyboard.press("End");
+  const retention = page.getByRole("tab", { name: "Retention Early habit" });
+  await expect(retention).toHaveAttribute("aria-selected", "true");
+  await expect.poll(() => retention.evaluate((tab) => {
+    const list = tab.parentElement.getBoundingClientRect();
+    const item = tab.getBoundingClientRect();
+    return item.left >= list.left - 1 && item.right <= list.right + 1;
+  })).toBe(true);
+  const lastHeight = await map.evaluate((element) => element.getBoundingClientRect().height);
+  expect(Math.abs(lastHeight - firstHeight)).toBeLessThanOrEqual(4);
+  expect(await page.locator(".nav-route-row").evaluate((element) => getComputedStyle(element).maskImage)).not.toBe("none");
 });
 
-test("responsive console recipes stay stable at breakpoint boundaries", async ({ page, isMobile }) => {
-  test.skip(isMobile, "Tablet stability assertion");
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  for (const viewport of [
-    { width: 760, height: 1024, expected: null },
-    { width: 761, height: 1024, expected: 854 },
-    { width: 899, height: 1024, expected: 854 },
-    { width: 900, height: 1024, expected: 620 },
-    { width: 1024, height: 900, expected: 620 },
-    { width: 1239, height: 900, expected: 620 },
-    { width: 1240, height: 900, expected: 620 }
-  ]) {
-    await page.setViewportSize({ width: viewport.width, height: viewport.height });
+test("homepage has no overflow at release widths", async ({ page }) => {
+  for (const width of [320, 375, 430, 768, 1024, 1440]) {
+    await page.setViewportSize({ width, height: width <= 430 ? 812 : 900 });
     await page.goto("/");
-    await page.evaluate(() => document.fonts.ready);
-    const instrument = page.locator(".signal-instrument");
-    const initialHeight = await instrument.evaluate((node) => node.getBoundingClientRect().height);
-    if (viewport.expected !== null) expect(Math.abs(initialHeight - viewport.expected)).toBeLessThanOrEqual(1);
-    for (const key of ["task", "session", "core"]) {
-      await page.locator(`label[for="signal-${key}"]`).click();
-      for (const view of ["product", "lifecycle", "combined"]) {
-        await page.locator(`[data-signal-detail="${key}"] [data-test-view="${view}"]`).click();
-        const height = await instrument.evaluate((node) => node.getBoundingClientRect().height);
-        expect(Math.abs(height - initialHeight)).toBeLessThanOrEqual(1);
-      }
-    }
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-    expect(overflow).toBeLessThanOrEqual(1);
+    expect(overflow, `${width}px`).toBeLessThanOrEqual(1);
   }
+});
+
+test("homepage controls keep touch-sized targets", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 812 });
+  await page.goto("/");
+  const undersized = await page.locator("[data-instrument-tabs] button").evaluateAll((controls) => controls
+    .map((control) => ({ label: control.textContent.trim(), width: control.getBoundingClientRect().width, height: control.getBoundingClientRect().height }))
+    .filter(({ width, height }) => width < 44 || height < 44));
+  expect(undersized).toEqual([]);
 });
 
 test("analytics is disabled by default", async ({ page }) => {
   const eventRequests = [];
   page.on("request", (request) => { if (request.url().includes("/api/events")) eventRequests.push(request.url()); });
   await page.goto("/");
-  await page.locator('label[for="signal-session"]').click();
-  await page.getByRole("tab", { name: "Lifecycle" }).click();
+  await page.getByRole("tab", { name: "Conversion First value" }).click();
   expect(eventRequests).toHaveLength(0);
 });
 
-test("core evidence and proposed tests survive without JavaScript", async ({ browser }) => {
+test("enabled analytics records one decision event for each changed tab", async ({ page }) => {
+  const events = [];
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "sendBeacon", { configurable: true, value: undefined });
+  });
+  await page.route((url) => url.pathname === "/", async (route) => {
+    const response = await route.fetch();
+    const body = (await response.text()).replace('data-analytics-enabled="false"', 'data-analytics-enabled="true"');
+    await route.fulfill({ response, body, headers: { ...response.headers(), "content-type": "text/html; charset=utf-8" } });
+  });
+  await page.route("**/api/events", async (route) => {
+    events.push(route.request().postDataJSON());
+    await route.fulfill({ status: 202, contentType: "application/json", body: '{"ok":true,"stored":true}' });
+  });
+
+  await page.goto("/");
+  await page.getByRole("tab", { name: "Conversion First value" }).click();
+  await expect.poll(() => events.filter((event) => event.event_name === "decision_trace_change").length).toBe(1);
+  expect(events.find((event) => event.event_name === "decision_trace_change").properties).toEqual({ state: "exploring" });
+
+  await page.getByRole("tab", { name: "Conversion First value" }).click();
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+  expect(events.filter((event) => event.event_name === "decision_trace_change")).toHaveLength(1);
+
+  await page.getByLabel("Explore Sendlyr").getByRole("link", { name: "Decision layer" }).click();
+  await expect.poll(() => events.filter((event) => event.event_name === "navigation_click").length).toBe(1);
+  expect(events.find((event) => event.event_name === "navigation_click").properties).toEqual({ href: "/#decision-layer", placement: "header" });
+});
+
+test("essential buying information survives without JavaScript", async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto("/");
-  await expect(page.getByText("69.4%", { exact: true })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Book a signal sprint/ }).first()).toBeVisible();
-  await expect(page.getByText("Clarify the first-task prompt", { exact: true })).toBeVisible();
-  await expect(page.getByText("Remind users before day one ends", { exact: true })).toBeVisible();
-  await expect(page.getByText("Test the prompt, then the reminder", { exact: true })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Find the customer-journey leak worth fixing first." })).toBeVisible();
   await expect(page.getByRole("tab")).toHaveCount(0);
-  const fallbackRecommendations = {
-    session: ["Strengthen the return path", "Test one day-two return reminder", "Test the reminder before the path"],
-    core: ["Make the repeat path obvious", "Nudge users after their first use", "Test the path before the nudge"]
-  };
-  for (const [key, recommendations] of Object.entries(fallbackRecommendations)) {
-    await page.locator(`label[for="signal-${key}"]`).click();
-    await expect(page.locator(`#signal-${key}`)).toBeChecked();
-    for (const recommendation of recommendations) {
-      await expect(page.getByText(recommendation, { exact: true })).toBeVisible();
-    }
-  }
+  await expect(page.locator("[data-instrument-tab]:visible")).toHaveCount(0);
+  await expect(page.locator("[data-instrument-panel]")).toHaveCount(3);
+  for (const panel of await page.locator("[data-instrument-panel]").all()) await expect(panel).toBeVisible();
+  await expect(page.locator(".evidence-contract")).toBeVisible();
+  await expect(page.locator(".decision-flow")).toBeVisible();
+  await expect(page.locator(".decision-package")).toBeVisible();
+  await expect(page.locator(".final-offer")).toBeVisible();
   await context.close();
 });
 
-test("mobile signal ledger stays visible without horizontal overflow", async ({ page, isMobile }) => {
-  test.skip(!isMobile, "Mobile layout assertion");
+test("one primary CTA phrase is used across the homepage", async ({ page }) => {
   await page.goto("/");
+  const links = page.locator("[data-book-sprint]");
+  await expect(links).toHaveCount(3);
+  expect(await links.evaluateAll((items) => items.map((item) => ({ text: item.textContent.replace("↗", "").trim(), href: item.getAttribute("href"), target: item.target, rel: item.rel, placement: item.dataset.placement })))).toEqual([
+    { text: "Find your first revenue leak", href: "https://calendly.com/dquang191104/30min", target: "_blank", rel: "noopener", placement: "header" },
+    { text: "Find your first revenue leak", href: "https://calendly.com/dquang191104/30min", target: "_blank", rel: "noopener", placement: "hero" },
+    { text: "Find your first revenue leak", href: "https://calendly.com/dquang191104/30min", target: "_blank", rel: "noopener", placement: "revenue-leak" },
+  ]);
+});
 
-  const signals = page.getByRole("radio");
-  await expect(signals).toHaveCount(3);
-  for (const key of ["task", "session", "core"]) await expect(page.locator(`label[for="signal-${key}"]`)).toBeVisible();
-
-  const instrument = page.locator(".signal-instrument");
-  const heights = [];
-  for (const key of ["task", "session", "core"]) {
-    await page.locator(`label[for="signal-${key}"]`).click();
-    for (const view of ["product", "lifecycle", "combined"]) {
-      await page.locator(`[data-signal-detail="${key}"] [data-test-view="${view}"]`).click();
-      heights.push(await instrument.evaluate((node) => node.getBoundingClientRect().height));
+test("all public booking actions use the wedge-first CTA", async ({ page }) => {
+  for (const route of routes) {
+    await page.goto(route);
+    const links = page.locator("[data-book-sprint]");
+    expect(await links.count(), route).toBeGreaterThan(0);
+    for (const link of await links.all()) {
+      await expect(link, route).toContainText("Find your first revenue leak");
+      await expect(link, route).toHaveAttribute("href", "https://calendly.com/dquang191104/30min");
     }
   }
-  expect(Math.max(...heights) - Math.min(...heights)).toBeLessThanOrEqual(4);
+});
 
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-  expect(overflow).toBeLessThanOrEqual(1);
+test("reduced motion resolves immediately", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.getByRole("tab", { name: "Activation Onboarding" })).toHaveAttribute("aria-selected", "true");
+  expect(await page.locator("html").evaluate((element) => getComputedStyle(element).scrollBehavior)).toBe("auto");
+  const transitionSeconds = await page.getByRole("tab", { name: "Activation Onboarding" }).evaluate((element) => Number.parseFloat(getComputedStyle(element).transitionDuration));
+  expect(transitionSeconds).toBeLessThanOrEqual(0.001);
 });
 
 test("all internal navigation targets resolve", async ({ request }) => {

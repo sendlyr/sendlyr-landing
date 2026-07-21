@@ -1,12 +1,10 @@
 # Sendlyr landing design system
 
-Sendlyr should feel like an activation-signal instrument: precise, calm, and evidence-led. The audience is Product, Growth, and Lifecycle leaders. Every page has one job: make the Activation Signal Sprint credible enough to book.
+Sendlyr should feel like a calm decision instrument for Product, Growth, and Lifecycle leaders. The homepage helps a team find one customer-journey leak, while the supporting routes explain the Activation Signal Sprint and its evidence.
 
 ## Signature
 
-The evolving signal ledger is the memorable element. It ranks leading indicators, shows movement over time, and connects each signal to Product and Lifecycle tests. The ledger uses editorial rows, hairlines, short annotations, and restrained controls instead of generic dashboard widgets.
-
-The Typesy result is supporting proof, not the page thesis. It shows that a leading indicator can guide a useful test without implying a universal outcome.
+The homepage Revenue Leak Map is the primary visual anchor. It connects one customer state to one behavior, one action, and one measurement plan. The continuous decision layer shows how evidence returns after a measured outcome. The Typesy result remains supporting proof on its dedicated routes.
 
 ## Tokens
 
@@ -44,12 +42,12 @@ Spacing uses a 4px rhythm. Main steps are 8, 12, 16, 20, 24, 32, 40, 48, 64, 80,
 ## Layout
 
 ```text
-wide desktop 1240+       composed tablet 761–1239       editorial mobile ≤760
+wide desktop 1100+       composed tablet 761–1099       editorial mobile ≤760
 ┌───────┬───────────┐    ┌──────────────────────┐       ┌─────────────────┐
-│ thesis│ signal    │    │ thesis               │       │ brand + action  │
-│       │ instrument│    │ signal instrument    │       │ route rail      │
+│ thesis│ leak map  │    │ thesis               │       │ brand + action  │
+│       │           │    │ leak map             │       │ route rail      │
 └───────┴───────────┘    └──────────────────────┘       │ thesis          │
-                                                       │ signal ledger   │
+                                                       │ leak map        │
                                                        └─────────────────┘
 ```
 
@@ -58,7 +56,6 @@ wide desktop 1240+       composed tablet 761–1239       editorial mobile ≤76
 - Mobile is editorial. Evidence stacks; essential values never require horizontal scrolling.
 - Page gutters: 28px desktop, 22px tablet, 18px mobile.
 - Reading width: 680px. Instrument width: up to 760px.
-- The signal ledger becomes stacked editorial rows on mobile.
 
 ## Shared components
 
@@ -68,56 +65,41 @@ Compact logo/action row plus route rail. On mobile the route rail scrolls horizo
 
 ### Buttons
 
-Primary buttons use ink or teal, a 100px pill radius, and a contained arrow. Hover moves at most 1px. Focus uses a visible 2px teal outline. The label is always “Book an Activation Signal Sprint” or the compact “Book a sprint.”
+Primary buttons use ink or teal, a 100px pill radius, and a contained arrow. Hover moves at most 1px. Focus uses a visible 2px teal outline. Public booking actions use “Find your first revenue leak.”
 
 ### Evidence ledger
 
 Use divided rows with a mono label, a concise serif statement, and one supporting sentence. Do not turn static information into hoverable cards.
 
-### Signal ledger
+### Revenue Leak Map
 
-Use one ranked list of activation signals or leading indicators. Each row shows rank, movement, coverage, and an evidence qualifier. Selection reveals interpretation and recommended tests without changing the page into app chrome.
+The homepage uses one tab system for Activation, Conversion, and Retention. Each tab keeps the same four fields: customer-journey leak, customer state, leading behavior, and recommended next action. The instrument stays stable across states and retains its content without JavaScript.
 
-Signal examples must work across industries. Prefer “complete a first meaningful task” over internal acronyms or lifecycle-only events.
+### Continuous decision layer
 
-On the homepage, signal selection uses native radios. Do not combine listbox roles, option buttons, and `aria-activedescendant`. JavaScript may update downstream illustrative bindings and announce the changed recommendation, but native radios own selection semantics.
-
-### Movement annotation
-
-Show when a signal changes rank after a release or new observation window. State what changed and what remains unknown. Never use a causal arrow unless causality is established.
-
-### Product and Lifecycle test lanes
-
-Every selected signal can reveal a Product test, a Lifecycle test, and a coordinated sequence. Lanes share one signal and one learning goal. They are not separate product modules.
-
-### Concept preview
-
-The homepage instrument is an illustrative, interactive concept. It is not a live customer account or a claim that the monitoring product already exists. Keep that boundary visible beside the preview.
-
-The enhanced console uses four fixed zones: 80px header, 244px ranking, 258px decision detail, and 38px trust footer. Signal and Product/Lifecycle/Combined changes never resize the desktop console.
-
-The public landing page does not simulate loading, empty, error, success, or partial states. Those belong to a future live-product component, not visitor controls. Semantic signal and recommendation content remains available without JavaScript.
+Show one path from existing evidence through Sendlyr, human approval, delivery, measurement, and the return loop. Platform marks provide context and never imply endorsement. The diagram must remain understandable when a mark becomes text.
 
 ### Result summary
 
-Treatment 84/121 (69.4%), Control 33/57 (57.9%), +19.9% relative lift, and +11.5pp absolute lift stay together. The leading-indicator and long-term-retention boundary stays adjacent. This block appears as supporting evidence below the broader product story.
+Treatment 84/121 (69.4%), Control 33/57 (57.9%), +19.9% relative lift, and +11.5pp absolute lift stay together wherever the Typesy result appears. The leading-indicator and long-term-retention boundary stays adjacent.
 
 ### Disclosure and tabs
 
-Semantic content exists before JavaScript. Tab buttons remain natively hidden until enhancement; Product, Lifecycle, and Combined sections remain readable without scripts. Enhancement adds horizontal Left/Right navigation, Home/End keys, selected state, controlled panels, and a polite recommendation announcement.
+Semantic content exists before JavaScript. Enhancements add roving tab focus, arrow/Home/End keys, selected state, and `aria-controls`. Mobile cohort disclosure returns focus to its trigger when closed.
 
 ## Page archetypes
 
-- Homepage: broad activation problem → illustrative signal ledger → ranking shift → shared Product/Lifecycle tests → Sprint method → supporting proof → CTA.
 - Workflow: promise → three stages → five steps → guardrails → deliverable → Sprint CTA.
 - Vertical: tailored activation problem → qualified evidence → three-stage method → fit requirements → Sprint CTA.
 - Editorial: thesis → evidence → interpretation → limitation → method/next step.
 
 Page tailoring changes the problem, examples, evidence, and metadata. It does not invent a new product or visual identity.
 
+- Homepage: revenue-leak thesis → interactive example → evidence contract → continuous decision layer → reviewable package → CTA.
+
 ## Motion
 
-Three families only: one brand/promise entrance, one restrained ranking movement, and short interaction-state glides. The Typesy cohort may use one supporting evidence fill. No parallax, carousels, bouncing arrows, or looping gradients. Reduced-motion users receive final states immediately.
+Three families only: one brand/promise entrance, one cohort evidence fill, and short interaction-state glides. No parallax, carousels, bouncing arrows, or looping gradients. Reduced-motion users receive final states immediately.
 
 ## Accessibility
 
@@ -130,15 +112,13 @@ Three families only: one brand/promise entrance, one restrained ranking movement
 
 ## Quantitative claims
 
-Every number needs a source, cohort, method, qualifier, limitation, permitted pages, and approval status. The pre-approved public result is the Typesy VIP first-course-within-four-days leading indicator. It does not prove long-term retention lift.
-
-Illustrative preview values must be clearly labelled as illustrative data. They demonstrate interaction and decision structure, not customer outcomes or live monitoring.
+Every number needs a source, cohort, method, qualifier, limitation, permitted pages, and approval status. The Typesy VIP result stays on the approved supporting routes and does not prove long-term retention lift. `RELEASE_CHECKLIST.md` records the publication decision and evidence boundary.
 
 ## Hard constraints
 
 - Static output only. No React, Vite, Next.js, Tailwind, TypeScript, or runtime templates.
-- No new hue, font, generic stat-card grid, generic widget mosaic, fake app chrome, stock imagery, or decorative dashboard chrome.
-- Do not use PAI or PP in public-facing positioning. Use “activation signal” or “leading indicator.”
-- Do not position Sendlyr as lifecycle-only or email-only. Product decisions, UI/UX changes, and lifecycle tests share the same signal system.
+- No new hue, font, generic stat-card grid, stock imagery, or decorative dashboard chrome.
+- Do not use PAI or PP in public positioning. Use “activation signal” or “leading indicator.”
+- Do not position Sendlyr as lifecycle-only or email-only. Product and Lifecycle teams share one decision layer.
 - No raw secret keys in public code or committed files.
 - No sentence longer than 20 words where the message can be split cleanly.

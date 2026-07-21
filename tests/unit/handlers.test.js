@@ -32,7 +32,11 @@ test("event builder permits only the public taxonomy", () => {
   assert.match(validateEvent({ ...event, occurred_at: "never" }), /time/);
   assert.match(validateEvent({ ...event, properties: { email: "nope" } }), /properties/);
   assert.match(validateEvent({ ...event, event_name: "cohort_toggle", properties: { state: "maybe" } }), /state/);
+  assert.equal(validateEvent({ ...event, event_name: "decision_trace_change", properties: { state: "at_risk" } }), "");
+  assert.match(validateEvent({ ...event, event_name: "decision_trace_change", properties: { state: "unknown" } }), /trace/);
   assert.match(validateEvent({ ...event, event_name: "book_sprint_click", properties: { placement: "hero", attribution_id: "bad value" } }), /attribution/);
+  assert.equal(validateEvent({ ...event, event_name: "navigation_click", properties: { href: "/#decision-layer", placement: "header" } }), "");
+  assert.match(validateEvent({ ...event, event_name: "navigation_click", properties: { href: "/#unknown", placement: "header" } }), /destination/);
 });
 
 test("event origins are restricted", () => {
