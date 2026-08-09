@@ -1,7 +1,7 @@
 const assert = require("node:assert/strict");
 const test = require("node:test");
 const { buildLead, getPublicErrorMessage, validateLead } = require("../../lib/lead-handler");
-const { buildEvent, handleEventSubmission, hashAddress, isAllowedOrigin, validateEvent } = require("../../lib/event-handler");
+const { allowedDestinations, allowedEvents, allowedPaths, buildEvent, handleEventSubmission, hashAddress, isAllowedOrigin, propertySchemas, validateEvent } = require("../../lib/event-handler");
 
 function responseCapture() {
   return { headers: {}, setHeader(key, value) { this.headers[key] = value; }, end(body) { this.body = body; } };
@@ -9,12 +9,16 @@ function responseCapture() {
 
 test("lead builder normalizes fields and validates email", () => {
   const request = { headers: { "user-agent": "Browser", "x-forwarded-for": "127.0.0.1, proxy" }, socket: {} };
-  const lead = buildLead({ name: " Ada ", email: "ADA@EXAMPLE.COM ", company: " Sendlyr ", productUrl: "https://example.com" }, request);
+  const lead = buildLead({ name: " Ada ", email: "ADA@EXAMPLE.COM ", company: " Sendlyr ", productUrl: "https://example.com", cohortSize: " 500 ", lifecycleStack: " Braze ", targetOutcome: " Trial conversion ", timeline: " This quarter ", budgetAuthority: " YES " }, request);
   assert.equal(lead.email, "ada@example.com");
   assert.equal(lead.ip, "127.0.0.1");
+  assert.deepEqual({ cohort_size: lead.cohort_size, lifecycle_stack: lead.lifecycle_stack, target_outcome: lead.target_outcome, timeline: lead.timeline, budget_authority: lead.budget_authority }, { cohort_size: "500", lifecycle_stack: "Braze", target_outcome: "Trial conversion", timeline: "This quarter", budget_authority: "yes" });
   assert.equal(validateLead(lead), "");
   assert.match(validateLead({ name: "", email: "bad", company: "" }), /required/);
-  assert.match(validateLead({ name: "Ada", email: "bad", company: "Sendlyr" }), /valid email/);
+  assert.match(validateLead({ name: "Ada", email: "bad", company: "Sendlyr", budget_authority: "yes" }), /valid email/);
+  for (const budgetAuthority of ["yes", "no", "unsure"]) assert.equal(validateLead({ name: "Ada", email: "ada@example.com", company: "Sendlyr", budget_authority: budgetAuthority }), "");
+  assert.match(validateLead({ name: "Ada", email: "ada@example.com", company: "Sendlyr" }), /budget authority/i);
+  assert.match(validateLead({ name: "Ada", email: "ada@example.com", company: "Sendlyr", budget_authority: "maybe" }), /budget authority/i);
 });
 
 test("lead errors do not expose internal details", () => {
@@ -24,6 +28,12 @@ test("lead errors do not expose internal details", () => {
 });
 
 test("event builder permits only the public taxonomy", () => {
+  assert.deepEqual([...allowedEvents], ["page_view", "navigation_click", "workflow_open", "case_study_open", "book_sprint_click", "cohort_toggle", "proof_tab_change", "decision_trace_change", "pilot_form_start", "pilot_form_submit"]);
+  assert.deepEqual([...propertySchemas.pilot_form_start], ["placement"]);
+  assert.deepEqual([...propertySchemas.pilot_form_submit], ["attribution_id", "budget_authority"]);
+  assert.equal(allowedDestinations.has("/#decision-layer"), false);
+  assert.equal(allowedPaths.has("/for/fitness-apps"), true);
+  assert.equal(allowedPaths.has("/for/cooking-apps"), true);
   const event = buildEvent({ event_id: "e1", event_name: "page_view", session_id: "s1", page_id: "p1", path: "/", occurred_at: new Date().toISOString(), properties: { title: "Home" } });
   assert.equal(validateEvent(event), "");
   assert.match(validateEvent({ ...event, event_name: "email_captured" }), /Unknown/);
@@ -35,7 +45,15 @@ test("event builder permits only the public taxonomy", () => {
   assert.equal(validateEvent({ ...event, event_name: "decision_trace_change", properties: { state: "at_risk" } }), "");
   assert.match(validateEvent({ ...event, event_name: "decision_trace_change", properties: { state: "unknown" } }), /trace/);
   assert.match(validateEvent({ ...event, event_name: "book_sprint_click", properties: { placement: "hero", attribution_id: "bad value" } }), /attribution/);
-  assert.equal(validateEvent({ ...event, event_name: "navigation_click", properties: { href: "/#decision-layer", placement: "header" } }), "");
+  assert.equal(validateEvent({ ...event, event_name: "pilot_form_start", properties: { placement: "pilot" } }), "");
+  for (const budgetAuthority of ["yes", "no", "unsure"]) {
+    assert.equal(validateEvent({ ...event, event_name: "pilot_form_submit", properties: { attribution_id: "braze-syd-2026", budget_authority: budgetAuthority } }), "");
+  }
+  assert.match(validateEvent({ ...event, event_name: "pilot_form_submit", properties: { attribution_id: "braze-syd-2026" } }), /budget authority/i);
+  assert.match(validateEvent({ ...event, event_name: "pilot_form_submit", properties: { attribution_id: "braze-syd-2026", budget_authority: "maybe" } }), /budget authority/i);
+  assert.match(validateEvent({ ...event, event_name: "pilot_form_submit", properties: { attribution_id: "bad value", budget_authority: "yes" } }), /attribution/);
+  assert.match(validateEvent({ ...event, event_name: "pilot_form_submit", properties: { attribution_id: "bad_value", budget_authority: "yes" } }), /attribution/);
+  assert.match(validateEvent({ ...event, event_name: "navigation_click", properties: { href: "/#decision-layer", placement: "header" } }), /destination/);
   assert.match(validateEvent({ ...event, event_name: "navigation_click", properties: { href: "/#unknown", placement: "header" } }), /destination/);
 });
 
