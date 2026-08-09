@@ -1,6 +1,38 @@
 const { test, expect } = require("@playwright/test");
 
 const routes = ["/", "/how-it-works", "/for/fitness-apps", "/for/cooking-apps", "/for/edtech-apps", "/blog", "/blog/pai-discovery-case-study", "/privacy"];
+const primaryCta = "Request a Signal Validation Pilot";
+
+async function fillPilot(page, budgetAuthority = "yes") {
+  const form = page.locator("[data-pilot-form]");
+  await form.getByLabel("Name").fill("Ada Lovelace");
+  await form.getByLabel("Work email").fill("ada@example.com");
+  await form.getByLabel("Company").fill("Example Product");
+  await form.getByLabel("Cohort size").selectOption("1000-4999");
+  await form.getByLabel("Lifecycle stack").fill("Braze");
+  await form.getByLabel("Target outcome").fill("Trial conversion within 14 days");
+  await form.getByLabel("Timeline").selectOption("within-30-days");
+  await form.getByRole("radio", { name: new RegExp(`^${budgetAuthority}$`, "i") }).check();
+  return form;
+}
+
+async function enableAnalytics(page, events) {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "sendBeacon", { configurable: true, value: undefined });
+  });
+  await page.route((url) => url.pathname === "/", async (route) => {
+    const response = await route.fetch();
+    const body = (await response.text()).replace('data-analytics-enabled="false"', 'data-analytics-enabled="true"');
+    await route.fulfill({ response, body, headers: { ...response.headers(), "content-type": "text/html; charset=utf-8" } });
+  });
+  await page.route("**/api/events", async (route) => {
+    events.push(route.request().postDataJSON());
+    await route.fulfill({ status: 202, contentType: "application/json", body: '{"ok":true,"stored":true}' });
+  });
+  await page.route("**/api/leads", async (route) => {
+    await route.fulfill({ status: 201, contentType: "application/json", body: '{"ok":true,"message":"Thanks. We received your request."}' });
+  });
+}
 
 for (const route of routes) {
   test(`${route} has complete metadata and no overflow`, async ({ page }) => {
@@ -16,101 +48,161 @@ for (const route of routes) {
   });
 }
 
-test("homepage metadata, schema, and Open Graph asset match the wedge-first offer", async ({ page }) => {
+test("homepage metadata, schema, and Open Graph describe validation", async ({ page }) => {
   await page.goto("/");
-  await expect(page).toHaveTitle("Find the customer-journey leak worth fixing first | Sendlyr");
-  const description = "Sendlyr turns existing product behavior into one priority customer state, one next best action, and a measurable test.";
-  await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", description);
-  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "Find the customer-journey leak worth fixing first | Sendlyr");
-  await expect(page.locator('meta[property="og:description"]')).toHaveAttribute("content", description);
+  await expect(page).toHaveTitle("Validate your activation theory with a real holdout | Sendlyr");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", "Most activation metrics are correlations. Sendlyr runs the holdout and tells your team what the result means.");
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "Most activation metrics are correlations. We run the holdout. | Sendlyr");
+  await expect(page.locator('meta[property="og:description"]')).toHaveAttribute("content", "Test one candidate behavior against a real holdout and get a decision-grade readout, including when the outcome does not move.");
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", "https://sendlyr.com/assets/og/og-home.png");
-  const schema = await page.locator('script[type="application/ld+json"]').textContent();
-  expect(schema).toContain("Sendlyr revenue leak analysis");
-  expect(schema).toContain(description);
-  expect(schema).not.toContain("offers");
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute("content", "Most activation metrics are correlations. Sendlyr runs the holdout.");
+  const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+  expect(JSON.stringify(schema)).toContain("Signal Validation Pilot");
+  expect(JSON.stringify(schema)).not.toContain("offers");
 });
 
-test("homepage uses five narrative units and the evidence contract instead of unapproved customer proof", async ({ page }) => {
+test("homepage follows the validation spine without deleted positioning", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator("main > section")).toHaveCount(5);
-  const contract = page.locator(".evidence-contract");
-  for (const label of ["Scoped data", "Reviewed definitions", "Controlled change", "Declared measure"]) {
-    await expect(contract).toContainText(label);
-  }
-  await expect(page.getByText("Trusted by", { exact: true })).toHaveCount(0);
-  await expect(page.getByRole("img", { name: "Typesy" })).toHaveCount(0);
-  await expect(page.getByText("Behavioral Journey Simulation", { exact: false })).toHaveCount(0);
-  await expect(page.getByRole("tab", { name: "Existing engagement stack" })).toHaveCount(0);
-});
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Your team already has a theory about what makes users convert. Sendlyr finds out if it’s true.");
+  await expect(page.locator(".qualifier")).toContainText("Built for experiments starting around 500 eligible users.");
+  await expect(page.locator(".qualifier")).toContainText("No CDP, CPaaS, or per-user reinforcement-learning system required.");
+  await expect(page.locator(".qualifier")).toContainText("Power still depends on your baseline rate and the effect size you care about.");
 
-test("revenue leak map exposes the exact activation, conversion, and retention decisions", async ({ page }) => {
-  await page.goto("/");
-  const cases = [
-    ["Activation Onboarding", "Onboarding started, not finished", "Unstarted", "First meaningful task", "Guide the shortest path to first value"],
-    ["Conversion First value", "Exploration without a value moment", "In progress", "Core feature completed", "Show one relevant use case in context"],
-    ["Retention Early habit", "Early habit fading", "At risk", "Return for a second active session", "Reinforce the next reason to return"],
-  ];
-  for (const [tabName, leak, state, behavior, action] of cases) {
-    const tab = page.getByRole("tab", { name: tabName });
-    await tab.click();
-    await expect(tab).toHaveAttribute("aria-selected", "true");
-    const panel = page.getByRole("tabpanel", { name: tabName });
-    for (const value of [leak, state, behavior, action]) await expect(panel).toContainText(value);
+  const body = await page.locator("body").innerText();
+  for (const deleted of [/revenue leak/i, /decision layer/i, /decision package/i, /sendgrid/i, /return to the unfinished task/i, /subject, body, and deep link/i]) {
+    expect(body).not.toMatch(deleted);
   }
 });
 
-test("revenue leak map supports arrow, Home, and End keys", async ({ page }) => {
+test("three-part deliverable ends with the experiment readout", async ({ page }) => {
   await page.goto("/");
-  const activation = page.getByRole("tab", { name: "Activation Onboarding" });
-  await activation.focus();
-  await page.keyboard.press("ArrowLeft");
-  await expect(page.getByRole("tab", { name: "Retention Early habit" })).toHaveAttribute("aria-selected", "true");
-  await page.keyboard.press("ArrowRight");
-  await expect(activation).toHaveAttribute("aria-selected", "true");
-  await page.keyboard.press("ArrowUp");
-  await expect(page.getByRole("tab", { name: "Retention Early habit" })).toHaveAttribute("aria-selected", "true");
-  await page.keyboard.press("End");
-  await expect(page.getByRole("tab", { name: "Retention Early habit" })).toHaveAttribute("aria-selected", "true");
-  await page.keyboard.press("Home");
-  await expect(activation).toHaveAttribute("aria-selected", "true");
+  const deliverables = page.locator(".deliverable-steps");
+  await expect(deliverables.locator("li")).toHaveCount(3);
+  await expect(deliverables.locator("h3")).toHaveText(["Signal analysis", "Controlled experiment design", "Readout"]);
+
+  const readout = page.locator(".readout-list");
+  await expect(readout.locator("li")).toHaveText([
+    /Signal lift and coverage/,
+    /State distribution/,
+    /Sends/,
+    /Indicator by arm/,
+    /Outcome by arm/,
+    /Stated uncertainty/,
+    /A go \/ stop \/ iterate conclusion/,
+  ]);
 });
 
-test("homepage Open Graph and platform assets decode at their declared dimensions", async ({ page }) => {
+test("Typesy result reports both the changed indicator and null conversion outcome", async ({ page }) => {
   await page.goto("/");
-  const og = await page.locator('meta[property="og:image"]').getAttribute("content");
-  expect(og).toBe("https://sendlyr.com/assets/og/og-home.png");
+  const results = page.locator("#results");
+  await expect(results.getByRole("heading", { name: "We moved the behavior. Conversion did not move." })).toBeVisible();
+  for (const value of [
+    "eReflect’s Typesy",
+    "69.4%",
+    "129/186",
+    "57.7%",
+    "56/97",
+    "+11.7pp · +20.3% relative",
+    "p ≈ 0.051 — borderline",
+    "76.8%",
+    "136/177",
+    "76.7%",
+    "66/86",
+    "+0.1pp · no lift",
+    "conversion was already around 77%",
+  ]) await expect(results).toContainText(value);
+  await expect(results.getByRole("link", { name: "Read the full case study" })).toHaveAttribute("href", "/blog/pai-discovery-case-study");
+  await expect(results).not.toContainText("treatment/no-hit");
+});
 
-  const dimensions = await page.evaluate(async () => {
-    const load = (src) => new Promise((resolve, reject) => {
-      const image = new Image();
-      image.onload = () => resolve({ src, width: image.naturalWidth, height: image.naturalHeight });
-      image.onerror = () => reject(new Error(`Unable to decode ${src}`));
-      image.src = src;
-    });
-    return Promise.all([
-      load("/assets/og/og-home.png"),
-      ...[...document.querySelectorAll(".source-databases img, .provider-marks img")].map((image) => load(image.getAttribute("src"))),
-    ]);
+test("founder evidence states the operated experiment and correction", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator(".founder-frame > p")).toHaveText("Stephen designed and operated a live randomised experiment across 485 users and 568 hand-executed sends. He detected a four-day pipeline outage himself. He corrected the published conclusion when the final data contradicted the hypothesis.");
+});
+
+test("Signal Validation Pilot has fixed scope and no public price", async ({ page }) => {
+  await page.goto("/");
+  const pilot = page.locator("#pilot");
+  await expect(pilot).toContainText("one candidate behavior, one outcome, one controlled experiment, and one complete readout");
+  await expect(pilot).toContainText("A stated go / stop / iterate conclusion with the uncertainty visible.");
+  const text = await pilot.innerText();
+  expect(text).not.toMatch(/AUD|\$\s*2[,\s]?500|price/i);
+});
+
+test("qualification form posts every field to the leads endpoint", async ({ page }) => {
+  let submission;
+  await page.route("**/api/leads", async (route) => {
+    submission = Object.fromEntries(new URLSearchParams(route.request().postData() || ""));
+    await route.fulfill({ status: 201, contentType: "application/json", body: '{"ok":true,"message":"Thanks. We received your request."}' });
   });
-
-  expect(dimensions[0]).toEqual({ src: "/assets/og/og-home.png", width: 1200, height: 630 });
-  for (const asset of dimensions.slice(1)) {
-    expect(asset.width, asset.src).toBeGreaterThan(0);
-    expect(asset.height, asset.src).toBeGreaterThan(0);
+  await page.goto("/");
+  const form = page.locator("[data-pilot-form]");
+  await expect(form).toHaveAttribute("action", "/api/leads");
+  await expect(form).toHaveAttribute("method", "post");
+  for (const label of ["Name", "Work email", "Company", "Cohort size", "Lifecycle stack", "Target outcome", "Timeline"]) {
+    await expect(form.getByLabel(label)).toBeVisible();
   }
+
+  const budget = form.getByRole("group", { name: /Budget authority/ });
+  const options = budget.getByRole("radio");
+  await expect(options).toHaveCount(3);
+  expect(await options.evaluateAll((items) => items.map((item) => item.value))).toEqual(["yes", "no", "unsure"]);
+
+  await fillPilot(page, "yes");
+  await form.locator('button[type="submit"]').click();
+  await expect.poll(() => submission).toMatchObject({
+    name: "Ada Lovelace",
+    email: "ada@example.com",
+    company: "Example Product",
+    cohort_size: "1000-4999",
+    lifecycle_stack: "Braze",
+    target_outcome: "Trial conversion within 14 days",
+    timeline: "within-30-days",
+    budget_authority: "yes",
+    source: "signal-validation-pilot",
+  });
 });
 
-test("hero decision instrument remains stable across states", async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 800 });
+test("budget authority is required", async ({ page }) => {
   await page.goto("/");
-  await page.evaluate(() => document.fonts.ready);
-  const map = page.locator(".leak-map");
-  const heights = [];
-  for (const name of ["Activation Onboarding", "Conversion First value", "Retention Early habit"]) {
-    await page.getByRole("tab", { name }).click();
-    heights.push(await map.evaluate((element) => element.getBoundingClientRect().height));
+  const form = page.locator("[data-pilot-form]");
+  const radios = form.getByRole("radio");
+  await expect(radios).toHaveCount(3);
+  for (const radio of await radios.all()) await expect(radio).toHaveAttribute("required", "");
+
+  await form.getByLabel("Name").fill("Ada Lovelace");
+  await form.getByLabel("Work email").fill("ada@example.com");
+  await form.getByLabel("Company").fill("Example Product");
+  await form.getByLabel("Cohort size").selectOption("1000-4999");
+  await form.getByLabel("Lifecycle stack").fill("Braze");
+  await form.getByLabel("Target outcome").fill("Trial conversion");
+  await form.getByLabel("Timeline").selectOption("within-30-days");
+  await form.locator('button[type="submit"]').click();
+  expect(await radios.first().evaluate((radio) => radio.matches(":invalid"))).toBe(true);
+});
+
+test("essential buying information survives without JavaScript", async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "Your team already has a theory about what makes users convert. Sendlyr finds out if it’s true." })).toBeVisible();
+  await expect(page.locator(".qualifier")).toBeVisible();
+  await expect(page.locator(".deliverable-steps")).toBeVisible();
+  await expect(page.locator(".readout-list")).toBeVisible();
+  await expect(page.locator("#results")).toBeVisible();
+  await expect(page.locator(".founder-frame")).toBeVisible();
+  await expect(page.locator("[data-pilot-form]")).toBeVisible();
+  await context.close();
+});
+
+test("one primary CTA phrase is used across all public actions", async ({ page }) => {
+  for (const route of routes) {
+    await page.goto(route);
+    const actions = page.locator("[data-primary-cta], [data-book-sprint]");
+    expect(await actions.count(), route).toBeGreaterThan(0);
+    const phrases = await actions.evaluateAll((items) => items.map((item) => item.textContent.replace(/[↓→↗]/g, "").trim()));
+    expect(new Set(phrases), route).toEqual(new Set([primaryCta]));
   }
-  expect(Math.max(...heights) - Math.min(...heights)).toBeLessThanOrEqual(1);
 });
 
 test("desktop hero value unit fits the first viewport", async ({ page }) => {
@@ -119,84 +211,8 @@ test("desktop hero value unit fits the first viewport", async ({ page }) => {
     await page.goto("/");
     await page.evaluate(() => document.fonts.ready);
     const bottom = await page.locator(".product-hero").evaluate((element) => element.getBoundingClientRect().bottom);
-    expect(bottom, `${viewport.width}x${viewport.height}`).toBeLessThanOrEqual(viewport.height - 20);
+    expect(bottom, `${viewport.width}x${viewport.height}`).toBeLessThanOrEqual(viewport.height - 12);
   }
-});
-
-test("continuous decision layer uses one activation scenario and a connected feedback path", async ({ page }) => {
-  await page.goto("/");
-  const flow = page.locator(".decision-flow");
-  for (const value of [
-    "PostgreSQL",
-    "SQL Server",
-    "PostHog",
-    "Onboarding opened; first task absent after 24h",
-    "New user, onboarding opened, no first task 24h after signup",
-    "Unstarted",
-    "First meaningful task",
-    "Return to the unfinished task with one clear next step",
-    "Lifecycle owner approval required",
-    "Existing engagement stack · Email first",
-    "One reminder: subject, body, and deep link",
-    "First meaningful task completed within 48h",
-    "Raise the rule’s priority only if the pattern repeats",
-  ]) await expect(flow).toContainText(value);
-  const undersizedDecisionText = await flow.locator(".flow-fact strong, .sendlyr-core dd, .activation-sequence strong, .feedback-loop li strong").evaluateAll((items) => items
-    .map((item) => ({ text: item.textContent.trim(), size: Number.parseFloat(getComputedStyle(item).fontSize) }))
-    .filter(({ size }) => size < 16));
-  expect(undersizedDecisionText).toEqual([]);
-  await expect(flow.getByAltText("Braze")).toBeVisible();
-  await expect(flow.getByAltText("Customer.io")).toBeVisible();
-  await expect(flow).toContainText("SendGrid");
-  const width = await page.evaluate(() => window.innerWidth);
-  if (width > 900) {
-    await expect(page.locator(".feedback-loop svg")).toBeVisible();
-  } else {
-    await expect(page.locator(".feedback-loop")).toBeVisible();
-    expect(await page.locator(".feedback-loop").evaluate((element) => getComputedStyle(element).borderTopWidth)).toBe("2px");
-  }
-  await expect(page.locator(".connector-boundary")).toHaveText("Example systems shown for context. Connector scope is configured with each team; platform marks do not imply vendor endorsement.");
-});
-
-test("decision package keeps essential output visible and rationale collapsed by default", async ({ page }) => {
-  await page.goto("/");
-  const artifact = page.locator(".decision-package");
-  for (const field of ["Customer state", "Leading behavior", "Recommended action", "Human approval", "Delivery destination", "Outcome to measure"]) {
-    await expect(artifact).toContainText(field);
-  }
-  const details = artifact.locator("details");
-  await expect(details).not.toHaveAttribute("open", "");
-  await expect(details.getByText("Observation", { exact: true })).not.toBeVisible();
-  await details.getByText("Why this recommendation", { exact: true }).click();
-  await expect(details).toHaveAttribute("open", "");
-  for (const field of ["Observation", "Rule threshold", "Changed surface", "Held constant", "Evidence boundary"]) {
-    await expect(details).toContainText(field);
-  }
-  await expect(details).toContainText("Illustrative recommendation; customer data and a controlled measurement determine whether this behavior predicts the outcome.");
-});
-
-test("mobile tabs expose overflow, reveal selection, and keep stable dimensions", async ({ page }) => {
-  await page.setViewportSize({ width: 375, height: 812 });
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
-  await page.evaluate(() => document.fonts.ready);
-  const tablist = page.locator(".leak-tabs");
-  expect(await tablist.evaluate((element) => getComputedStyle(element).maskImage)).not.toBe("none");
-  expect(await tablist.evaluate((element) => element.scrollWidth > element.clientWidth)).toBe(true);
-  const map = page.locator(".leak-map");
-  const firstHeight = await map.evaluate((element) => element.getBoundingClientRect().height);
-  await page.getByRole("tab", { name: "Activation Onboarding" }).focus();
-  await page.keyboard.press("End");
-  const retention = page.getByRole("tab", { name: "Retention Early habit" });
-  await expect(retention).toHaveAttribute("aria-selected", "true");
-  await expect.poll(() => retention.evaluate((tab) => {
-    const list = tab.parentElement.getBoundingClientRect();
-    const item = tab.getBoundingClientRect();
-    return item.left >= list.left - 1 && item.right <= list.right + 1;
-  })).toBe(true);
-  const lastHeight = await map.evaluate((element) => element.getBoundingClientRect().height);
-  expect(Math.abs(lastHeight - firstHeight)).toBeLessThanOrEqual(4);
-  expect(await page.locator(".nav-route-row").evaluate((element) => getComputedStyle(element).maskImage)).not.toBe("none");
 });
 
 test("homepage has no overflow at release widths", async ({ page }) => {
@@ -211,99 +227,103 @@ test("homepage has no overflow at release widths", async ({ page }) => {
 test("homepage controls keep touch-sized targets", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 812 });
   await page.goto("/");
-  const undersized = await page.locator("[data-instrument-tabs] button").evaluateAll((controls) => controls
-    .map((control) => ({ label: control.textContent.trim(), width: control.getBoundingClientRect().width, height: control.getBoundingClientRect().height }))
+  const selector = "[data-primary-cta], .nav-route-row a, .footer-links a, .budget-options label, .pilot-form input:not([type=radio]):not([type=hidden]), .pilot-form select, .pilot-form textarea";
+  const undersized = await page.locator(selector).evaluateAll((controls) => controls
+    .filter((control) => getComputedStyle(control).position !== "absolute")
+    .map((control) => ({ label: control.textContent.trim() || control.getAttribute("name"), width: control.getBoundingClientRect().width, height: control.getBoundingClientRect().height }))
     .filter(({ width, height }) => width < 44 || height < 44));
   expect(undersized).toEqual([]);
 });
 
-test("analytics is disabled by default", async ({ page }) => {
+test("keyboard focus is visible and form radios are operable", async ({ page }) => {
+  await page.goto("/");
+  await page.keyboard.press("Tab");
+  const skip = page.locator(".skip-link");
+  await expect(skip).toBeFocused();
+  await expect(skip).toBeVisible();
+  expect(await skip.evaluate((element) => getComputedStyle(element).outlineWidth)).toBe("2px");
+
+  const yes = page.getByRole("radio", { name: "Yes", exact: true });
+  await yes.focus();
+  await page.keyboard.press("Space");
+  await expect(yes).toBeChecked();
+  expect(await yes.evaluate((element) => getComputedStyle(element).outlineStyle)).not.toBe("none");
+});
+
+test("analytics is disabled by default for the pilot form", async ({ page }) => {
   const eventRequests = [];
   page.on("request", (request) => { if (request.url().includes("/api/events")) eventRequests.push(request.url()); });
-  await page.goto("/");
-  await page.getByRole("tab", { name: "Conversion First value" }).click();
+  await page.route("**/api/leads", async (route) => {
+    await route.fulfill({ status: 201, contentType: "application/json", body: '{"ok":true,"message":"Thanks. We received your request."}' });
+  });
+  await page.goto("/?ref=braze-syd-2026");
+  const form = await fillPilot(page, "yes");
+  await form.locator('button[type="submit"]').click();
+  await expect(form.locator("[data-pilot-status]")).toHaveText("Thanks. We received your request.");
   expect(eventRequests).toHaveLength(0);
 });
 
-test("enabled analytics records one decision event for each changed tab", async ({ page }) => {
+test("enabled analytics records one start and one successful pilot submit", async ({ page }) => {
   const events = [];
-  await page.addInitScript(() => {
-    Object.defineProperty(navigator, "sendBeacon", { configurable: true, value: undefined });
-  });
-  await page.route((url) => url.pathname === "/", async (route) => {
-    const response = await route.fetch();
-    const body = (await response.text()).replace('data-analytics-enabled="false"', 'data-analytics-enabled="true"');
-    await route.fulfill({ response, body, headers: { ...response.headers(), "content-type": "text/html; charset=utf-8" } });
-  });
-  await page.route("**/api/events", async (route) => {
-    events.push(route.request().postDataJSON());
-    await route.fulfill({ status: 202, contentType: "application/json", body: '{"ok":true,"stored":true}' });
-  });
+  await enableAnalytics(page, events);
 
-  await page.goto("/");
-  await page.getByRole("tab", { name: "Conversion First value" }).click();
-  await expect.poll(() => events.filter((event) => event.event_name === "decision_trace_change").length).toBe(1);
-  expect(events.find((event) => event.event_name === "decision_trace_change").properties).toEqual({ state: "exploring" });
+  await page.goto("/?ref=braze-syd-2026");
+  const form = await fillPilot(page, "unsure");
+  await expect.poll(() => events.filter((event) => event.event_name === "pilot_form_start").length).toBe(1);
+  expect(events.find((event) => event.event_name === "pilot_form_start").properties).toEqual({ placement: "homepage-pilot" });
 
-  await page.getByRole("tab", { name: "Conversion First value" }).click();
-  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
-  expect(events.filter((event) => event.event_name === "decision_trace_change")).toHaveLength(1);
-
-  await page.getByLabel("Explore Sendlyr").getByRole("link", { name: "Decision layer" }).click();
-  await expect.poll(() => events.filter((event) => event.event_name === "navigation_click").length).toBe(1);
-  expect(events.find((event) => event.event_name === "navigation_click").properties).toEqual({ href: "/#decision-layer", placement: "header" });
+  await form.locator('button[type="submit"]').click();
+  await expect(form.locator("[data-pilot-status]")).toHaveText("Thanks. We received your request.");
+  await expect.poll(() => events.filter((event) => event.event_name === "pilot_form_submit").length).toBe(1);
+  expect(events.find((event) => event.event_name === "pilot_form_submit").properties).toEqual({ attribution_id: "braze-syd-2026", budget_authority: "unsure" });
 });
 
-test("essential buying information survives without JavaScript", async ({ browser }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false });
-  const page = await context.newPage();
-  await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Find the customer-journey leak worth fixing first." })).toBeVisible();
-  await expect(page.getByRole("tab")).toHaveCount(0);
-  await expect(page.locator("[data-instrument-tab]:visible")).toHaveCount(0);
-  await expect(page.locator("[data-instrument-panel]")).toHaveCount(3);
-  for (const panel of await page.locator("[data-instrument-panel]").all()) await expect(panel).toBeVisible();
-  await expect(page.locator(".evidence-contract")).toBeVisible();
-  await expect(page.locator(".decision-flow")).toBeVisible();
-  await expect(page.locator(".decision-package")).toBeVisible();
-  await expect(page.locator(".final-offer")).toBeVisible();
-  await context.close();
-});
+test("pilot attribution accepts tagged IDs and drops invalid ref values", async ({ page }) => {
+  const events = [];
+  await enableAnalytics(page, events);
 
-test("one primary CTA phrase is used across the homepage", async ({ page }) => {
-  await page.goto("/");
-  const links = page.locator("[data-book-sprint]");
-  await expect(links).toHaveCount(3);
-  expect(await links.evaluateAll((items) => items.map((item) => ({ text: item.textContent.replace("↗", "").trim(), href: item.getAttribute("href"), target: item.target, rel: item.rel, placement: item.dataset.placement })))).toEqual([
-    { text: "Find your first revenue leak", href: "https://calendly.com/dquang191104/30min", target: "_blank", rel: "noopener", placement: "header" },
-    { text: "Find your first revenue leak", href: "https://calendly.com/dquang191104/30min", target: "_blank", rel: "noopener", placement: "hero" },
-    { text: "Find your first revenue leak", href: "https://calendly.com/dquang191104/30min", target: "_blank", rel: "noopener", placement: "revenue-leak" },
-  ]);
-});
-
-test("all public booking actions use the wedge-first CTA", async ({ page }) => {
-  for (const route of routes) {
-    await page.goto(route);
-    const links = page.locator("[data-book-sprint]");
-    expect(await links.count(), route).toBeGreaterThan(0);
-    for (const link of await links.all()) {
-      await expect(link, route).toContainText("Find your first revenue leak");
-      await expect(link, route).toHaveAttribute("href", "https://calendly.com/dquang191104/30min");
-    }
+  for (const [ref, expected] of [["77p-2026", "77p-2026"], ["not_valid", undefined]]) {
+    await page.goto(`/?ref=${ref}`);
+    const form = await fillPilot(page, "no");
+    await form.locator('button[type="submit"]').click();
+    await expect.poll(() => events.filter((event) => event.event_name === "pilot_form_submit").length).toBe(expected ? 1 : 2);
+    const submitted = events.filter((event) => event.event_name === "pilot_form_submit").at(-1);
+    expect(submitted.properties.budget_authority).toBe("no");
+    expect(submitted.properties.attribution_id).toBe(expected);
   }
 });
 
 test("reduced motion resolves immediately", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
-  await expect(page.getByRole("tab", { name: "Activation Onboarding" })).toHaveAttribute("aria-selected", "true");
   expect(await page.locator("html").evaluate((element) => getComputedStyle(element).scrollBehavior)).toBe("auto");
-  const transitionSeconds = await page.getByRole("tab", { name: "Activation Onboarding" }).evaluate((element) => Number.parseFloat(getComputedStyle(element).transitionDuration));
+  const transitionSeconds = await page.locator("[data-primary-cta]").first().evaluate((element) => Number.parseFloat(getComputedStyle(element).transitionDuration));
   expect(transitionSeconds).toBeLessThanOrEqual(0.001);
 });
 
-test("all internal navigation targets resolve", async ({ request }) => {
+test("homepage Open Graph asset decodes at its declared dimensions", async ({ page }) => {
+  await page.goto("/");
+  const dimensions = await page.evaluate(() => new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve({ width: image.naturalWidth, height: image.naturalHeight });
+    image.onerror = () => reject(new Error("Unable to decode the homepage Open Graph image"));
+    image.src = "/assets/og/og-home.png";
+  }));
+  expect(dimensions).toEqual({ width: 1200, height: 630 });
+});
+
+test("all internal navigation targets resolve", async ({ page, request }) => {
   for (const route of routes) expect((await request.get(route)).status(), route).toBe(200);
   expect((await request.get("/robots.txt")).status()).toBe(200);
   expect((await request.get("/sitemap.xml")).status()).toBe(200);
+
+  await page.goto("/");
+  const links = await page.locator('a[href^="/"]').evaluateAll((items) => [...new Set(items.map((item) => item.getAttribute("href")))]);
+  for (const href of links) {
+    const url = new URL(href, "https://sendlyr.com");
+    expect((await request.get(url.pathname)).status(), href).toBe(200);
+    if (url.pathname === "/" && url.hash) expect(await page.locator(url.hash).count(), href).toBe(1);
+  }
+  const localHashes = await page.locator('a[href^="#"]').evaluateAll((items) => items.map((item) => item.hash.slice(1)));
+  for (const id of localHashes) expect(await page.locator(`#${id}`).count(), id).toBe(1);
 });

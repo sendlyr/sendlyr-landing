@@ -13,6 +13,8 @@
     "cohort_toggle",
     "proof_tab_change",
     "decision_trace_change",
+    "pilot_form_start",
+    "pilot_form_submit",
   ]);
   let eventCount = 0;
 
@@ -96,6 +98,30 @@
   } else {
     revealItems.forEach((item) => item.classList.add("is-visible"));
   }
+
+  const attributionPattern = /^[a-zA-Z0-9-]{1,80}$/;
+  const queryAttribution = new URLSearchParams(location.search).get("ref") || "";
+  const attributionId = attributionPattern.test(queryAttribution) ? queryAttribution : "";
+
+  for (const form of document.querySelectorAll("[data-pilot-form]")) {
+    let started = false;
+    const interactionEvents = ["focusin", "pointerdown", "input", "change"];
+    const recordStart = () => {
+      if (started) return;
+      started = true;
+      interactionEvents.forEach((name) => form.removeEventListener(name, recordStart));
+      track("pilot_form_start", { placement: form.dataset.placement });
+    };
+    interactionEvents.forEach((name) => form.addEventListener(name, recordStart));
+  }
+
+  document.addEventListener("pilot:submit-success", (event) => {
+    const budgetAuthority = clean(event.detail?.budgetAuthority, 20);
+    if (!["yes", "no", "unsure"].includes(budgetAuthority)) return;
+    const properties = { budget_authority: budgetAuthority };
+    if (attributionId) properties.attribution_id = attributionId;
+    track("pilot_form_submit", properties);
+  });
 
   for (const link of document.querySelectorAll("[data-book-sprint]")) {
     link.addEventListener("click", () => {
