@@ -23,9 +23,24 @@ Ship deadline: **Monday 17 August 2026.** Braze Sydney Tue 18 Aug. 77 Partners c
 
 3. **Every lane runs `npm run build`, which regenerates all of `public/**`.** Lane B owns the
    shared partials, so its build touches every generated page. To avoid four lanes fighting over
-   generated output: **no lane commits regenerated `public/**/index.html`.** Lanes edit `src/`,
-   run `npm run build` locally to verify, then `git checkout -- public/` before reporting. One
-   build is run at merge time and committed once.
+   generated output: **no lane commits regenerated `public/**/index.html`.** One build is run at
+   merge time and committed once.
+
+   **CORRECTION 2026-08-09 — the original instruction here was `git checkout -- public/` before
+   reporting. That instruction is WRONG and destroys real work.** `public/` is not purely
+   generated. `public/llms.txt`, `public/styles.css`, `public/site.css`, `public/enhance.css`,
+   `public/scripts/site.js`, and `public/scripts/app.js` are hand-maintained SOURCE files that
+   live under `public/`. Only `public/**/index.html` and `public/build/**` are build output.
+   It already cost Lane C its `llms.txt` edits.
+
+   **Correct rule:** revert only generated output —
+   `git checkout -- 'public/**/index.html' public/build` — or simply leave `public/` dirty and
+   let the merge build settle it. Never blanket-revert `public/`.
+
+   **Verification order matters.** `npm run check:generated` only passes when `public/` matches
+   `src/`, so for any lane that edits `src/pages/**` the sequence is `npm run build` THEN
+   `npm run check:generated`. Running the check after a revert fails by construction and is not
+   a lane defect.
 
 ## Event contract (authored here so all lanes can work in parallel)
 

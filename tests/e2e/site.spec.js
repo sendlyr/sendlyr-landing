@@ -228,10 +228,29 @@ test("homepage controls keep touch-sized targets", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 812 });
   await page.goto("/");
   const selector = "[data-primary-cta], .nav-route-row a, .footer-links a, .budget-options label, .pilot-form input:not([type=radio]):not([type=hidden]), .pilot-form select, .pilot-form textarea";
-  const undersized = await page.locator(selector).evaluateAll((controls) => controls
-    .filter((control) => getComputedStyle(control).position !== "absolute")
-    .map((control) => ({ label: control.textContent.trim() || control.getAttribute("name"), width: control.getBoundingClientRect().width, height: control.getBoundingClientRect().height }))
-    .filter(({ width, height }) => width < 44 || height < 44));
+  const undersized = await page.locator(selector).evaluateAll((controls) => {
+    const isVisuallyHidden = (control) => {
+      if (!control.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })) return true;
+
+      for (let element = control; element; element = element.parentElement) {
+        const style = getComputedStyle(element);
+        const bounds = element.getBoundingClientRect();
+        const clipsOverflow = [style.overflow, style.overflowX, style.overflowY].some((value) => value === "hidden" || value === "clip");
+        if (clipsOverflow && bounds.width <= 1 && bounds.height <= 1) return true;
+      }
+
+      const bounds = control.getBoundingClientRect();
+      const position = getComputedStyle(control).position;
+      return (position === "absolute" || position === "fixed") && (bounds.right <= 0 || bounds.bottom <= 0);
+    };
+
+    return controls
+      .filter((control) => control.getAttribute("tabindex") !== "-1")
+      .filter((control) => !control.closest('[aria-hidden="true"]'))
+      .filter((control) => !isVisuallyHidden(control))
+      .map((control) => ({ label: control.textContent.trim() || control.getAttribute("name"), width: control.getBoundingClientRect().width, height: control.getBoundingClientRect().height }))
+      .filter(({ width, height }) => width < 44 || height < 44);
+  });
   expect(undersized).toEqual([]);
 });
 
