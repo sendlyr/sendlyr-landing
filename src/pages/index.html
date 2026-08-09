@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Validate your activation theory with a real holdout | Sendlyr</title>
-  <meta name="description" content="Most activation metrics are correlations. Sendlyr runs the holdout and tells your team what the result means.">
+  <title>Activation Intelligence for Subscription Growth | Sendlyr</title>
+  <meta name="description" content="Sendlyr finds the early behavior that predicts conversion, then guides every user toward it through the lifecycle tools you already use.">
   <link rel="canonical" href="https://sendlyr.com/">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Most activation metrics are correlations. We run the holdout. | Sendlyr">
-  <meta property="og:description" content="Test one candidate behavior against a real holdout and get a decision-grade readout, including when the outcome does not move.">
+  <meta property="og:title" content="Activation Intelligence for Subscription Growth | Sendlyr">
+  <meta property="og:description" content="Find the early behavior that predicts conversion, then guide every user toward it through the lifecycle tools you already use.">
   <meta property="og:url" content="https://sendlyr.com/">
   <meta property="og:image" content="https://sendlyr.com/assets/og/og-home.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Most activation metrics are correlations. Sendlyr runs the holdout.">
+  <meta property="og:image:alt" content="Sendlyr activation intelligence for subscription growth.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/assets/logo/sendlyr-icon-512.png">
   <link rel="preload" href="/assets/fonts/inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
@@ -29,12 +29,8 @@
   <main id="main-content">
     <section class="product-hero shell" aria-labelledby="home-title">
       <div class="hero-copy">
-        <p class="eyebrow">Most activation metrics are correlations. We run the holdout.</p>
-        <h1 id="home-title">Your team already has a theory about what makes users convert. Sendlyr finds out if it’s true.</h1>
-        <div class="hero-lede">
-          <p>We take one candidate behavior and design a real holdout. Then we tell you whether driving it moved the outcome — including when it didn’t.</p>
-          <p>You keep Braze, Customer.io, or Iterable. We tell your team what to test and what the result means.</p>
-        </div>
+        <h1 id="home-title">Activation Intelligence for Subscription Growth</h1>
+        <p class="hero-lede">Sendlyr finds the early behavior that predicts conversion, then guides every user toward it through the lifecycle tools you already use.</p>
         <div class="button-row">
           <a class="button" href="#pilot" data-primary-cta data-placement="hero">
             <span>Request a Signal Validation Pilot</span><span class="button-arrow" aria-hidden="true">↓</span>
@@ -43,47 +39,122 @@
         </div>
       </div>
 
-      <aside class="validation-brief" aria-label="Signal validation protocol">
-        <header>
-          <p class="instrument-label">Signal validation protocol</p>
-          <span class="brief-status">Fixed scope</span>
-        </header>
-        <ol>
-          <li><span>01</span><div><strong>One candidate behavior</strong><p>Your team brings the theory worth testing.</p></div></li>
-          <li><span>02</span><div><strong>One real holdout</strong><p>Treatment and control preserve the comparison.</p></div></li>
-          <li><span>03</span><div><strong>One declared outcome</strong><p>The measure and window are set before launch.</p></div></li>
-          <li><span>04</span><div><strong>One honest conclusion</strong><p>Go, stop, or iterate — even when the result is null.</p></div></li>
-        </ol>
+      <aside class="activation-loop" data-activation-loop aria-label="Sendlyr activation intelligence loop" aria-describedby="activation-loop-description">
+        <p class="activation-loop-description" id="activation-loop-description">Your product data enters Sendlyr. Sendlyr finds a leading indicator, your lifecycle stack guides users toward it, and measured outcomes return so the indicator sharpens.</p>
+
+        <svg class="activation-loop-map activation-loop-map--desktop" viewBox="0 0 520 420" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="activation-loop-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0 0L8 4L0 8Z"></path>
+            </marker>
+          </defs>
+          <path d="M175 82H342" marker-end="url(#activation-loop-arrow)"></path>
+          <path d="M437 140V288" marker-end="url(#activation-loop-arrow)"></path>
+          <path d="M327 346H175" marker-end="url(#activation-loop-arrow)"></path>
+          <path d="M98 296V128H320V82H342" marker-end="url(#activation-loop-arrow)"></path>
+          <circle class="activation-loop-traveller" r="4">
+            <animateMotion dur="18s" repeatCount="indefinite" path="M175 82H342H437V346H175H98V128H320V82H342"></animateMotion>
+          </circle>
+          <circle class="activation-loop-static-dot" cx="334" cy="82" r="4"></circle>
+        </svg>
+
+        <svg class="activation-loop-map activation-loop-map--mobile" viewBox="0 0 360 700" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="activation-loop-arrow-mobile" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M0 0L8 4L0 8Z"></path>
+            </marker>
+          </defs>
+          <path d="M18 56V650" marker-end="url(#activation-loop-arrow-mobile)"></path>
+          <path d="M344 610V158H324" marker-end="url(#activation-loop-arrow-mobile)"></path>
+          <circle class="activation-loop-static-dot" cx="18" cy="640" r="4"></circle>
+        </svg>
+
+        <section class="activation-node activation-node--data" aria-label="Your data">
+          <div class="activation-node-icon activation-data-icons" aria-hidden="true">
+            <img src="/assets/icons/platforms/postgresql.svg" alt="" width="24" height="24">
+            <img src="/assets/icons/platforms/sql-server.svg" alt="" width="48" height="48">
+            <img src="/assets/icons/platforms/posthog.svg" alt="" width="24" height="24">
+          </div>
+          <div><h2>Your data</h2></div>
+        </section>
+
+        <section class="activation-node activation-node--sendlyr" aria-label="Sendlyr finds the leading indicator">
+          <div class="activation-node-icon" aria-hidden="true">
+            <img src="/assets/logo/sendlyr-icon-512.png" alt="" width="512" height="512">
+          </div>
+          <div><h2>Sendlyr</h2><p>finds the leading indicator</p></div>
+        </section>
+
+        <section class="activation-node activation-node--stack" aria-label="Your lifecycle stack guides users toward the indicator">
+          <div class="activation-node-icon activation-stack-icons" aria-hidden="true">
+            <img src="/assets/icons/platforms/braze.png" alt="" width="738" height="347">
+            <img src="/assets/icons/platforms/customerio.png" alt="" width="850" height="180">
+          </div>
+          <div><h2>Your lifecycle stack</h2><p>guides users toward it</p></div>
+        </section>
+
+        <section class="activation-node activation-node--outcomes" aria-label="Outcomes are measured, then learned from">
+          <div class="activation-node-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 17l5-5 4 3 7-8"></path><path d="M16 7h4v4"></path></svg>
+          </div>
+          <div><h2>Outcomes</h2><p>measured, then learned from</p></div>
+        </section>
+
+        <article class="indicator-artifact" aria-label="Validated Homeschool leading indicator">
+          <p class="indicator-artifact-label">Validated indicator · Homeschool</p>
+          <strong>Hatching three or more pets within the first fourteen days</strong>
+          <dl>
+            <div><dt>12-week retention</dt><dd>39.68% <small>vs 34.01% baseline</small></dd></div>
+            <div><dt>Coverage</dt><dd>81.69%</dd></div>
+          </dl>
+        </article>
+        <p class="activation-loop-return">the indicator sharpens</p>
       </aside>
     </section>
 
+    <section class="page-section how-it-works-section" id="method" aria-labelledby="how-it-works-title">
+      <div class="shell">
+        <div class="section-intro">
+          <p class="eyebrow">How Sendlyr works</p>
+          <h2 id="how-it-works-title">One indicator, sharpened by real outcomes.</h2>
+        </div>
+        <ol class="process-steps" aria-label="How Sendlyr works">
+          <li><span>01</span><p><strong>Data in.</strong> Connect product data from the systems you already use.</p></li>
+          <li><span>02</span><p><strong>Find the leading indicator.</strong> Sendlyr identifies the early behavior that predicts your outcome.</p></li>
+          <li><span>03</span><p><strong>Guide users toward it.</strong> Your lifecycle stack drives the behavior (with testing).</p></li>
+          <li><span>04</span><p><strong>Outcomes return.</strong> The result flows back into Sendlyr.</p></li>
+          <li><span>05</span><p><strong>The indicator improves.</strong> New evidence sharpens the behavior, window, and coverage.</p></li>
+        </ol>
+      </div>
+    </section>
+
     <aside class="qualifier shell" aria-label="Pilot qualification">
-      <p class="instrument-label">Designed for a credible holdout</p>
-      <p>Built for experiments starting around 500 eligible users. No CDP, CPaaS, or per-user reinforcement-learning system required. Power still depends on your baseline rate and the effect size you care about.</p>
+      <p class="instrument-label">Designed for meaningful validation</p>
+      <p>Built for products with around 500 or more eligible users. Exact sizing depends on your baseline rate, measurement window, and the behavior you want to validate.</p>
     </aside>
 
-    <section class="page-section deliverable-section" id="method" aria-labelledby="deliverable-title">
+    <section class="page-section deliverable-section" aria-labelledby="deliverable-title">
       <div class="shell">
         <div class="section-intro">
           <p class="eyebrow">Three-part deliverable</p>
-          <h2 id="deliverable-title">From a plausible signal to an honest decision.</h2>
-          <p>We define the evidence, protect the comparison, and stay through the final readout.</p>
+          <h2 id="deliverable-title">From raw behavior to an indicator your team can use.</h2>
+          <p>We define the evidence, turn the indicator into lifecycle direction, and stay through the final readout.</p>
         </div>
         <ol class="deliverable-steps" aria-label="Signal Validation Pilot deliverables">
           <li>
             <span>01</span>
             <h3>Signal analysis</h3>
-            <p>Measure lift, coverage, state distribution, and whether the candidate can support a useful test.</p>
+            <p>Define the behavior, time window, relationship to the outcome, and coverage.</p>
           </li>
           <li>
             <span>02</span>
-            <h3>Controlled experiment design</h3>
-            <p>Set eligibility, treatment, holdout, outcome, measurement window, and operating checks before launch.</p>
+            <h3>Lifecycle guidance</h3>
+            <p>Turn the indicator into a clear behavior for your existing lifecycle stack to reinforce.</p>
           </li>
           <li>
             <span>03</span>
-            <h3>Readout</h3>
-            <p>Compare the indicator and outcome by arm, state the uncertainty, and make the next decision explicit.</p>
+            <h3>Outcome readout</h3>
+            <p>Measure what happened, state the uncertainty, and feed the evidence back into the indicator.</p>
           </li>
         </ol>
       </div>
@@ -94,16 +165,16 @@
         <div class="section-intro">
           <p class="eyebrow">What you leave with</p>
           <h2 id="readout-title">The result, not just the setup.</h2>
-          <p>A complete experiment readout keeps the signal and business outcome in the same decision.</p>
+          <p>A complete readout keeps the indicator, lifecycle direction, and business outcome together.</p>
         </div>
         <ul class="readout-list" aria-label="Final readout contents">
-          <li><span>01</span><strong>Signal lift and coverage</strong></li>
-          <li><span>02</span><strong>State distribution</strong></li>
-          <li><span>03</span><strong>Sends</strong></li>
-          <li><span>04</span><strong>Indicator by arm</strong></li>
-          <li><span>05</span><strong>Outcome by arm</strong></li>
-          <li><span>06</span><strong>Stated uncertainty</strong></li>
-          <li><span>07</span><strong>A go / stop / iterate conclusion</strong></li>
+          <li><span>01</span><strong>Indicator definition</strong></li>
+          <li><span>02</span><strong>Behavior window</strong></li>
+          <li><span>03</span><strong>Relationship to outcome</strong></li>
+          <li><span>04</span><strong>Coverage</strong></li>
+          <li><span>05</span><strong>Lifecycle direction</strong></li>
+          <li><span>06</span><strong>Measurement plan</strong></li>
+          <li><span>07</span><strong>Learning update</strong></li>
         </ul>
       </div>
     </section>
@@ -138,7 +209,7 @@
                   <th scope="row">Trial conversion</th>
                   <td data-label="Treatment">76.8% <small>136/177</small></td>
                   <td data-label="Control">76.7% <small>66/86</small></td>
-                  <td data-label="Finding">+0.1pp · no lift</td>
+                  <td data-label="Finding">+0.1pp · effectively flat</td>
                 </tr>
               </tbody>
             </table>
@@ -165,12 +236,12 @@
       <div class="shell pilot-layout">
         <div class="pilot-copy">
           <p class="eyebrow">Signal Validation Pilot</p>
-          <h2 id="pilot-title">Test one activation theory with a real holdout.</h2>
-          <p>The scope is fixed: one candidate behavior, one outcome, one controlled experiment, and one complete readout.</p>
+          <h2 id="pilot-title">Validate one activation theory against a real outcome.</h2>
+          <p>The scope is fixed: one candidate behavior, one outcome, one lifecycle direction, and one complete readout.</p>
           <dl class="pilot-scope">
             <div><dt>Bring</dt><dd>A candidate behavior, an eligible cohort, and a business outcome.</dd></div>
-            <div><dt>We run</dt><dd>Signal analysis, experiment design, operating checks, and the final analysis.</dd></div>
-            <div><dt>Receive</dt><dd>A stated go / stop / iterate conclusion with the uncertainty visible.</dd></div>
+            <div><dt>We run</dt><dd>Signal analysis, lifecycle guidance, measurement planning, and the final analysis.</dd></div>
+            <div><dt>Receive</dt><dd>A clear indicator, its evidence, and the next action for your lifecycle stack.</dd></div>
           </dl>
         </div>
 

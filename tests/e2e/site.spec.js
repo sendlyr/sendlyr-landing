@@ -1,6 +1,7 @@
 const { test, expect } = require("@playwright/test");
 
 const routes = ["/", "/how-it-works", "/for/fitness-apps", "/for/cooking-apps", "/for/edtech-apps", "/blog", "/blog/pai-discovery-case-study", "/privacy"];
+const methodsRoute = "/blog/pai-discovery-case-study";
 const primaryCta = "Request a Signal Validation Pilot";
 
 async function fillPilot(page, budgetAuthority = "yes") {
@@ -45,28 +46,36 @@ for (const route of routes) {
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow).toBeLessThanOrEqual(1);
     expect(await page.locator("img:not([alt])").count()).toBe(0);
+
+    const body = await page.locator("body").innerText();
+    if (route === methodsRoute) {
+      expect(body).toMatch(/holdout/i);
+    } else {
+      for (const deleted of [/holdout/i, /correlations/i, /control arm/i, /treatment arm/i]) {
+        expect(body, route).not.toMatch(deleted);
+      }
+    }
   });
 }
 
-test("homepage metadata, schema, and Open Graph describe validation", async ({ page }) => {
+test("homepage metadata, schema, and Open Graph describe activation intelligence", async ({ page }) => {
   await page.goto("/");
-  await expect(page).toHaveTitle("Validate your activation theory with a real holdout | Sendlyr");
-  await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", "Most activation metrics are correlations. Sendlyr runs the holdout and tells your team what the result means.");
-  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "Most activation metrics are correlations. We run the holdout. | Sendlyr");
-  await expect(page.locator('meta[property="og:description"]')).toHaveAttribute("content", "Test one candidate behavior against a real holdout and get a decision-grade readout, including when the outcome does not move.");
+  await expect(page).toHaveTitle("Activation Intelligence for Subscription Growth | Sendlyr");
+  await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", "Sendlyr finds the early behavior that predicts conversion, then guides every user toward it through the lifecycle tools you already use.");
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "Activation Intelligence for Subscription Growth | Sendlyr");
+  await expect(page.locator('meta[property="og:description"]')).toHaveAttribute("content", "Find the early behavior that predicts conversion, then guide every user toward it through the lifecycle tools you already use.");
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", "https://sendlyr.com/assets/og/og-home.png");
-  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute("content", "Most activation metrics are correlations. Sendlyr runs the holdout.");
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute("content", "Sendlyr activation intelligence for subscription growth.");
   const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
   expect(JSON.stringify(schema)).toContain("Signal Validation Pilot");
   expect(JSON.stringify(schema)).not.toContain("offers");
 });
 
-test("homepage follows the validation spine without deleted positioning", async ({ page }) => {
+test("homepage follows the activation intelligence spine without deleted positioning", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Your team already has a theory about what makes users convert. Sendlyr finds out if it’s true.");
-  await expect(page.locator(".qualifier")).toContainText("Built for experiments starting around 500 eligible users.");
-  await expect(page.locator(".qualifier")).toContainText("No CDP, CPaaS, or per-user reinforcement-learning system required.");
-  await expect(page.locator(".qualifier")).toContainText("Power still depends on your baseline rate and the effect size you care about.");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Activation Intelligence for Subscription Growth");
+  await expect(page.locator(".qualifier")).toContainText("around 500 or more eligible users");
+  await expect(page.locator(".qualifier")).toContainText("Exact sizing depends on your baseline rate, measurement window, and the behavior you want to validate.");
 
   const body = await page.locator("body").innerText();
   for (const deleted of [/revenue leak/i, /decision layer/i, /decision package/i, /sendgrid/i, /return to the unfinished task/i, /subject, body, and deep link/i]) {
@@ -74,21 +83,59 @@ test("homepage follows the validation spine without deleted positioning", async 
   }
 });
 
-test("three-part deliverable ends with the experiment readout", async ({ page }) => {
+test("hero loop shows the activation intelligence circuit and validated indicator", async ({ page }) => {
+  await page.goto("/");
+  const loop = page.locator("[data-activation-loop]");
+  await expect(loop).toBeVisible();
+  await expect(loop.getByRole("heading", { name: "Your data" })).toBeVisible();
+  await expect(loop.getByRole("heading", { name: "Sendlyr" })).toBeVisible();
+  await expect(loop.getByRole("heading", { name: "Your lifecycle stack" })).toBeVisible();
+  await expect(loop.getByRole("heading", { name: "Outcomes" })).toBeVisible();
+  await expect(loop).toContainText("finds the leading indicator");
+  await expect(loop).toContainText("guides users toward it");
+  await expect(loop).toContainText("measured, then learned from");
+  await expect(loop).toContainText("the indicator sharpens");
+  await expect(loop.locator(".indicator-artifact")).toContainText("Validated indicator · Homeschool");
+  await expect(loop.locator(".indicator-artifact")).toContainText("Hatching three or more pets within the first fourteen days");
+  await expect(loop.locator(".indicator-artifact")).toContainText("39.68%");
+  await expect(loop.locator(".indicator-artifact")).toContainText("vs 34.01% baseline");
+  await expect(loop.locator(".indicator-artifact")).toContainText("81.69%");
+
+  await expect(page.locator("#activation-loop-description")).toHaveText(/measured outcomes return so the indicator sharpens/);
+  await expect(loop.locator(".activation-loop-map")).toHaveCount(2);
+  for (const svg of await loop.locator("svg").all()) await expect(svg).toHaveAttribute("aria-hidden", "true");
+
+  const visibleMap = loop.locator(".activation-loop-map:visible");
+  await expect(visibleMap).toHaveCount(1);
+  expect(await visibleMap.locator("path[marker-end]").count()).toBeGreaterThanOrEqual(2);
+  const nodeBackgrounds = await loop.locator(".activation-node--data, .activation-node--sendlyr").evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).backgroundColor));
+  expect(nodeBackgrounds[0]).not.toBe(nodeBackgrounds[1]);
+});
+
+test("How Sendlyr works follows the five-step learning sequence", async ({ page }) => {
+  await page.goto("/");
+  const process = page.locator(".process-steps");
+  await expect(process.locator("li")).toHaveCount(5);
+  await expect(process.locator("strong")).toHaveText(["Data in.", "Find the leading indicator.", "Guide users toward it.", "Outcomes return.", "The indicator improves."]);
+  await expect(process).toContainText("Your lifecycle stack drives the behavior (with testing).");
+  expect((await page.locator("body").innerText()).match(/testing/gi)).toHaveLength(1);
+});
+
+test("three-part deliverable ends with the outcome readout", async ({ page }) => {
   await page.goto("/");
   const deliverables = page.locator(".deliverable-steps");
   await expect(deliverables.locator("li")).toHaveCount(3);
-  await expect(deliverables.locator("h3")).toHaveText(["Signal analysis", "Controlled experiment design", "Readout"]);
+  await expect(deliverables.locator("h3")).toHaveText(["Signal analysis", "Lifecycle guidance", "Outcome readout"]);
 
   const readout = page.locator(".readout-list");
   await expect(readout.locator("li")).toHaveText([
-    /Signal lift and coverage/,
-    /State distribution/,
-    /Sends/,
-    /Indicator by arm/,
-    /Outcome by arm/,
-    /Stated uncertainty/,
-    /A go \/ stop \/ iterate conclusion/,
+    /Indicator definition/,
+    /Behavior window/,
+    /Relationship to outcome/,
+    /Coverage/,
+    /Lifecycle direction/,
+    /Measurement plan/,
+    /Learning update/,
   ]);
 });
 
@@ -108,7 +155,7 @@ test("Typesy result reports both the changed indicator and null conversion outco
     "136/177",
     "76.7%",
     "66/86",
-    "+0.1pp · no lift",
+    "+0.1pp · effectively flat",
     "conversion was already around 77%",
   ]) await expect(results).toContainText(value);
   await expect(results.getByRole("link", { name: "Read the full case study" })).toHaveAttribute("href", "/blog/pai-discovery-case-study");
@@ -123,8 +170,8 @@ test("founder evidence states the operated experiment and correction", async ({ 
 test("Signal Validation Pilot has fixed scope and no public price", async ({ page }) => {
   await page.goto("/");
   const pilot = page.locator("#pilot");
-  await expect(pilot).toContainText("one candidate behavior, one outcome, one controlled experiment, and one complete readout");
-  await expect(pilot).toContainText("A stated go / stop / iterate conclusion with the uncertainty visible.");
+  await expect(pilot).toContainText("one candidate behavior, one outcome, one lifecycle direction, and one complete readout");
+  await expect(pilot).toContainText("A clear indicator, its evidence, and the next action for your lifecycle stack.");
   const text = await pilot.innerText();
   expect(text).not.toMatch(/AUD|\$\s*2[,\s]?500|price/i);
 });
@@ -185,7 +232,9 @@ test("essential buying information survives without JavaScript", async ({ browse
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Your team already has a theory about what makes users convert. Sendlyr finds out if it’s true." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Activation Intelligence for Subscription Growth" })).toBeVisible();
+  await expect(page.locator("[data-activation-loop]")).toBeVisible();
+  await expect(page.locator(".process-steps")).toBeVisible();
   await expect(page.locator(".qualifier")).toBeVisible();
   await expect(page.locator(".deliverable-steps")).toBeVisible();
   await expect(page.locator(".readout-list")).toBeVisible();
@@ -221,6 +270,12 @@ test("homepage has no overflow at release widths", async ({ page }) => {
     await page.goto("/");
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow, `${width}px`).toBeLessThanOrEqual(1);
+    const loopBounds = await page.locator("[data-activation-loop]").evaluate((element) => {
+      const bounds = element.getBoundingClientRect();
+      return { left: bounds.left, right: bounds.right };
+    });
+    expect(loopBounds.left, `${width}px loop left`).toBeGreaterThanOrEqual(-1);
+    expect(loopBounds.right, `${width}px loop right`).toBeLessThanOrEqual(width + 1);
   }
 });
 
@@ -318,6 +373,9 @@ test("reduced motion resolves immediately", async ({ page }) => {
   expect(await page.locator("html").evaluate((element) => getComputedStyle(element).scrollBehavior)).toBe("auto");
   const transitionSeconds = await page.locator("[data-primary-cta]").first().evaluate((element) => Number.parseFloat(getComputedStyle(element).transitionDuration));
   expect(transitionSeconds).toBeLessThanOrEqual(0.001);
+  const visibleMap = page.locator("[data-activation-loop] .activation-loop-map:visible");
+  await expect(visibleMap.locator(".activation-loop-traveller")).toBeHidden();
+  await expect(visibleMap.locator(".activation-loop-static-dot")).toBeVisible();
 });
 
 test("homepage Open Graph asset decodes at its declared dimensions", async ({ page }) => {
