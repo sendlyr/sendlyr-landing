@@ -1,73 +1,58 @@
 (() => {
   "use strict";
 
-  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  const attributionPattern = /^[a-zA-Z0-9-]{1,80}$/;
 
-  for (const tabs of document.querySelectorAll("[data-instrument-tabs]")) {
-    const tablist = tabs.querySelector(".leak-tabs");
-    const controls = [...tabs.querySelectorAll("[data-instrument-tab]")];
-    const panels = [...tabs.querySelectorAll("[data-instrument-panel]")];
-    const eventName = tabs.dataset.event;
-    const propertyName = tabs.dataset.property;
-
-    tablist?.setAttribute("role", "tablist");
-    controls.forEach((control, index) => {
-      control.hidden = false;
-      control.setAttribute("role", "tab");
-      control.setAttribute("aria-controls", control.dataset.controls);
-      control.setAttribute("aria-selected", String(index === 0));
-      control.tabIndex = index === 0 ? 0 : -1;
-    });
-    panels.forEach((panel, index) => {
-      panel.setAttribute("role", "tabpanel");
-      panel.setAttribute("aria-labelledby", controls[index]?.id || "");
-    });
-
-    function reveal(control) {
-      const list = control.closest('[role="tablist"]');
-      if (!list || list.scrollWidth <= list.clientWidth) return;
-      control.scrollIntoView({
-        behavior: reduceMotion.matches ? "auto" : "smooth",
-        block: "nearest",
-        inline: "nearest",
-      });
-    }
-
-    function select(control, { focus = false, track = true, scroll = true } = {}) {
-      const changed = control.getAttribute("aria-selected") !== "true";
-      controls.forEach((item) => {
-        const selected = item === control;
-        item.setAttribute("aria-selected", String(selected));
-        item.tabIndex = selected ? 0 : -1;
-      });
-      panels.forEach((panel) => {
-        panel.hidden = panel.id !== control.getAttribute("aria-controls");
-      });
-      if (focus) control.focus();
-      if (scroll) reveal(control);
-      if (track && changed && eventName && propertyName) {
-        window.Sendlyr?.trackEvent(eventName, { [propertyName]: control.dataset.value });
-      }
-    }
-
-    tabs.classList.add("is-enhanced");
-    const initial = controls.find((control) => control.getAttribute("aria-selected") === "true") || controls[0];
-    if (initial) select(initial, { track: false, scroll: false });
-
-    controls.forEach((control, index) => {
-      control.addEventListener("click", () => select(control));
-      control.addEventListener("keydown", (event) => {
-        let next = null;
-        if (["ArrowRight", "ArrowDown"].includes(event.key)) next = (index + 1) % controls.length;
-        if (["ArrowLeft", "ArrowUp"].includes(event.key)) next = (index - 1 + controls.length) % controls.length;
-        if (event.key === "Home") next = 0;
-        if (event.key === "End") next = controls.length - 1;
-        if (next !== null) {
-          event.preventDefault();
-          select(controls[next], { focus: true });
-        }
-      });
-    });
+  function attributionId() {
+    const value = new URLSearchParams(location.search).get("ref") || "";
+    return attributionPattern.test(value) ? value : "";
   }
 
+  for (const form of document.querySelectorAll("[data-pilot-form]")) {
+    const status = form.querySelector("[data-pilot-status]");
+    const submit = form.querySelector('button[type="submit"]');
+
+    form.addEventListener("submit", async (event) => {
+      if (!globalThis.fetch) return;
+      event.preventDefault();
+
+      const data = new FormData(form);
+      const budgetAuthority = String(data.get("budget_authority") || "");
+      const ref = attributionId();
+      if (ref) data.set("attribution_id", ref);
+
+      if (status) {
+        status.classList.remove("is-error", "is-success");
+        status.textContent = "Sending your request…";
+      }
+      if (submit) submit.disabled = true;
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          headers: { Accept: "application/json", "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+          body: new URLSearchParams(data),
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.ok) throw new Error(result.message || "Unable to send your request right now.");
+
+        form.dispatchEvent(new CustomEvent("pilot:submit-success", {
+          bubbles: true,
+          detail: { budgetAuthority },
+        }));
+        form.reset();
+        if (status) {
+          status.classList.add("is-success");
+          status.textContent = result.message || "Thanks. We received your request.";
+        }
+      } catch (error) {
+        if (status) {
+          status.classList.add("is-error");
+          status.textContent = error.message || "Unable to send your request right now.";
+        }
+      } finally {
+        if (submit) submit.disabled = false;
+      }
+    });
+  }
 })();
