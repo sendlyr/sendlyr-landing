@@ -135,7 +135,14 @@ test("hero shows the five-stage flow and both validated indicator states", async
 
   const visibleMap = flow.locator(".activation-loop-map:visible");
   await expect(visibleMap).toHaveCount(1);
-  expect(await visibleMap.locator("path[marker-end]").count()).toBe(6);
+  expect(await visibleMap.locator("path[marker-end]").count()).toBe(5);
+  await expect(visibleMap.locator(".activation-return-path")).toHaveAttribute("marker-end", /activation-loop-arrow/);
+  expect(await visibleMap.locator(".activation-indicator-path").getAttribute("marker-end")).toBeNull();
+  const [returnBounds, artifactBounds] = await Promise.all([
+    visibleMap.locator(".activation-return-path").evaluate((path) => path.getBoundingClientRect().toJSON()),
+    flow.locator(".indicator-artifact").evaluate((artifact) => artifact.getBoundingClientRect().toJSON()),
+  ]);
+  expect(returnBounds.bottom).toBeLessThan(artifactBounds.top);
   const nodeBackgrounds = await flow.locator(".activation-node--data, .activation-node--sendlyr").evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).backgroundColor));
   expect(nodeBackgrounds[0]).not.toBe(nodeBackgrounds[1]);
 });
@@ -330,8 +337,16 @@ test("desktop hero value unit fits the first viewport", async ({ page }) => {
     await page.setViewportSize(viewport);
     await page.goto("/");
     await page.evaluate(() => document.fonts.ready);
-    const bottom = await page.locator(".product-hero").evaluate((element) => element.getBoundingClientRect().bottom);
+    const { bottom, headlineLines } = await page.locator(".product-hero").evaluate((element) => {
+      const headline = element.querySelector("h1");
+      const lineHeight = parseFloat(getComputedStyle(headline).lineHeight);
+      return {
+        bottom: element.getBoundingClientRect().bottom,
+        headlineLines: Math.round(headline.getBoundingClientRect().height / lineHeight),
+      };
+    });
     expect(bottom, `${viewport.width}x${viewport.height}`).toBeLessThanOrEqual(viewport.height - 12);
+    expect(headlineLines, `${viewport.width}x${viewport.height} headline lines`).toBeLessThanOrEqual(3);
   }
 });
 

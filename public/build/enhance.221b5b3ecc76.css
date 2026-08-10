@@ -10,7 +10,7 @@
 /* Activation intelligence hero */
 .product-hero {
   display: grid;
-  grid-template-columns: minmax(0, .9fr) minmax(560px, 1.1fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(480px, .85fr);
   gap: 48px;
   align-items: center;
   padding-block: clamp(26px, 2.2vw, 32px) clamp(24px, 2.2vw, 32px);
@@ -42,7 +42,7 @@
 .activation-loop-map path { fill: none; stroke: var(--mute); stroke-width: 1.25; stroke-linecap: square; stroke-linejoin: miter; vector-effect: non-scaling-stroke; }
 .activation-loop-map marker path { fill: var(--mute); stroke: none; }
 .activation-loop-map .activation-return-path { stroke: var(--violet); }
-.activation-loop-map .activation-indicator-path { stroke: var(--teal); }
+.activation-loop-map .activation-indicator-path { stroke: var(--teal); stroke-width: 1; }
 
 .activation-flow-nodes {
   position: absolute;
@@ -122,7 +122,7 @@
 .indicator-state dd { margin: 3px 0 0; color: var(--ink-2); font: 740 15px/1.15 var(--sans); }
 .indicator-state dd small { display: block; margin-top: 2px; color: var(--mute); font-size: 8px; font-weight: 550; }
 .indicator-qualifier { margin: 10px 0 0; color: var(--mute); font-size: 9px; line-height: 1.35; }
-.activation-loop-return { position: absolute; z-index: 1; top: 391px; left: 55%; margin: 0; padding: 2px 8px; color: var(--violet); background: var(--bg); font: 650 7px/1.2 var(--mono); letter-spacing: .04em; text-transform: uppercase; transform: translateX(-50%); }
+.activation-loop-return { position: absolute; z-index: 1; top: 148px; left: 60%; margin: 0; padding: 2px 8px; color: var(--violet); background: var(--bg); font: 650 7px/1.2 var(--mono); letter-spacing: .04em; text-transform: uppercase; transform: translateX(-50%); }
 
 .qualifier {
   display: grid;
