@@ -1,5 +1,20 @@
 const { test, expect } = require("@playwright/test");
 
+// Match assets by stable basename so assertions work with source and fingerprinted build URLs.
+function assetByBasename(name, extensions = "svg|png|webp") {
+  const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(?:^|[/_-])${escapedName}(?:\\.[^./?#]+)*\\.(${extensions})(?:[?#].*)?$`, "i");
+}
+
+const platformLogos = [
+  ["postgresql", "svg"],
+  ["sql-server", "svg"],
+  ["posthog", "svg"],
+  ["braze", "png|webp"],
+  ["customerio", "png|webp"],
+];
+const platformLogoPatterns = platformLogos.map(([name, extensions]) => assetByBasename(name, extensions));
+
 const routes = ["/", "/how-it-works", "/for/fitness-apps", "/for/cooking-apps", "/for/edtech-apps", "/blog", "/blog/pai-discovery-case-study", "/privacy"];
 const methodsRoute = "/blog/pai-discovery-case-study";
 const primaryCta = "Request a Signal Validation Pilot";
@@ -64,7 +79,9 @@ test("homepage metadata, schema, and Open Graph describe activation intelligence
   await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", "Sendlyr finds the early behavior that predicts conversion, then guides every user toward it through the lifecycle tools you already use.");
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "Activation Intelligence for Subscription Growth | Sendlyr");
   await expect(page.locator('meta[property="og:description"]')).toHaveAttribute("content", "Find the early behavior that predicts conversion, then guide every user toward it through the lifecycle tools you already use.");
-  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", "https://sendlyr.com/assets/og/og-home.png");
+  const ogImage = page.locator('meta[property="og:image"]');
+  await expect(ogImage).toHaveAttribute("content", /^https:\/\/sendlyr\.com\//);
+  await expect(ogImage).toHaveAttribute("content", assetByBasename("og-home", "png"));
   await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute("content", "Sendlyr activation intelligence for subscription growth.");
   const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
   expect(JSON.stringify(schema)).toContain("Signal Validation Pilot");
@@ -95,15 +112,22 @@ test("hero shows the five-stage flow and both validated indicator states", async
   await expect(states).toHaveCount(2);
   await expect(states.nth(0)).toContainText("Validated indicator · Typesy VIP");
   await expect(states.nth(0)).toContainText("Complete at least one course within the first four days");
-  await expect(states.nth(0)).toContainText("79.5% (159/200)");
-  await expect(states.nth(0)).toContainText("30.6% (60/196)");
+  await expect(states.nth(0)).toContainText("79.5%");
+  await expect(states.nth(0)).toContainText("30.6%");
   await expect(states.nth(0)).toContainText("2.6×");
   await expect(states.nth(1)).toContainText("Validated indicator · Typesy Homeschool");
   await expect(states.nth(1)).toContainText("Hatch three or more pets within the first fourteen days");
-  await expect(states.nth(1)).toContainText("57.7% (466/808)");
-  await expect(states.nth(1)).toContainText("33.4% (191/572)");
+  await expect(states.nth(1)).toContainText("57.7%");
+  await expect(states.nth(1)).toContainText("33.4%");
   await expect(states.nth(1)).toContainText("1.7×");
   await expect(states).toContainText([/Predicts conversion\. Correlational, not causal\./, /Predicts conversion\. Correlational, not causal\./]);
+  await expect(states.locator("small")).toHaveCount(0);
+
+  const heroImageSources = await flow.locator(".activation-node img").evaluateAll((images) => images.map((image) => image.getAttribute("src") || ""));
+  expect(heroImageSources.filter((src) => platformLogoPatterns.some((pattern) => pattern.test(src)))).toHaveLength(0);
+  await expect(flow.locator(".activation-node-icon svg")).toHaveCount(4);
+  const diagramImageSources = await page.locator("[data-how-it-works-diagram] img").evaluateAll((images) => images.map((image) => image.getAttribute("src") || ""));
+  expect(diagramImageSources.filter((src) => platformLogoPatterns.some((pattern) => pattern.test(src)))).toHaveLength(5);
 
   await expect(page.locator("#activation-loop-description")).toContainText("Outcome feedback returns to Sendlyr");
   await expect(flow.locator(".activation-loop-map")).toHaveCount(2);
@@ -155,15 +179,15 @@ test("How Sendlyr works is a five-stage diagram with both customer stack logo gr
   const dataLogos = diagram.locator("[data-data-stack-logos] img");
   await expect(dataLogos).toHaveCount(3);
   expect(await dataLogos.evaluateAll((images) => images.map((image) => image.getAttribute("src")))).toEqual([
-    expect.stringMatching(/postgresql.*\.svg$/),
-    expect.stringMatching(/sql-server.*\.svg$/),
-    expect.stringMatching(/posthog.*\.svg$/),
+    expect.stringMatching(assetByBasename("postgresql", "svg")),
+    expect.stringMatching(assetByBasename("sql-server", "svg")),
+    expect.stringMatching(assetByBasename("posthog", "svg")),
   ]);
   const lifecycleLogos = diagram.locator("[data-lifecycle-stack-logos] img");
   await expect(lifecycleLogos).toHaveCount(2);
   expect(await lifecycleLogos.evaluateAll((images) => images.map((image) => image.getAttribute("src")))).toEqual([
-    expect.stringMatching(/braze.*\.(png|webp)$/),
-    expect.stringMatching(/customerio.*\.(png|webp)$/),
+    expect.stringMatching(assetByBasename("braze", "png|webp")),
+    expect.stringMatching(assetByBasename("customerio", "png|webp")),
   ]);
   expect((await page.locator("body").innerText()).match(/testing/gi)).toHaveLength(1);
 });
