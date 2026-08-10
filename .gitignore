@@ -11,3 +11,4 @@ test-results/
 playwright-report/
 public/assets/blog/pai-discovery-case-study/visual-2-hypothesis-table-840.webp
 public/assets/blog/pai-discovery-case-study/visual-2-hypothesis-table-1680.webp
+.claude/
