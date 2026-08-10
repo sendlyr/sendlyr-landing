@@ -8,6 +8,63 @@
     return attributionPattern.test(value) ? value : "";
   }
 
+  for (const rotator of document.querySelectorAll("[data-indicator-rotator]")) {
+    const states = [...rotator.querySelectorAll("[data-indicator-state]")];
+    const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+    let activeIndex = 0;
+    let timer = 0;
+    let hovered = false;
+    let focused = false;
+
+    const show = (index) => {
+      activeIndex = index;
+      for (const [stateIndex, state] of states.entries()) {
+        state.classList.toggle("is-active", stateIndex === activeIndex);
+      }
+      rotator.dataset.activeState = states[activeIndex]?.dataset.indicatorState || "";
+    };
+
+    const stop = () => {
+      clearTimeout(timer);
+      timer = 0;
+    };
+
+    const schedule = () => {
+      stop();
+      const paused = hovered || focused || reducedMotion.matches;
+      rotator.dataset.rotationPaused = String(paused);
+      if (paused || states.length < 2) return;
+      timer = setTimeout(() => {
+        show((activeIndex + 1) % states.length);
+        schedule();
+      }, 5500);
+    };
+
+    rotator.addEventListener("mouseenter", () => {
+      hovered = true;
+      schedule();
+    });
+    rotator.addEventListener("mouseleave", () => {
+      hovered = false;
+      schedule();
+    });
+    rotator.addEventListener("focusin", () => {
+      focused = true;
+      schedule();
+    });
+    rotator.addEventListener("focusout", (event) => {
+      focused = rotator.contains(event.relatedTarget);
+      schedule();
+    });
+    reducedMotion.addEventListener("change", () => {
+      if (reducedMotion.matches) show(0);
+      schedule();
+    });
+
+    show(0);
+    schedule();
+  }
+
   for (const form of document.querySelectorAll("[data-pilot-form]")) {
     const status = form.querySelector("[data-pilot-status]");
     const submit = form.querySelector('button[type="submit"]');

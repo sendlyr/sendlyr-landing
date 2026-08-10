@@ -1,6 +1,6 @@
 {
   "/scripts/site.js": "/build/scripts-site.99f390335abf.js",
-  "/scripts/app.js": "/build/scripts-app.2e42f5b2a5b8.js",
+  "/scripts/app.js": "/build/scripts-app.a8448361fe0b.js",
   "/assets/logo/sendlyr-wordmark-400.webp": "/build/assets-logo-sendlyr-wordmark-400.22ff5e66775f.webp",
   "/assets/logo/sendlyr-wordmark-400.png": "/build/assets-logo-sendlyr-wordmark-400.c91a2f525b13.png",
   "/assets/logo/sendlyr-icon-512.png": "/build/assets-logo-sendlyr-icon-512.6610a6e29850.png",
@@ -25,7 +25,7 @@
   "/home-fonts.css": "/build/home-fonts.f040cdb0843e.css",
   "/styles.css": "/build/styles.e03542bcecd1.css",
   "/site.css": "/build/site.d6cecaedab66.css",
-  "/enhance.css": "/build/enhance.a179ef29c51f.css",
+  "/enhance.css": "/build/enhance.4663f1eec8a9.css",
   "/vertical.css": "/build/vertical.11daca5ce5d6.css",
   "/workflow.css": "/build/workflow.d343e56896e3.css",
   "/editorial.css": "/build/editorial.93f21bb94562.css"

@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="/build/home-fonts.f040cdb0843e.css">
   <link rel="stylesheet" href="/build/styles.e03542bcecd1.css">
   <link rel="stylesheet" href="/build/site.d6cecaedab66.css">
-  <link rel="stylesheet" href="/build/enhance.a179ef29c51f.css">
+  <link rel="stylesheet" href="/build/enhance.4663f1eec8a9.css">
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://sendlyr.com/#organization","name":"Sendlyr","url":"https://sendlyr.com/","logo":"https://sendlyr.com/build/assets-logo-sendlyr-icon-512.6610a6e29850.png"},{"@type":"WebSite","@id":"https://sendlyr.com/#website","url":"https://sendlyr.com/","name":"Sendlyr","publisher":{"@id":"https://sendlyr.com/#organization"}},{"@type":"Service","@id":"https://sendlyr.com/#signal-validation-pilot","name":"Signal Validation Pilot","provider":{"@id":"https://sendlyr.com/#organization"},"description":"Test one candidate behavior with a controlled experiment and receive a decision-grade readout."}]}</script>
 </head>
 <body class="home-page">
@@ -61,76 +61,101 @@
         </div>
       </div>
 
-      <aside class="activation-loop" data-activation-loop aria-label="Sendlyr activation intelligence loop" aria-describedby="activation-loop-description">
-        <p class="activation-loop-description" id="activation-loop-description">Your product data enters Sendlyr. Sendlyr finds a leading indicator, your lifecycle stack guides users toward it, and measured outcomes return so the indicator sharpens.</p>
+      <aside class="activation-loop" data-activation-loop data-hero-flow aria-label="Sendlyr activation intelligence flow" aria-describedby="activation-loop-description">
+        <p class="activation-loop-description" id="activation-loop-description">Data flows through Sendlyr, a leading indicator, treatment, and outcome. Outcome feedback returns to Sendlyr. A validated indicator connects to the leading indicator.</p>
 
-        <svg class="activation-loop-map activation-loop-map--desktop" viewBox="0 0 520 420" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <svg class="activation-loop-map activation-loop-map--desktop" viewBox="0 0 520 438" preserveAspectRatio="none" aria-hidden="true" focusable="false">
           <defs>
             <marker id="activation-loop-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
               <path d="M0 0L8 4L0 8Z"></path>
             </marker>
           </defs>
-          <path d="M175 82H342" marker-end="url(#activation-loop-arrow)"></path>
-          <path d="M437 140V288" marker-end="url(#activation-loop-arrow)"></path>
-          <path d="M327 346H175" marker-end="url(#activation-loop-arrow)"></path>
-          <path d="M98 296V128H320V82H342" marker-end="url(#activation-loop-arrow)"></path>
-          <circle class="activation-loop-traveller" r="4">
-            <animateMotion dur="18s" repeatCount="indefinite" path="M175 82H342H437V346H175H98V128H320V82H342"></animateMotion>
-          </circle>
-          <circle class="activation-loop-static-dot" cx="334" cy="82" r="4"></circle>
+          <path d="M88 62H112" marker-end="url(#activation-loop-arrow)"></path>
+          <path d="M194 62H218" marker-end="url(#activation-loop-arrow)"></path>
+          <path d="M300 62H324" marker-end="url(#activation-loop-arrow)"></path>
+          <path d="M406 62H430" marker-end="url(#activation-loop-arrow)"></path>
+          <path class="activation-return-path" d="M476 108V146H158V108" marker-end="url(#activation-loop-arrow)"></path>
+          <path class="activation-indicator-path" d="M260 184V110" marker-end="url(#activation-loop-arrow)"></path>
         </svg>
 
-        <svg class="activation-loop-map activation-loop-map--mobile" viewBox="0 0 360 700" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <svg class="activation-loop-map activation-loop-map--mobile" viewBox="0 0 360 940" preserveAspectRatio="none" aria-hidden="true" focusable="false">
           <defs>
             <marker id="activation-loop-arrow-mobile" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
               <path d="M0 0L8 4L0 8Z"></path>
             </marker>
           </defs>
-          <path d="M18 56V650" marker-end="url(#activation-loop-arrow-mobile)"></path>
-          <path d="M344 610V158H324" marker-end="url(#activation-loop-arrow-mobile)"></path>
-          <circle class="activation-loop-static-dot" cx="18" cy="640" r="4"></circle>
+          <path d="M180 88V126" marker-end="url(#activation-loop-arrow-mobile)"></path>
+          <path d="M180 214V252" marker-end="url(#activation-loop-arrow-mobile)"></path>
+          <path d="M180 340V378" marker-end="url(#activation-loop-arrow-mobile)"></path>
+          <path d="M180 466V504" marker-end="url(#activation-loop-arrow-mobile)"></path>
+          <path class="activation-return-path" d="M30 592V630H344V172H326" marker-end="url(#activation-loop-arrow-mobile)"></path>
+          <path class="activation-indicator-path" d="M16 674V296H48" marker-end="url(#activation-loop-arrow-mobile)"></path>
         </svg>
 
-        <section class="activation-node activation-node--data" aria-label="Your data">
-          <div class="activation-node-icon activation-data-icons" aria-hidden="true">
-            <img src="/build/assets-icons-platforms-postgresql.bc45b1c56d0b.svg" alt="" width="24" height="24">
-            <img src="/build/assets-icons-platforms-sql-server.f19b9e670246.svg" alt="" width="48" height="48">
-            <img src="/build/assets-icons-platforms-posthog.85191881b464.svg" alt="" width="24" height="24">
-          </div>
-          <div><h2>Your data</h2></div>
-        </section>
+        <div class="activation-flow-nodes" role="list" aria-label="Activation intelligence stages">
+          <section class="activation-node activation-node--data" role="listitem">
+            <div class="activation-node-icon activation-data-icons" aria-hidden="true">
+              <img src="/build/assets-icons-platforms-postgresql.bc45b1c56d0b.svg" alt="" width="24" height="24">
+              <img src="/build/assets-icons-platforms-sql-server.f19b9e670246.svg" alt="" width="48" height="48">
+              <img src="/build/assets-icons-platforms-posthog.85191881b464.svg" alt="" width="24" height="24">
+            </div>
+            <span class="activation-node-label">Data</span>
+          </section>
 
-        <section class="activation-node activation-node--sendlyr" aria-label="Sendlyr finds the leading indicator">
-          <div class="activation-node-icon" aria-hidden="true">
-            <img src="/build/assets-logo-sendlyr-icon-512.6610a6e29850.png" alt="" width="512" height="512">
-          </div>
-          <div><h2>Sendlyr</h2><p>finds the leading indicator</p></div>
-        </section>
+          <section class="activation-node activation-node--sendlyr" role="listitem">
+            <div class="activation-node-icon" aria-hidden="true">
+              <img src="/build/assets-logo-sendlyr-icon-512.6610a6e29850.png" alt="" width="512" height="512">
+            </div>
+            <span class="activation-node-label">Sendlyr</span>
+          </section>
 
-        <section class="activation-node activation-node--stack" aria-label="Your lifecycle stack guides users toward the indicator">
-          <div class="activation-node-icon activation-stack-icons" aria-hidden="true">
-            <img src="/build/assets-icons-platforms-braze.656a7b5842a6.png" alt="" width="738" height="347">
-            <img src="/build/assets-icons-platforms-customerio.0aec6b618458.png" alt="" width="850" height="180">
-          </div>
-          <div><h2>Your lifecycle stack</h2><p>guides users toward it</p></div>
-        </section>
+          <section class="activation-node activation-node--indicator" role="listitem">
+            <div class="activation-node-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M4 17h4l3-10 3 10h6"></path><path d="M4 20h16"></path></svg>
+            </div>
+            <span class="activation-node-label">Leading indicator</span>
+          </section>
 
-        <section class="activation-node activation-node--outcomes" aria-label="Outcomes are measured, then learned from">
-          <div class="activation-node-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 17l5-5 4 3 7-8"></path><path d="M16 7h4v4"></path></svg>
-          </div>
-          <div><h2>Outcomes</h2><p>measured, then learned from</p></div>
-        </section>
+          <section class="activation-node activation-node--treatment" role="listitem">
+            <div class="activation-node-icon activation-stack-icons" aria-hidden="true">
+              <img src="/build/assets-icons-platforms-braze.656a7b5842a6.png" alt="" width="738" height="347">
+              <img src="/build/assets-icons-platforms-customerio.0aec6b618458.png" alt="" width="850" height="180">
+            </div>
+            <span class="activation-node-label">Treatment</span>
+          </section>
 
-        <article class="indicator-artifact" aria-label="Validated Homeschool leading indicator">
-          <p class="indicator-artifact-label">Validated indicator · Homeschool</p>
-          <strong>Hatching three or more pets within the first fourteen days</strong>
-          <dl>
-            <div><dt>12-week retention</dt><dd>39.68% <small>vs 34.01% baseline</small></dd></div>
-            <div><dt>Coverage</dt><dd>81.69%</dd></div>
-          </dl>
+          <section class="activation-node activation-node--outcome" role="listitem">
+            <div class="activation-node-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M4 17l5-5 4 3 7-8"></path><path d="M16 7h4v4"></path></svg>
+            </div>
+            <span class="activation-node-label">Outcome</span>
+          </section>
+        </div>
+
+        <p class="activation-loop-return">Outcome feedback</p>
+
+        <article class="indicator-artifact" data-indicator-rotator data-active-state="vip" tabindex="0" aria-label="Validated indicator examples. Rotation pauses while this card is hovered or focused.">
+          <section class="indicator-state is-active" data-indicator-state="vip" aria-label="Typesy VIP validated indicator">
+            <p class="indicator-artifact-label">Validated indicator · Typesy VIP</p>
+            <strong>Complete at least one course within the first four days</strong>
+            <dl>
+              <div><dt>Converts when hit</dt><dd>79.5% <small>(159/200)</small></dd></div>
+              <div><dt>Converts when missed</dt><dd>30.6% <small>(60/196)</small></dd></div>
+              <div><dt>Separation</dt><dd>2.6×</dd></div>
+            </dl>
+            <p class="indicator-qualifier">Predicts conversion. Correlational, not causal.</p>
+          </section>
+          <section class="indicator-state" data-indicator-state="homeschool" aria-label="Typesy Homeschool validated indicator">
+            <p class="indicator-artifact-label">Validated indicator · Typesy Homeschool</p>
+            <strong>Hatch three or more pets within the first fourteen days</strong>
+            <dl>
+              <div><dt>Converts when hit</dt><dd>57.7% <small>(466/808)</small></dd></div>
+              <div><dt>Converts when missed</dt><dd>33.4% <small>(191/572)</small></dd></div>
+              <div><dt>Separation</dt><dd>1.7×</dd></div>
+            </dl>
+            <p class="indicator-qualifier">Predicts conversion. Correlational, not causal.</p>
+          </section>
         </article>
-        <p class="activation-loop-return">the indicator sharpens</p>
       </aside>
     </section>
 
@@ -140,13 +165,89 @@
           <p class="eyebrow">How Sendlyr works</p>
           <h2 id="how-it-works-title">One indicator, sharpened by real outcomes.</h2>
         </div>
-        <ol class="process-steps" aria-label="How Sendlyr works">
-          <li><span>01</span><p><strong>Data in.</strong> Connect product data from the systems you already use.</p></li>
-          <li><span>02</span><p><strong>Find the leading indicator.</strong> Sendlyr identifies the early behavior that predicts your outcome.</p></li>
-          <li><span>03</span><p><strong>Guide users toward it.</strong> Your lifecycle stack drives the behavior (with testing).</p></li>
-          <li><span>04</span><p><strong>Outcomes return.</strong> The result flows back into Sendlyr.</p></li>
-          <li><span>05</span><p><strong>The indicator improves.</strong> New evidence sharpens the behavior, window, and coverage.</p></li>
-        </ol>
+        <figure class="works-diagram" data-how-it-works-diagram aria-describedby="works-diagram-description">
+          <p class="activation-loop-description" id="works-diagram-description">Customer data flows into Sendlyr. Sendlyr finds a leading indicator. The customer lifecycle stack applies treatment, then the measured outcome returns as evidence.</p>
+          <div class="diagram-ownership" aria-label="Diagram ownership key">
+            <span><i class="diagram-key diagram-key--customer" aria-hidden="true"></i>Your systems</span>
+            <span><i class="diagram-key diagram-key--sendlyr" aria-hidden="true"></i>Sendlyr</span>
+            <span><i class="diagram-key diagram-key--evidence" aria-hidden="true"></i>Evidence</span>
+          </div>
+
+          <svg class="works-diagram-map works-diagram-map--desktop" viewBox="0 0 1180 330" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <defs>
+              <marker id="works-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M0 0L8 4L0 8Z"></path>
+              </marker>
+            </defs>
+            <path d="M214 165H242" marker-end="url(#works-arrow)"></path>
+            <path d="M448 165H476" marker-end="url(#works-arrow)"></path>
+            <path d="M682 165H710" marker-end="url(#works-arrow)"></path>
+            <path d="M916 165H944" marker-end="url(#works-arrow)"></path>
+          </svg>
+
+          <svg class="works-diagram-map works-diagram-map--mobile" viewBox="0 0 360 1136" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <defs>
+              <marker id="works-arrow-mobile" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+                <path d="M0 0L8 4L0 8Z"></path>
+              </marker>
+            </defs>
+            <path d="M180 204V232" marker-end="url(#works-arrow-mobile)"></path>
+            <path d="M180 430V458" marker-end="url(#works-arrow-mobile)"></path>
+            <path d="M180 656V684" marker-end="url(#works-arrow-mobile)"></path>
+            <path d="M180 882V910" marker-end="url(#works-arrow-mobile)"></path>
+          </svg>
+
+          <div class="works-diagram-nodes" role="list" aria-label="How Sendlyr works">
+            <section class="works-node works-node--customer" role="listitem">
+              <p class="works-node-owner">Your systems</p>
+              <div class="works-logo-group works-logo-group--data" data-data-stack-logos aria-label="Customer data stack: PostgreSQL, SQL Server, and PostHog">
+                <img src="/build/assets-icons-platforms-postgresql.bc45b1c56d0b.svg" alt="PostgreSQL" width="24" height="24">
+                <img src="/build/assets-icons-platforms-sql-server.f19b9e670246.svg" alt="SQL Server" width="48" height="48">
+                <img src="/build/assets-icons-platforms-posthog.85191881b464.svg" alt="PostHog" width="24" height="24">
+              </div>
+              <h3>Data</h3>
+              <p>Existing product data enters from the stack you already own.</p>
+            </section>
+
+            <section class="works-node works-node--sendlyr" role="listitem">
+              <p class="works-node-owner">Sendlyr</p>
+              <div class="works-logo-group" aria-hidden="true">
+                <img src="/build/assets-logo-sendlyr-icon-512.6610a6e29850.png" alt="" width="512" height="512">
+              </div>
+              <h3>Sendlyr</h3>
+              <p>Finds the early behavior that predicts your chosen outcome.</p>
+            </section>
+
+            <section class="works-node works-node--evidence" role="listitem">
+              <p class="works-node-owner">Evidence</p>
+              <div class="works-node-symbol" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M4 17h4l3-10 3 10h6"></path><path d="M4 20h16"></path></svg>
+              </div>
+              <h3>Leading indicator</h3>
+              <p>A behavior, time window, and measurable relationship to conversion.</p>
+            </section>
+
+            <section class="works-node works-node--customer" role="listitem">
+              <p class="works-node-owner">Your systems</p>
+              <div class="works-logo-group works-logo-group--lifecycle" data-lifecycle-stack-logos aria-label="Customer lifecycle stack: Braze and Customer.io">
+                <img src="/build/assets-icons-platforms-braze.656a7b5842a6.png" alt="Braze" width="738" height="347">
+                <img src="/build/assets-icons-platforms-customerio.0aec6b618458.png" alt="Customer.io" width="850" height="180">
+              </div>
+              <h3>Treatment</h3>
+              <p>Your lifecycle stack guides users toward the behavior with testing.</p>
+            </section>
+
+            <section class="works-node works-node--evidence" role="listitem">
+              <p class="works-node-owner">Evidence</p>
+              <div class="works-node-symbol" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false"><path d="M4 17l5-5 4 3 7-8"></path><path d="M16 7h4v4"></path></svg>
+              </div>
+              <h3>Outcome</h3>
+              <p>Measured conversion returns as evidence for the next analysis.</p>
+            </section>
+          </div>
+          <figcaption>Only the Sendlyr step is new. Your data and lifecycle tools stay in place.</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -352,6 +453,6 @@
 </footer>
 
   <script src="/build/scripts-site.99f390335abf.js" defer></script>
-  <script src="/build/scripts-app.2e42f5b2a5b8.js" defer></script>
+  <script src="/build/scripts-app.a8448361fe0b.js" defer></script>
 </body>
 </html>

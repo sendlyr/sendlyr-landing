@@ -83,41 +83,88 @@ test("homepage follows the activation intelligence spine without deleted positio
   }
 });
 
-test("hero loop shows the activation intelligence circuit and validated indicator", async ({ page }) => {
+test("hero shows the five-stage flow and both validated indicator states", async ({ page }) => {
   await page.goto("/");
-  const loop = page.locator("[data-activation-loop]");
-  await expect(loop).toBeVisible();
-  await expect(loop.getByRole("heading", { name: "Your data" })).toBeVisible();
-  await expect(loop.getByRole("heading", { name: "Sendlyr" })).toBeVisible();
-  await expect(loop.getByRole("heading", { name: "Your lifecycle stack" })).toBeVisible();
-  await expect(loop.getByRole("heading", { name: "Outcomes" })).toBeVisible();
-  await expect(loop).toContainText("finds the leading indicator");
-  await expect(loop).toContainText("guides users toward it");
-  await expect(loop).toContainText("measured, then learned from");
-  await expect(loop).toContainText("the indicator sharpens");
-  await expect(loop.locator(".indicator-artifact")).toContainText("Validated indicator · Homeschool");
-  await expect(loop.locator(".indicator-artifact")).toContainText("Hatching three or more pets within the first fourteen days");
-  await expect(loop.locator(".indicator-artifact")).toContainText("39.68%");
-  await expect(loop.locator(".indicator-artifact")).toContainText("vs 34.01% baseline");
-  await expect(loop.locator(".indicator-artifact")).toContainText("81.69%");
+  const flow = page.locator("[data-hero-flow]");
+  await expect(flow).toBeVisible();
+  await expect(flow.locator(".activation-node-label")).toHaveText(["Data", "Sendlyr", "Leading indicator", "Treatment", "Outcome"]);
+  await expect(flow.locator(".activation-node p")).toHaveCount(0);
+  await expect(flow).toContainText("Outcome feedback");
 
-  await expect(page.locator("#activation-loop-description")).toHaveText(/measured outcomes return so the indicator sharpens/);
-  await expect(loop.locator(".activation-loop-map")).toHaveCount(2);
-  for (const svg of await loop.locator("svg").all()) await expect(svg).toHaveAttribute("aria-hidden", "true");
+  const states = flow.locator("[data-indicator-state]");
+  await expect(states).toHaveCount(2);
+  await expect(states.nth(0)).toContainText("Validated indicator · Typesy VIP");
+  await expect(states.nth(0)).toContainText("Complete at least one course within the first four days");
+  await expect(states.nth(0)).toContainText("79.5% (159/200)");
+  await expect(states.nth(0)).toContainText("30.6% (60/196)");
+  await expect(states.nth(0)).toContainText("2.6×");
+  await expect(states.nth(1)).toContainText("Validated indicator · Typesy Homeschool");
+  await expect(states.nth(1)).toContainText("Hatch three or more pets within the first fourteen days");
+  await expect(states.nth(1)).toContainText("57.7% (466/808)");
+  await expect(states.nth(1)).toContainText("33.4% (191/572)");
+  await expect(states.nth(1)).toContainText("1.7×");
+  await expect(states).toContainText([/Predicts conversion\. Correlational, not causal\./, /Predicts conversion\. Correlational, not causal\./]);
 
-  const visibleMap = loop.locator(".activation-loop-map:visible");
+  await expect(page.locator("#activation-loop-description")).toContainText("Outcome feedback returns to Sendlyr");
+  await expect(flow.locator(".activation-loop-map")).toHaveCount(2);
+  for (const svg of await flow.locator(".activation-loop-map").all()) await expect(svg).toHaveAttribute("aria-hidden", "true");
+
+  const visibleMap = flow.locator(".activation-loop-map:visible");
   await expect(visibleMap).toHaveCount(1);
-  expect(await visibleMap.locator("path[marker-end]").count()).toBeGreaterThanOrEqual(2);
-  const nodeBackgrounds = await loop.locator(".activation-node--data, .activation-node--sendlyr").evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).backgroundColor));
+  expect(await visibleMap.locator("path[marker-end]").count()).toBe(6);
+  const nodeBackgrounds = await flow.locator(".activation-node--data, .activation-node--sendlyr").evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).backgroundColor));
   expect(nodeBackgrounds[0]).not.toBe(nodeBackgrounds[1]);
 });
 
-test("How Sendlyr works follows the five-step learning sequence", async ({ page }) => {
+test("validated indicator rotation pauses on hover and keyboard focus", async ({ page }) => {
+  await page.clock.install();
   await page.goto("/");
-  const process = page.locator(".process-steps");
-  await expect(process.locator("li")).toHaveCount(5);
-  await expect(process.locator("strong")).toHaveText(["Data in.", "Find the leading indicator.", "Guide users toward it.", "Outcomes return.", "The indicator improves."]);
-  await expect(process).toContainText("Your lifecycle stack drives the behavior (with testing).");
+  const rotator = page.locator("[data-indicator-rotator]");
+  await expect(rotator).toHaveAttribute("data-active-state", "vip");
+
+  await page.clock.fastForward(5600);
+  await expect(rotator).toHaveAttribute("data-active-state", "homeschool");
+
+  await rotator.hover();
+  await expect(rotator).toHaveAttribute("data-rotation-paused", "true");
+  await page.clock.fastForward(11000);
+  await expect(rotator).toHaveAttribute("data-active-state", "homeschool");
+
+  await page.locator(".hero-copy").hover();
+  await expect(rotator).toHaveAttribute("data-rotation-paused", "false");
+  await page.clock.fastForward(5600);
+  await expect(rotator).toHaveAttribute("data-active-state", "vip");
+
+  await rotator.focus();
+  await expect(rotator).toBeFocused();
+  await expect(rotator).toHaveAttribute("data-rotation-paused", "true");
+  await page.clock.fastForward(11000);
+  await expect(rotator).toHaveAttribute("data-active-state", "vip");
+});
+
+test("How Sendlyr works is a five-stage diagram with both customer stack logo groups", async ({ page }) => {
+  await page.goto("/");
+  const diagram = page.locator("[data-how-it-works-diagram]");
+  await expect(diagram).toBeVisible();
+  await expect(diagram.locator(".works-node")).toHaveCount(5);
+  await expect(diagram.locator(".works-node h3")).toHaveText(["Data", "Sendlyr", "Leading indicator", "Treatment", "Outcome"]);
+  await expect(diagram.locator("ol")).toHaveCount(0);
+  await expect(diagram.locator(".works-node--sendlyr")).toContainText("Finds the early behavior that predicts your chosen outcome.");
+  await expect(diagram).toContainText("Only the Sendlyr step is new. Your data and lifecycle tools stay in place.");
+
+  const dataLogos = diagram.locator("[data-data-stack-logos] img");
+  await expect(dataLogos).toHaveCount(3);
+  expect(await dataLogos.evaluateAll((images) => images.map((image) => image.getAttribute("src")))).toEqual([
+    expect.stringMatching(/postgresql.*\.svg$/),
+    expect.stringMatching(/sql-server.*\.svg$/),
+    expect.stringMatching(/posthog.*\.svg$/),
+  ]);
+  const lifecycleLogos = diagram.locator("[data-lifecycle-stack-logos] img");
+  await expect(lifecycleLogos).toHaveCount(2);
+  expect(await lifecycleLogos.evaluateAll((images) => images.map((image) => image.getAttribute("src")))).toEqual([
+    expect.stringMatching(/braze.*\.(png|webp)$/),
+    expect.stringMatching(/customerio.*\.(png|webp)$/),
+  ]);
   expect((await page.locator("body").innerText()).match(/testing/gi)).toHaveLength(1);
 });
 
@@ -234,7 +281,7 @@ test("essential buying information survives without JavaScript", async ({ browse
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "Activation Intelligence for Subscription Growth" })).toBeVisible();
   await expect(page.locator("[data-activation-loop]")).toBeVisible();
-  await expect(page.locator(".process-steps")).toBeVisible();
+  await expect(page.locator("[data-how-it-works-diagram]")).toBeVisible();
   await expect(page.locator(".qualifier")).toBeVisible();
   await expect(page.locator(".deliverable-steps")).toBeVisible();
   await expect(page.locator(".readout-list")).toBeVisible();
@@ -368,14 +415,18 @@ test("pilot attribution accepts tagged IDs and drops invalid ref values", async 
 });
 
 test("reduced motion resolves immediately", async ({ page }) => {
+  await page.clock.install();
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   expect(await page.locator("html").evaluate((element) => getComputedStyle(element).scrollBehavior)).toBe("auto");
   const transitionSeconds = await page.locator("[data-primary-cta]").first().evaluate((element) => Number.parseFloat(getComputedStyle(element).transitionDuration));
   expect(transitionSeconds).toBeLessThanOrEqual(0.001);
-  const visibleMap = page.locator("[data-activation-loop] .activation-loop-map:visible");
-  await expect(visibleMap.locator(".activation-loop-traveller")).toBeHidden();
-  await expect(visibleMap.locator(".activation-loop-static-dot")).toBeVisible();
+  const rotator = page.locator("[data-indicator-rotator]");
+  await expect(rotator).toHaveAttribute("data-rotation-paused", "true");
+  await expect(rotator.locator(".indicator-state.is-active")).toHaveCount(1);
+  await expect(rotator).toHaveAttribute("data-active-state", "vip");
+  await page.clock.fastForward(22000);
+  await expect(rotator).toHaveAttribute("data-active-state", "vip");
 });
 
 test("homepage Open Graph asset decodes at its declared dimensions", async ({ page }) => {
