@@ -82,7 +82,13 @@
   routeRail?.addEventListener("focusin", (event) => {
     event.target.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth", block: "nearest", inline: "center" });
   });
-  routeRail?.querySelector('[aria-current="page"]')?.scrollIntoView({ block: "nearest", inline: "center" });
+  // Centre the current route by scrolling the rail itself. Element.scrollIntoView() would also move
+  // the browser's sequential-focus starting point, so the first Tab would skip the skip link.
+  const currentRoute = routeRail?.querySelector('[aria-current="page"]');
+  if (currentRoute && routeRail.scrollWidth > routeRail.clientWidth) {
+    const offset = currentRoute.getBoundingClientRect().left - routeRail.getBoundingClientRect().left + routeRail.scrollLeft;
+    routeRail.scrollLeft = offset - (routeRail.clientWidth - currentRoute.offsetWidth) / 2;
+  }
 
   const revealItems = [...document.querySelectorAll(".reveal")];
   if ("IntersectionObserver" in window && !reduceMotion.matches) {
@@ -143,8 +149,41 @@
     const target = event.target.closest("a[data-track]");
     if (target) track(target.dataset.track, { href: target.pathname || target.href });
     const navigation = event.target.closest(".nav-route-row a, .footer-links a");
-    if (navigation) track("navigation_click", { href: `${navigation.pathname}${navigation.hash}`, placement: navigation.closest("footer") ? "footer" : "header" });
+    if (navigation && navigation.host === location.host) track("navigation_click", { href: `${navigation.pathname}${navigation.hash}`, placement: navigation.closest("footer") ? "footer" : "header" });
   });
+
+  for (const block of document.querySelectorAll("[data-copy-block]")) {
+    const head = block.querySelector(".code-head");
+    const code = block.querySelector("pre code");
+    if (!head || !code || !navigator.clipboard?.writeText) continue;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "copy-button";
+    button.textContent = "Copy";
+    button.setAttribute("aria-label", `Copy: ${head.textContent.trim()}`);
+    const status = document.createElement("span");
+    status.className = "visually-hidden";
+    status.setAttribute("role", "status");
+    let timer = 0;
+    button.addEventListener("click", async () => {
+      clearTimeout(timer);
+      try {
+        await navigator.clipboard.writeText(code.textContent);
+        button.textContent = "Copied";
+        button.dataset.state = "done";
+        status.textContent = "Copied to clipboard";
+      } catch {
+        button.textContent = "Select it";
+        status.textContent = "Copy failed. Select the text instead.";
+      }
+      timer = setTimeout(() => {
+        button.textContent = "Copy";
+        delete button.dataset.state;
+        status.textContent = "";
+      }, 1800);
+    });
+    head.append(button, status);
+  }
 
   track("page_view", { title: document.title });
 })();

@@ -15,9 +15,12 @@ const platformLogos = [
 ];
 const platformLogoPatterns = platformLogos.map(([name, extensions]) => assetByBasename(name, extensions));
 
-const routes = ["/", "/how-it-works", "/for/fitness-apps", "/for/cooking-apps", "/for/edtech-apps", "/blog", "/blog/pai-discovery-case-study", "/privacy"];
+const routes = ["/", "/pilot", "/how-it-works", "/for/fitness-apps", "/for/cooking-apps", "/for/edtech-apps", "/blog", "/blog/pai-discovery-case-study", "/privacy"];
 const methodsRoute = "/blog/pai-discovery-case-study";
 const primaryCta = "Request a Signal Validation Pilot";
+const skillsCta = "Get the skills";
+const pilotRoute = "/pilot";
+const repoUrl = "https://github.com/sendlyr/skills";
 
 async function fillPilot(page, budgetAuthority = "yes") {
   const form = page.locator("[data-pilot-form]");
@@ -36,7 +39,7 @@ async function enableAnalytics(page, events) {
   await page.addInitScript(() => {
     Object.defineProperty(navigator, "sendBeacon", { configurable: true, value: undefined });
   });
-  await page.route((url) => url.pathname === "/", async (route) => {
+  await page.route((url) => url.pathname === pilotRoute, async (route) => {
     const response = await route.fetch();
     const body = (await response.text()).replace('data-analytics-enabled="false"', 'data-analytics-enabled="true"');
     await route.fulfill({ response, body, headers: { ...response.headers(), "content-type": "text/html; charset=utf-8" } });
@@ -63,7 +66,7 @@ for (const route of routes) {
     expect(await page.locator("img:not([alt])").count()).toBe(0);
 
     const body = await page.locator("body").innerText();
-    if (route === methodsRoute) {
+    if (route === methodsRoute || route === "/") {
       expect(body).toMatch(/holdout/i);
     } else {
       for (const deleted of [/holdout/i, /correlations/i, /control arm/i, /treatment arm/i]) {
@@ -73,11 +76,12 @@ for (const route of routes) {
   });
 }
 
-test("homepage metadata, schema, and Open Graph describe activation intelligence", async ({ page }) => {
-  await page.goto("/");
-  await expect(page).toHaveTitle("Activation Intelligence for Subscription Growth | Sendlyr");
+test("pilot metadata, schema, and Open Graph describe the Signal Validation Pilot", async ({ page }) => {
+  await page.goto(pilotRoute);
+  await expect(page).toHaveTitle("Signal Validation Pilot | Sendlyr");
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://sendlyr.com/pilot");
   await expect(page.locator('meta[name="description"]')).toHaveAttribute("content", "Sendlyr finds the early behavior that predicts conversion, then guides every user toward it through the lifecycle tools you already use.");
-  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "Activation Intelligence for Subscription Growth | Sendlyr");
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "Signal Validation Pilot | Sendlyr");
   await expect(page.locator('meta[property="og:description"]')).toHaveAttribute("content", "Find the early behavior that predicts conversion, then guide every user toward it through the lifecycle tools you already use.");
   const ogImage = page.locator('meta[property="og:image"]');
   await expect(ogImage).toHaveAttribute("content", /^https:\/\/sendlyr\.com\//);
@@ -89,7 +93,7 @@ test("homepage metadata, schema, and Open Graph describe activation intelligence
 });
 
 test("homepage follows the activation intelligence spine without deleted positioning", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(pilotRoute);
   await expect(page.getByRole("heading", { level: 1 })).toHaveText("Activation Intelligence for Subscription Growth");
   await expect(page.locator(".qualifier")).toContainText("around 500 or more eligible users");
   await expect(page.locator(".qualifier")).toContainText("Exact sizing depends on your baseline rate, measurement window, and the behavior you want to validate.");
@@ -100,8 +104,8 @@ test("homepage follows the activation intelligence spine without deleted positio
   }
 });
 
-test("hero shows the five-stage flow and both validated indicator states", async ({ page }) => {
-  await page.goto("/");
+test("pilot hero shows the five-stage flow and both observed indicator states", async ({ page }) => {
+  await page.goto(pilotRoute);
   const flow = page.locator("[data-hero-flow]");
   await expect(flow).toBeVisible();
   await expect(flow.locator(".activation-node-label")).toHaveText(["Data", "Sendlyr", "Leading indicator", "Treatment", "Outcome"]);
@@ -110,17 +114,18 @@ test("hero shows the five-stage flow and both validated indicator states", async
 
   const states = flow.locator("[data-indicator-state]");
   await expect(states).toHaveCount(2);
-  await expect(states.nth(0)).toContainText("Validated indicator · Typesy VIP");
+  await expect(states.nth(0)).toContainText("Observed indicator · Typesy VIP");
   await expect(states.nth(0)).toContainText("Complete at least one course within the first four days");
   await expect(states.nth(0)).toContainText("79.5%");
   await expect(states.nth(0)).toContainText("30.6%");
   await expect(states.nth(0)).toContainText("2.6×");
-  await expect(states.nth(1)).toContainText("Validated indicator · Typesy Homeschool");
+  await expect(states.nth(1)).toContainText("Observed indicator · Typesy Homeschool");
   await expect(states.nth(1)).toContainText("Hatch three or more pets within the first fourteen days");
   await expect(states.nth(1)).toContainText("57.7%");
   await expect(states.nth(1)).toContainText("33.4%");
   await expect(states.nth(1)).toContainText("1.7×");
-  await expect(states).toContainText([/Predicts conversion\. Correlational, not causal\./, /Predicts conversion\. Correlational, not causal\./]);
+  await expect(states).toContainText([/Observed in historical data\. Correlational, not causal\./, /Observed in historical data\. Correlational, not causal\./]);
+  await expect(flow).not.toContainText(/validated indicator/i);
   await expect(states.locator("small")).toHaveCount(0);
 
   const heroImageSources = await flow.locator(".activation-node img").evaluateAll((images) => images.map((image) => image.getAttribute("src") || ""));
@@ -147,9 +152,9 @@ test("hero shows the five-stage flow and both validated indicator states", async
   expect(nodeBackgrounds[0]).not.toBe(nodeBackgrounds[1]);
 });
 
-test("validated indicator rotation pauses on hover and keyboard focus", async ({ page }) => {
+test("observed indicator rotation pauses on hover and keyboard focus", async ({ page }) => {
   await page.clock.install();
-  await page.goto("/");
+  await page.goto(pilotRoute);
   const rotator = page.locator("[data-indicator-rotator]");
   await expect(rotator).toHaveAttribute("data-active-state", "vip");
 
@@ -174,7 +179,7 @@ test("validated indicator rotation pauses on hover and keyboard focus", async ({
 });
 
 test("How Sendlyr works is a five-stage diagram with both customer stack logo groups", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(pilotRoute);
   const diagram = page.locator("[data-how-it-works-diagram]");
   await expect(diagram).toBeVisible();
   await expect(diagram.locator(".works-node")).toHaveCount(5);
@@ -200,7 +205,7 @@ test("How Sendlyr works is a five-stage diagram with both customer stack logo gr
 });
 
 test("three-part deliverable ends with the outcome readout", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(pilotRoute);
   const deliverables = page.locator(".deliverable-steps");
   await expect(deliverables.locator("li")).toHaveCount(3);
   await expect(deliverables.locator("h3")).toHaveText(["Signal analysis", "Lifecycle guidance", "Outcome readout"]);
@@ -218,7 +223,7 @@ test("three-part deliverable ends with the outcome readout", async ({ page }) =>
 });
 
 test("Typesy result reports both the changed indicator and null conversion outcome", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(pilotRoute);
   const results = page.locator("#results");
   await expect(results.getByRole("heading", { name: "We moved the behavior. Conversion did not move." })).toBeVisible();
   for (const value of [
@@ -227,7 +232,7 @@ test("Typesy result reports both the changed indicator and null conversion outco
     "129/186",
     "57.7%",
     "56/97",
-    "+11.7pp · +20.3% relative",
+    "+11.6pp · +20.1% relative",
     "p ≈ 0.051 — borderline",
     "76.8%",
     "136/177",
@@ -241,12 +246,12 @@ test("Typesy result reports both the changed indicator and null conversion outco
 });
 
 test("founder evidence states the operated experiment and correction", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(pilotRoute);
   await expect(page.locator(".founder-frame > p")).toHaveText("Stephen designed and operated a live randomised experiment across 485 users and 568 hand-executed sends. He detected a four-day pipeline outage himself. He corrected the published conclusion when the final data contradicted the hypothesis.");
 });
 
 test("Signal Validation Pilot has fixed scope and no public price", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(pilotRoute);
   const pilot = page.locator("#pilot");
   await expect(pilot).toContainText("one candidate behavior, one outcome, one lifecycle direction, and one complete readout");
   await expect(pilot).toContainText("A clear indicator, its evidence, and the next action for your lifecycle stack.");
@@ -260,7 +265,7 @@ test("qualification form posts every field to the leads endpoint", async ({ page
     submission = Object.fromEntries(new URLSearchParams(route.request().postData() || ""));
     await route.fulfill({ status: 201, contentType: "application/json", body: '{"ok":true,"message":"Thanks. We received your request."}' });
   });
-  await page.goto("/");
+  await page.goto(pilotRoute);
   const form = page.locator("[data-pilot-form]");
   await expect(form).toHaveAttribute("action", "/api/leads");
   await expect(form).toHaveAttribute("method", "post");
@@ -289,7 +294,7 @@ test("qualification form posts every field to the leads endpoint", async ({ page
 });
 
 test("budget authority is required", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(pilotRoute);
   const form = page.locator("[data-pilot-form]");
   const radios = form.getByRole("radio");
   await expect(radios).toHaveCount(3);
@@ -309,7 +314,7 @@ test("budget authority is required", async ({ page }) => {
 test("essential buying information survives without JavaScript", async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
-  await page.goto("/");
+  await page.goto(pilotRoute);
   await expect(page.getByRole("heading", { name: "Activation Intelligence for Subscription Growth" })).toBeVisible();
   await expect(page.locator("[data-activation-loop]")).toBeVisible();
   await expect(page.locator("[data-how-it-works-diagram]")).toBeVisible();
@@ -322,20 +327,23 @@ test("essential buying information survives without JavaScript", async ({ browse
   await context.close();
 });
 
-test("one primary CTA phrase is used across all public actions", async ({ page }) => {
+test("each action family uses one phrase across all public routes", async ({ page }) => {
+  const phrasesOf = (locator) => locator.evaluateAll((items) => items.map((item) => item.textContent.replace(/[↓→↗]/g, "").trim()));
   for (const route of routes) {
     await page.goto(route);
-    const actions = page.locator("[data-primary-cta], [data-book-sprint]");
-    expect(await actions.count(), route).toBeGreaterThan(0);
-    const phrases = await actions.evaluateAll((items) => items.map((item) => item.textContent.replace(/[↓→↗]/g, "").trim()));
-    expect(new Set(phrases), route).toEqual(new Set([primaryCta]));
+    const pilotActions = page.locator("[data-primary-cta], [data-book-sprint]");
+    const skillsActions = page.locator("[data-skills-cta]");
+    expect(await pilotActions.count() + await skillsActions.count(), route).toBeGreaterThan(0);
+    for (const phrase of await phrasesOf(pilotActions)) expect(phrase, route).toBe(primaryCta);
+    for (const phrase of await phrasesOf(skillsActions)) expect(phrase, route).toBe(skillsCta);
+    await expect(page.locator(".nav-cta"), route).toHaveAttribute("href", "/#install");
   }
 });
 
-test("desktop hero value unit fits the first viewport", async ({ page }) => {
+test("pilot desktop hero value unit fits the first viewport", async ({ page }) => {
   for (const viewport of [{ width: 1280, height: 800 }, { width: 1440, height: 900 }]) {
     await page.setViewportSize(viewport);
-    await page.goto("/");
+    await page.goto(pilotRoute);
     await page.evaluate(() => document.fonts.ready);
     const { bottom, headlineLines } = await page.locator(".product-hero").evaluate((element) => {
       const headline = element.querySelector("h1");
@@ -350,10 +358,10 @@ test("desktop hero value unit fits the first viewport", async ({ page }) => {
   }
 });
 
-test("homepage has no overflow at release widths", async ({ page }) => {
+test("pilot has no overflow at release widths", async ({ page }) => {
   for (const width of [320, 375, 430, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: width <= 430 ? 812 : 900 });
-    await page.goto("/");
+    await page.goto(pilotRoute);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     expect(overflow, `${width}px`).toBeLessThanOrEqual(1);
     const loopBounds = await page.locator("[data-activation-loop]").evaluate((element) => {
@@ -365,10 +373,15 @@ test("homepage has no overflow at release widths", async ({ page }) => {
   }
 });
 
-test("homepage controls keep touch-sized targets", async ({ page }) => {
+test("pilot and homepage controls keep touch-sized targets", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 812 });
+  await page.goto(pilotRoute);
+  await expectTouchTargets(page, "[data-primary-cta], [data-skills-cta], .nav-route-row a, .footer-links a, .budget-options label, .pilot-form input:not([type=radio]):not([type=hidden]), .pilot-form select, .pilot-form textarea");
   await page.goto("/");
-  const selector = "[data-primary-cta], .nav-route-row a, .footer-links a, .budget-options label, .pilot-form input:not([type=radio]):not([type=hidden]), .pilot-form select, .pilot-form textarea";
+  await expectTouchTargets(page, "[data-primary-cta], [data-skills-cta], .button, .copy-button, .text-link, .nav-route-row a, .footer-links a");
+});
+
+async function expectTouchTargets(page, selector) {
   const undersized = await page.locator(selector).evaluateAll((controls) => {
     const isVisuallyHidden = (control) => {
       if (!control.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true })) return true;
@@ -393,10 +406,18 @@ test("homepage controls keep touch-sized targets", async ({ page }) => {
       .filter(({ width, height }) => width < 44 || height < 44);
   });
   expect(undersized).toEqual([]);
+}
+
+test("the first Tab reaches the skip link on every route", async ({ page }) => {
+  for (const route of routes) {
+    await page.goto(route);
+    await page.keyboard.press("Tab");
+    await expect(page.locator(".skip-link"), route).toBeFocused();
+  }
 });
 
 test("keyboard focus is visible and form radios are operable", async ({ page }) => {
-  await page.goto("/");
+  await page.goto(pilotRoute);
   await page.keyboard.press("Tab");
   const skip = page.locator(".skip-link");
   await expect(skip).toBeFocused();
@@ -416,7 +437,7 @@ test("analytics is disabled by default for the pilot form", async ({ page }) => 
   await page.route("**/api/leads", async (route) => {
     await route.fulfill({ status: 201, contentType: "application/json", body: '{"ok":true,"message":"Thanks. We received your request."}' });
   });
-  await page.goto("/?ref=braze-syd-2026");
+  await page.goto(`${pilotRoute}?ref=braze-syd-2026`);
   const form = await fillPilot(page, "yes");
   await form.locator('button[type="submit"]').click();
   await expect(form.locator("[data-pilot-status]")).toHaveText("Thanks. We received your request.");
@@ -427,7 +448,7 @@ test("enabled analytics records one start and one successful pilot submit", asyn
   const events = [];
   await enableAnalytics(page, events);
 
-  await page.goto("/?ref=braze-syd-2026");
+  await page.goto(`${pilotRoute}?ref=braze-syd-2026`);
   const form = await fillPilot(page, "unsure");
   await expect.poll(() => events.filter((event) => event.event_name === "pilot_form_start").length).toBe(1);
   expect(events.find((event) => event.event_name === "pilot_form_start").properties).toEqual({ placement: "homepage-pilot" });
@@ -443,7 +464,7 @@ test("pilot attribution accepts tagged IDs and drops invalid ref values", async 
   await enableAnalytics(page, events);
 
   for (const [ref, expected] of [["77p-2026", "77p-2026"], ["not_valid", undefined]]) {
-    await page.goto(`/?ref=${ref}`);
+    await page.goto(`${pilotRoute}?ref=${ref}`);
     const form = await fillPilot(page, "no");
     await form.locator('button[type="submit"]').click();
     await expect.poll(() => events.filter((event) => event.event_name === "pilot_form_submit").length).toBe(expected ? 1 : 2);
@@ -456,7 +477,7 @@ test("pilot attribution accepts tagged IDs and drops invalid ref values", async 
 test("reduced motion resolves immediately", async ({ page }) => {
   await page.clock.install();
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
+  await page.goto(pilotRoute);
   expect(await page.locator("html").evaluate((element) => getComputedStyle(element).scrollBehavior)).toBe("auto");
   const transitionSeconds = await page.locator("[data-primary-cta]").first().evaluate((element) => Number.parseFloat(getComputedStyle(element).transitionDuration));
   expect(transitionSeconds).toBeLessThanOrEqual(0.001);
@@ -468,15 +489,17 @@ test("reduced motion resolves immediately", async ({ page }) => {
   await expect(rotator).toHaveAttribute("data-active-state", "vip");
 });
 
-test("homepage Open Graph asset decodes at its declared dimensions", async ({ page }) => {
+test("Open Graph assets decode at their declared dimensions", async ({ page }) => {
   await page.goto("/");
-  const dimensions = await page.evaluate(() => new Promise((resolve, reject) => {
-    const image = new Image();
-    image.onload = () => resolve({ width: image.naturalWidth, height: image.naturalHeight });
-    image.onerror = () => reject(new Error("Unable to decode the homepage Open Graph image"));
-    image.src = "/assets/og/og-home.png";
-  }));
-  expect(dimensions).toEqual({ width: 1200, height: 630 });
+  for (const source of ["/assets/og/og-skills.png", "/assets/og/og-home.png"]) {
+    const dimensions = await page.evaluate((src) => new Promise((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => resolve({ width: image.naturalWidth, height: image.naturalHeight });
+      image.onerror = () => reject(new Error(`Unable to decode ${src}`));
+      image.src = src;
+    }), source);
+    expect(dimensions, source).toEqual({ width: 1200, height: 630 });
+  }
 });
 
 test("all internal navigation targets resolve", async ({ page, request }) => {
@@ -484,13 +507,115 @@ test("all internal navigation targets resolve", async ({ page, request }) => {
   expect((await request.get("/robots.txt")).status()).toBe(200);
   expect((await request.get("/sitemap.xml")).status()).toBe(200);
 
-  await page.goto("/");
-  const links = await page.locator('a[href^="/"]').evaluateAll((items) => [...new Set(items.map((item) => item.getAttribute("href")))]);
-  for (const href of links) {
-    const url = new URL(href, "https://sendlyr.com");
-    expect((await request.get(url.pathname)).status(), href).toBe(200);
-    if (url.pathname === "/" && url.hash) expect(await page.locator(url.hash).count(), href).toBe(1);
+  for (const start of ["/", pilotRoute]) {
+    await page.goto(start);
+    const links = await page.locator('a[href^="/"]').evaluateAll((items) => [...new Set(items.map((item) => item.getAttribute("href")))]);
+    for (const href of links) {
+      const url = new URL(href, "https://sendlyr.com");
+      expect((await request.get(url.pathname)).status(), href).toBe(200);
+      if (url.pathname === start && url.hash) expect(await page.locator(url.hash).count(), href).toBe(1);
+    }
+    const localHashes = await page.locator('a[href^="#"]').evaluateAll((items) => items.map((item) => item.hash.slice(1)));
+    for (const id of localHashes) expect(await page.locator(`#${id}`).count(), id).toBe(1);
   }
-  const localHashes = await page.locator('a[href^="#"]').evaluateAll((items) => items.map((item) => item.hash.slice(1)));
-  for (const id of localHashes) expect(await page.locator(`#${id}`).count(), id).toBe(1);
+  await page.goto("/");
+  await expect(page.locator("#install")).toHaveCount(1);
+});
+
+test("homepage metadata and schema describe the open-source skills", async ({ page }) => {
+  await page.goto("/");
+  await expect(page).toHaveTitle("Open-source skills for honest lifecycle measurement | Sendlyr");
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://sendlyr.com/");
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute("content", assetByBasename("og-skills", "png"));
+  const schema = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent());
+  const code = schema["@graph"].find((node) => node["@type"] === "SoftwareSourceCode");
+  expect(code.codeRepository).toBe(repoUrl);
+  expect(code.license).toMatch(/MIT/);
+  expect(JSON.stringify(schema)).not.toContain("offers");
+});
+
+test("homepage hero states the method honestly and leads to the repo", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Find the behavior that predicts conversion. Then prove it.");
+  await expect(page.locator(".skills-hero [data-skills-cta]")).toHaveAttribute("href", "#install");
+  await expect(page.getByRole("link", { name: /View on GitHub/ })).toHaveAttribute("href", repoUrl);
+  const terminal = page.locator(".terminal");
+  await expect(terminal).toContainText("npx skills add sendlyr/skills");
+  await expect(terminal).toContainText("Predictive, not causal.");
+  await expect(page.locator(".skills-hero .eyebrow")).toHaveCount(0);
+  const body = await page.locator("body").innerText();
+  for (const banned of [/\bPAI\b/, /revenue leak/i, /decision layer/i]) expect(body).not.toMatch(banned);
+});
+
+test("homepage lists the six skills in order with their scripts", async ({ page }) => {
+  await page.goto("/");
+  const ledger = page.locator(".skill-ledger > li");
+  await expect(ledger).toHaveCount(6);
+  await expect(ledger.locator(".ledger-label")).toHaveText([
+    /finding-leading-indicators/, /designing-lifecycle-states/, /designing-state-journeys/,
+    /grounding-lifecycle-emails/, /designing-holdout-experiments/, /writing-decision-readouts/,
+  ]);
+  await expect(ledger.locator(".script-chip")).toHaveText(["score_signals.py", "state_audit.py", "audit_sends.py", "claim_check.py", "holdout.py", "readout.py"]);
+  await expect(page.locator(".loop-return")).toContainText("becomes the next sealed hypothesis");
+});
+
+test("homepage evidence keeps the real numbers and the planted answers together", async ({ page }) => {
+  await page.goto("/");
+  const lessons = page.locator("#lessons");
+  for (const value of ["623 of 848", "80%", "11.6 points", "0.1", "77% baseline"]) await expect(lessons).toContainText(value);
+  await expect(lessons.getByRole("link", { name: /Typesy case study/ })).toHaveAttribute("href", "/blog/pai-discovery-case-study");
+  const proof = page.locator(".proof-ledger > li");
+  await expect(proof).toHaveCount(6);
+  await expect(page.locator("#tested")).toContainText("51.5%");
+  await expect(page.locator("#tested")).toContainText("36.4%");
+});
+
+test("install commands are copyable and readable without JavaScript", async ({ browser, browserName }) => {
+  const context = await browser.newContext({ permissions: browserName === "chromium" ? ["clipboard-read", "clipboard-write"] : [] });
+  const page = await context.newPage();
+  await page.goto("/");
+  const blocks = page.locator("[data-copy-block]");
+  await expect(blocks).toHaveCount(3);
+  await expect(blocks.nth(0)).toContainText("/plugin marketplace add sendlyr/skills");
+  await expect(blocks.nth(1)).toContainText("npx skills add sendlyr/skills");
+  await expect(blocks.locator(".copy-button")).toHaveCount(3);
+  await blocks.nth(1).locator(".copy-button").click();
+  await expect(blocks.nth(1).locator(".copy-button")).toHaveText(/Copied|Select it/);
+  if (browserName === "chromium") expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("npx skills add sendlyr/skills");
+  const ligatures = await blocks.nth(2).locator("pre").evaluate((pre) => getComputedStyle(pre).fontVariantLigatures);
+  expect(ligatures).toBe("none");
+  await context.close();
+
+  const noScript = await browser.newContext({ javaScriptEnabled: false });
+  const plain = await noScript.newPage();
+  await plain.goto("/");
+  await expect(plain.locator("[data-copy-block]").nth(1)).toContainText("npx skills add sendlyr/skills");
+  await expect(plain.locator(".copy-button")).toHaveCount(0);
+  await expect(plain.locator(".skill-ledger > li")).toHaveCount(6);
+  await noScript.close();
+});
+
+test("homepage hero fits the first desktop viewport and nothing overflows", async ({ page }) => {
+  for (const viewport of [{ width: 1280, height: 800 }, { width: 1440, height: 900 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    await page.evaluate(() => document.fonts.ready);
+    const bottom = await page.locator(".skills-hero").evaluate((element) => element.getBoundingClientRect().bottom);
+    expect(bottom, `${viewport.width}x${viewport.height}`).toBeLessThanOrEqual(viewport.height);
+  }
+  for (const width of [320, 375, 430, 768, 1024, 1440]) {
+    await page.setViewportSize({ width, height: width <= 430 ? 812 : 900 });
+    await page.goto("/");
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow, `${width}px`).toBeLessThanOrEqual(1);
+  }
+});
+
+test("homepage pilot callout leads to the moved pilot page", async ({ page }) => {
+  await page.goto("/");
+  const callout = page.locator(".callout");
+  await expect(callout.locator("[data-primary-cta]")).toHaveAttribute("href", pilotRoute);
+  await callout.locator("[data-primary-cta]").click();
+  await expect(page).toHaveURL(/\/pilot$/);
+  await expect(page.locator("[data-pilot-form]")).toBeVisible();
 });

@@ -32,6 +32,8 @@ test("event builder permits only the public taxonomy", () => {
   assert.deepEqual([...propertySchemas.pilot_form_start], ["placement"]);
   assert.deepEqual([...propertySchemas.pilot_form_submit], ["attribution_id", "budget_authority"]);
   assert.equal(allowedDestinations.has("/#decision-layer"), false);
+  assert.equal(allowedPaths.has("/pilot"), true);
+  assert.equal(allowedDestinations.has("/pilot"), true);
   assert.equal(allowedPaths.has("/for/fitness-apps"), true);
   assert.equal(allowedPaths.has("/for/cooking-apps"), true);
   const event = buildEvent({ event_id: "e1", event_name: "page_view", session_id: "s1", page_id: "p1", path: "/", occurred_at: new Date().toISOString(), properties: { title: "Home" } });

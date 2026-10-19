@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Activation Intelligence for Subscription Growth | Sendlyr</title>
+  <title>Signal Validation Pilot | Sendlyr</title>
   <meta name="description" content="Sendlyr finds the early behavior that predicts conversion, then guides every user toward it through the lifecycle tools you already use.">
-  <link rel="canonical" href="https://sendlyr.com/">
+  <link rel="canonical" href="https://sendlyr.com/pilot">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Activation Intelligence for Subscription Growth | Sendlyr">
+  <meta property="og:title" content="Signal Validation Pilot | Sendlyr">
   <meta property="og:description" content="Find the early behavior that predicts conversion, then guide every user toward it through the lifecycle tools you already use.">
-  <meta property="og:url" content="https://sendlyr.com/">
+  <meta property="og:url" content="https://sendlyr.com/pilot">
   <meta property="og:image" content="https://sendlyr.com/assets/og/og-home.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -22,9 +22,9 @@
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/site.css">
   <link rel="stylesheet" href="/enhance.css">
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://sendlyr.com/#organization","name":"Sendlyr","url":"https://sendlyr.com/","logo":"https://sendlyr.com/assets/logo/sendlyr-icon-512.png"},{"@type":"WebSite","@id":"https://sendlyr.com/#website","url":"https://sendlyr.com/","name":"Sendlyr","publisher":{"@id":"https://sendlyr.com/#organization"}},{"@type":"Service","@id":"https://sendlyr.com/#signal-validation-pilot","name":"Signal Validation Pilot","provider":{"@id":"https://sendlyr.com/#organization"},"description":"Test one candidate behavior with a controlled experiment and receive a decision-grade readout."}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Service","@id":"https://sendlyr.com/pilot#signal-validation-pilot","url":"https://sendlyr.com/pilot","name":"Signal Validation Pilot","provider":{"@id":"https://sendlyr.com/#organization"},"description":"Test one candidate behavior with a controlled experiment and receive a decision-grade readout."}]}</script>
 </head>
-<body class="home-page">
+<body class="home-page pilot-page">
   {{> site-header}}
   <main id="main-content">
     <section class="product-hero shell" aria-labelledby="home-title">
@@ -40,7 +40,7 @@
       </div>
 
       <aside class="activation-loop" data-activation-loop data-hero-flow aria-label="Sendlyr activation intelligence flow" aria-describedby="activation-loop-description">
-        <p class="activation-loop-description" id="activation-loop-description">Data flows through Sendlyr, a leading indicator, treatment, and outcome. Outcome feedback returns to Sendlyr. A validated indicator connects to the leading indicator.</p>
+        <p class="activation-loop-description" id="activation-loop-description">Data flows through Sendlyr, a leading indicator, treatment, and outcome. Outcome feedback returns to Sendlyr. An observed indicator example connects to the leading indicator.</p>
 
         <svg class="activation-loop-map activation-loop-map--desktop" viewBox="0 0 620 420" preserveAspectRatio="none" aria-hidden="true" focusable="false">
           <defs>
@@ -121,26 +121,26 @@
 
         <p class="activation-loop-return">Outcome feedback</p>
 
-        <article class="indicator-artifact" data-indicator-rotator data-active-state="vip" tabindex="0" aria-label="Validated indicator examples. Rotation pauses while this card is hovered or focused.">
-          <section class="indicator-state is-active" data-indicator-state="vip" aria-label="Typesy VIP validated indicator">
-            <p class="indicator-artifact-label">Validated indicator · Typesy VIP</p>
+        <article class="indicator-artifact" data-indicator-rotator data-active-state="vip" tabindex="0" aria-label="Observed indicator examples. Rotation pauses while this card is hovered or focused.">
+          <section class="indicator-state is-active" data-indicator-state="vip" aria-label="Typesy VIP observed indicator">
+            <p class="indicator-artifact-label">Observed indicator · Typesy VIP</p>
             <strong>Complete at least one course within the first four days</strong>
             <dl>
               <div><dt>Converts when hit</dt><dd>79.5%</dd></div>
               <div><dt>Converts when missed</dt><dd>30.6%</dd></div>
               <div><dt>Separation</dt><dd>2.6×</dd></div>
             </dl>
-            <p class="indicator-qualifier">Predicts conversion. Correlational, not causal.</p>
+            <p class="indicator-qualifier">Observed in historical data. Correlational, not causal.</p>
           </section>
-          <section class="indicator-state" data-indicator-state="homeschool" aria-label="Typesy Homeschool validated indicator">
-            <p class="indicator-artifact-label">Validated indicator · Typesy Homeschool</p>
+          <section class="indicator-state" data-indicator-state="homeschool" aria-label="Typesy Homeschool observed indicator">
+            <p class="indicator-artifact-label">Observed indicator · Typesy Homeschool</p>
             <strong>Hatch three or more pets within the first fourteen days</strong>
             <dl>
               <div><dt>Converts when hit</dt><dd>57.7%</dd></div>
               <div><dt>Converts when missed</dt><dd>33.4%</dd></div>
               <div><dt>Separation</dt><dd>1.7×</dd></div>
             </dl>
-            <p class="indicator-qualifier">Predicts conversion. Correlational, not causal.</p>
+            <p class="indicator-qualifier">Observed in historical data. Correlational, not causal.</p>
           </section>
         </article>
       </aside>
@@ -313,7 +313,7 @@
                   <th scope="row">Indicator</th>
                   <td data-label="Treatment">69.4% <small>129/186</small></td>
                   <td data-label="Control">57.7% <small>56/97</small></td>
-                  <td data-label="Finding">+11.7pp · +20.3% relative<br><small>p ≈ 0.051 — borderline</small></td>
+                  <td data-label="Finding">+11.6pp · +20.1% relative<br><small>p ≈ 0.051 — borderline</small></td>
                 </tr>
                 <tr>
                   <th scope="row">Trial conversion</th>

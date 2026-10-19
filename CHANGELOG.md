@@ -2,6 +2,26 @@
 
 All notable changes to the Sendlyr landing site are documented here.
 
+## [1.2.0.0] - 2026-10-20
+
+### Added
+
+- A new homepage for the open-source Sendlyr skills: the method, real Typesy lessons, the planted answers every script must find, and three install steps with copyable commands.
+- A skills Open Graph image, rendered from `src/og/og-skills.html` with `scripts/render-og.js`.
+- A regression test that the first Tab reaches the skip link on every route.
+
+### Changed
+
+- Moved the Signal Validation Pilot page, with its qualification form unchanged, from `/` to `/pilot`.
+- Relabelled the pilot hero's indicator examples as observed in historical data rather than validated.
+- Corrected the Typesy VIP indicator lift to +11.6pp and +20.1% relative everywhere; the old figures were computed from rounded rates.
+- Updated navigation, footer, sitemap, `llms.txt`, the analytics path allowlist and DESIGN.md for the new structure.
+
+### Fixed
+
+- The first Tab no longer skips the skip link on pages with a current navigation item.
+- External navigation links no longer send rejected analytics events.
+
 ## [1.1.0.0] - 2026-07-21
 
 ### Added

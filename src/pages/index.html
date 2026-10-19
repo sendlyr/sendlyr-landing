@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en" data-analytics-enabled="{{analytics_enabled}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open-source skills for honest lifecycle measurement | Sendlyr</title>
+  <meta name="description" content="Six free, MIT-licensed agent skills: find the behavior that predicts conversion, target it, keep AI emails true, and prove it with a real holdout.">
+  <link rel="canonical" href="https://sendlyr.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Find the behavior that predicts conversion. Then prove it. | Sendlyr">
+  <meta property="og:description" content="Six open-source agent skills for lifecycle teams, built from a real program with eReflect's Typesy, mistakes included.">
+  <meta property="og:url" content="https://sendlyr.com/">
+  <meta property="og:image" content="https://sendlyr.com/assets/og/og-skills.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sendlyr skills: find the behavior that predicts conversion, then prove it.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/assets/logo/sendlyr-icon-512.png">
+  <link rel="preload" href="/assets/fonts/inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/source-serif-4-latin-italic-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/fonts.css">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/site.css">
+  <link rel="stylesheet" href="/skills.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://sendlyr.com/#organization","name":"Sendlyr","url":"https://sendlyr.com/","logo":"https://sendlyr.com/assets/logo/sendlyr-icon-512.png","sameAs":["https://github.com/sendlyr"]},{"@type":"WebSite","@id":"https://sendlyr.com/#website","url":"https://sendlyr.com/","name":"Sendlyr","publisher":{"@id":"https://sendlyr.com/#organization"}},{"@type":"SoftwareSourceCode","@id":"https://sendlyr.com/#skills","name":"Sendlyr skills","description":"Six agent skills with dependency-free Python scripts for finding leading indicators, designing lifecycle states and journeys, grounding AI-written emails, and running and reading out holdout experiments.","codeRepository":"https://github.com/sendlyr/skills","license":"https://opensource.org/licenses/MIT","programmingLanguage":"Python","author":{"@id":"https://sendlyr.com/#organization"}}]}</script>
+</head>
+<body class="skills-page">
+  {{> site-header}}
+  <main id="main-content">
+    <section class="shell skills-hero" aria-labelledby="home-title">
+      <div class="skills-hero-copy">
+        <h1 id="home-title">Find the behavior that predicts conversion. Then prove it.</h1>
+        <p class="lede">Six free agent skills for lifecycle teams: find your leading indicator, target it, and test it with a real holdout.</p>
+        <div class="button-row">
+          <a class="button" href="#install" data-skills-cta data-placement="hero">
+            <span>Get the skills</span><span class="button-arrow" aria-hidden="true">↓</span>
+          </a>
+          <a class="button button-secondary" href="https://github.com/sendlyr/skills" rel="noopener">
+            <span>View on GitHub</span><span class="button-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <ul class="hero-facts" aria-label="About the skills">
+          <li>MIT licensed</li>
+          <li>Python standard library</li>
+          <li>136 passing tests</li>
+        </ul>
+      </div>
+
+      <figure class="terminal" aria-labelledby="terminal-caption">
+        <figcaption id="terminal-caption" class="terminal-caption">A real run on the bundled example data</figcaption>
+        <pre class="terminal-body"><code><span class="t-prompt">$</span> npx skills add sendlyr/skills
+<span class="t-ok">✓</span> 6 skills installed
+
+<span class="t-prompt">&gt;</span> What should we track for our 7-day trial?
+
+<span class="t-dim">Primary signal</span>   goal_set ≥1 in 3 days
+<span class="t-dim">Converts if hit</span>  36.4%   <span class="t-dim">if missed</span> 3.2%
+<span class="t-dim">Lift</span>             +33.2pp <span class="t-dim">[+30.8, +35.5]</span>
+<span class="t-dim">Holdout check</span>    <span class="t-ok">replicated</span>
+
+<span class="t-note">Predictive, not causal. Test it with a holdout.</span></code></pre>
+      </figure>
+    </section>
+
+    <section class="page-section" id="skills" aria-labelledby="skills-title">
+      <div class="shell">
+        <div class="section-intro">
+          <h2 id="skills-title">Six skills, one honest loop.</h2>
+          <p>Each skill is a plain-English playbook for your agent, plus one small Python script. Run them in order.</p>
+        </div>
+        <ol class="evidence-ledger skill-ledger" aria-label="The six skills, in order">
+          <li>
+            <p class="ledger-label"><span>01</span>finding-leading-indicators</p>
+            <h3>Which early behavior predicts the outcome?</h3>
+            <p>Scores every behavior by lift × coverage, with leakage, maturity and out-of-time checks. <code class="script-chip">score_signals.py</code></p>
+          </li>
+          <li>
+            <p class="ledger-label"><span>02</span>designing-lifecycle-states</p>
+            <h3>Who needs which single ask?</h3>
+            <p>Builds a small state model, then flags unreachable states, duplicate asks and distinctions that don’t matter. <code class="script-chip">state_audit.py</code></p>
+          </li>
+          <li>
+            <p class="ledger-label"><span>03</span>designing-state-journeys</p>
+            <h3>When to send, and when to stop.</h3>
+            <p>Caps, spacing and state checks enforced at send time, plus an audit of where your sends went. <code class="script-chip">audit_sends.py</code></p>
+          </li>
+          <li>
+            <p class="ledger-label"><span>04</span>grounding-lifecycle-emails</p>
+            <h3>AI-written emails that stay true.</h3>
+            <p>The model writes structured copy; rules catch false claims and guessed names before a person approves. <code class="script-chip">claim_check.py</code></p>
+          </li>
+          <li>
+            <p class="ledger-label"><span>05</span>designing-holdout-experiments</p>
+            <h3>Seal the question before the answer.</h3>
+            <p>Sample size from a minimum worthwhile effect, deterministic assignment, and a sealed plan. <code class="script-chip">holdout.py</code></p>
+          </li>
+          <li>
+            <p class="ledger-label"><span>06</span>writing-decision-readouts</p>
+            <h3>Read it out honestly.</h3>
+            <p>Delivery is checked first, then one evidence class. The readout is allowed to say no. <code class="script-chip">readout.py</code></p>
+          </li>
+        </ol>
+        <div class="loop-return">
+          <svg viewBox="0 0 40 28" aria-hidden="true" focusable="false"><path d="M34 3v10a7 7 0 0 1-7 7H7"></path><path d="M12 15l-5 5 5 5"></path></svg>
+          <p><strong>Then the loop closes.</strong> The readout’s decision becomes the next sealed hypothesis, or a stop.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="lessons" aria-labelledby="lessons-title">
+      <div class="shell lessons-layout">
+        <div class="section-intro">
+          <h2 id="lessons-title">Our experiments showed nothing. Here is why.</h2>
+          <p>We ran this with eReflect’s Typesy in 2026. These are the real numbers, published with permission.</p>
+          <blockquote class="pull-quote">
+            <p>“Neither experiment failed to show an effect. Neither was ever in a condition to measure one.”</p>
+          </blockquote>
+        </div>
+        <div>
+          <div class="ledger lesson-ledger">
+            <div class="ledger-row">
+              <p class="instrument-label">Targeting</p>
+              <strong>73% of emails went to people already past the key step.</strong>
+              <p>623 of 848 Typesy Homeschool sends reached households past the key step. The stuck ones converted at 4%.</p>
+            </div>
+            <div class="ledger-row">
+              <p class="instrument-label">Delivery</p>
+              <strong>Nobody measured whether the treatment arm was treated.</strong>
+              <p>Only 80% of eligible treatment households got an email. The readouts counted sends, never reach.</p>
+            </div>
+            <div class="ledger-row">
+              <p class="instrument-label">Causation</p>
+              <strong>We moved the behavior. Conversion did not move.</strong>
+              <p>Typesy VIP: the indicator rose 11.6 points; conversion moved 0.1, against a 77% baseline.</p>
+            </div>
+          </div>
+          <div class="lessons-links">
+            <a class="text-link" href="https://github.com/sendlyr/skills/blob/main/docs/lessons.md" rel="noopener">Read all 13 lessons ↗</a>
+            <a class="text-link" href="/blog/pai-discovery-case-study" data-track="case_study_open">Read the Typesy case study →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-section" id="tested" aria-labelledby="tested-title">
+      <div class="shell">
+        <div class="section-intro">
+          <h2 id="tested-title">Every script has to find the planted answer.</h2>
+          <p>The repo ships Practica, a synthetic trial app with traps built in. The tests fail if a script misses one.</p>
+        </div>
+        <ul class="evidence-ledger proof-ledger" aria-label="Planted traps and what the scripts report">
+          <li>
+            <p class="ledger-label">The real cliff</p>
+            <h3>Users who never set a goal almost never pay.</h3>
+            <p>Ranked first: 36.4% converted after setting a goal, 3.2% without, and it replicated. <code class="script-chip">score_signals.py</code></p>
+          </li>
+          <li>
+            <p class="ledger-label">A confounded decoy</p>
+            <h3>Motivated users open more email.</h3>
+            <p>Email opens rank low. They track motivation, not a step that drives paying. <code class="script-chip">score_signals.py</code></p>
+          </li>
+          <li>
+            <p class="ledger-label">A leak</p>
+            <h3>Billing pages get viewed after paying.</h3>
+            <p>Counted only before the outcome, the “perfect” signal turns rare and weak. <code class="script-chip">score_signals.py</code></p>
+          </li>
+          <li>
+            <p class="ledger-label">The wrong actor</p>
+            <h3>The system, not the learner, sends streak reminders.</h3>
+            <p>Flagged not actionable. An email can only ask its reader to act. <code class="script-chip">score_signals.py</code></p>
+          </li>
+          <li>
+            <p class="ledger-label">A flawed state model</p>
+            <h3>A legacy model with five planted problems.</h3>
+            <p>All five found, including a state no user can ever reach. <code class="script-chip">state_audit.py</code></p>
+          </li>
+          <li>
+            <p class="ledger-label">A broken experiment</p>
+            <h3>An outage, cap drift and control contamination.</h3>
+            <p>Refused to learn: treatment reach was 51.5% against a 90% gate. <code class="script-chip">readout.py</code></p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="page-section" id="install" aria-labelledby="install-title">
+      <div class="shell">
+        <div class="section-intro">
+          <h2 id="install-title">One line in the agent you already use.</h2>
+          <p>CSV in, report out. Python 3.11 or newer, no other installs, and raw rows never leave your machine.</p>
+        </div>
+        <ol class="install-steps">
+          <li>
+            <span class="step-number">1</span>
+            <div class="step-body">
+              <h3>Install</h3>
+              <div class="install-pair">
+                <div class="code-block" data-copy-block>
+                  <p class="code-head">Claude Code</p>
+                  <pre><code>/plugin marketplace add sendlyr/skills
+/plugin install sendlyr@sendlyr</code></pre>
+                </div>
+                <div class="code-block" data-copy-block>
+                  <p class="code-head">Codex, Cursor, Gemini CLI and others</p>
+                  <pre><code>npx skills add sendlyr/skills</code></pre>
+                </div>
+              </div>
+              <p class="step-note">Or copy any folder under <code>skills/</code> into your agent’s skills directory. Each one is self-contained.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-number">2</span>
+            <div class="step-body">
+              <h3>Run it on the bundled example</h3>
+              <div class="code-block" data-copy-block>
+                <p class="code-head">Terminal, from the repo root</p>
+                <pre><code>python3 skills/finding-leading-indicators/scripts/score_signals.py \
+  --accounts examples/practica/observational/accounts.csv \
+  --events examples/practica/observational/events.csv \
+  --outcome-window-days 14 --decision-window-days 7 \
+  --email-actor learner --out /tmp/signals</code></pre>
+              </div>
+            </div>
+          </li>
+          <li>
+            <span class="step-number">3</span>
+            <div class="step-body">
+              <h3>Or just ask your agent</h3>
+              <p class="agent-prompt">Use finding-leading-indicators on examples/practica and tell me what to track.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="page-section" aria-labelledby="help-title">
+      <div class="shell callout">
+        <h2 id="help-title">Want us to run it with your data?</h2>
+        <p class="lede">The Signal Validation Pilot takes one candidate behavior through analysis, a holdout and a readout, with your team.</p>
+        <div class="button-row">
+          <a class="button" href="/pilot" data-primary-cta data-placement="home-callout">
+            <span>Request a Signal Validation Pilot</span><span class="button-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  {{> site-footer}}
+  <script src="/scripts/site.js" defer></script>
+</body>
+</html>
