@@ -1,10 +1,10 @@
 # Sendlyr landing design system
 
-Sendlyr should feel like a calm decision instrument for Product, Growth, and Lifecycle leaders. The homepage helps a team find one customer-journey leak, while the supporting routes explain the Activation Signal Sprint and its evidence.
+Sendlyr should feel like a calm decision instrument for Product, Growth, and Lifecycle leaders. The homepage presents the open-source skills. `/pilot` offers the Signal Validation Pilot. The supporting routes explain the method and its evidence.
 
 ## Signature
 
-The homepage Revenue Leak Map is the primary visual anchor. It connects one customer state to one behavior, one action, and one measurement plan. The continuous decision layer shows how evidence returns after a measured outcome. The Typesy result remains supporting proof on its dedicated routes.
+The homepage anchor is the terminal instrument: a real run of the skills on the bundled example data, with the predictive-not-causal caveat in the output itself. The six-skill evidence ledger follows it. On `/pilot` the activation flow and its observed-indicator card remain the anchor. The Typesy result is supporting proof, and it always appears with its null.
 
 ## Tokens
 
@@ -65,23 +65,28 @@ Compact logo/action row plus route rail. On mobile the route rail scrolls horizo
 
 ### Buttons
 
-Primary buttons use ink or teal, a 100px pill radius, and a contained arrow. Hover moves at most 1px. Focus uses a visible 2px teal outline. Public booking actions use “Find your first revenue leak.”
+Primary buttons use ink or teal, a 100px pill radius, and a contained arrow. Hover moves at most 1px. Focus uses a visible 2px teal outline. Pilot actions (`data-primary-cta`, `data-book-sprint`) say “Request a Signal Validation Pilot.” Skills actions (`data-skills-cta`) say “Get the skills.”
 
 ### Evidence ledger
 
 Use divided rows with a mono label, a concise serif statement, and one supporting sentence. Do not turn static information into hoverable cards.
 
-### Revenue Leak Map
+### Terminal instrument and code blocks
 
-The homepage uses one tab system for Activation, Conversion, and Retention. Each tab keeps the same four fields: customer-journey leak, customer state, leading behavior, and recommended next action. The instrument stays stable across states and retains its content without JavaScript.
+Use `--instrument` surfaces only for real terminal output and commands, never as decoration. Code blocks have a header bar with a mono label and a 44px copy button. Copy is added by script; without JavaScript the text remains selectable. Commands scroll horizontally rather than breaking mid-path. Ligatures are off, so `--flag` never renders as a dash.
 
-### Continuous decision layer
+### Pilot activation flow
 
-Show one path from existing evidence through Sendlyr, human approval, delivery, measurement, and the return loop. Platform marks provide context and never imply endorsement. The diagram must remain understandable when a mark becomes text.
+On `/pilot`, show one path from data through Sendlyr, the leading indicator, treatment, and outcome, with the return loop. Its indicator examples are labelled “observed in historical data”, never “validated”. Platform marks provide context and never imply endorsement.
 
 ### Result summary
 
-Treatment 84/121 (69.4%), Control 33/57 (57.9%), +19.9% relative lift, and +11.5pp absolute lift stay together wherever the Typesy result appears. The leading-indicator and long-term-retention boundary stays adjacent.
+Wherever the Typesy VIP result appears, keep these together:
+
+- Indicator: treatment 69.4% (129/186) vs control 57.7% (56/97), +11.6pp, +20.1% relative, p ≈ 0.051 (borderline).
+- Trial conversion: 76.8% (136/177) vs 76.7% (66/86), +0.1pp.
+
+Keep the ceiling explanation (about 77% baseline) adjacent. Never show the indicator lift without the conversion null.
 
 ### Disclosure and tabs
 
@@ -95,7 +100,8 @@ Semantic content exists before JavaScript. Enhancements add roving tab focus, ar
 
 Page tailoring changes the problem, examples, evidence, and metadata. It does not invent a new product or visual identity.
 
-- Homepage: revenue-leak thesis → interactive example → evidence contract → continuous decision layer → reviewable package → CTA.
+- Homepage (skills): thesis + terminal instrument → six-skill ledger with the loop return → Typesy lessons → planted-answer ledger → three install steps → pilot callout. Section headings carry their own weight, so there are no eyebrow labels; mono labels belong to data rows. The homepage may use holdout, treatment and control vocabulary because it is method content.
+- Pilot: the activation flow → how it works → qualifier → deliverable → readout → Typesy result → founder evidence → qualification form. The pilot and vertical pages avoid holdout vocabulary.
 
 ## Motion
 

@@ -17,14 +17,18 @@ const routes = ["/", "/how-it-works", "/for/fitness-apps", "/for/cooking-apps", 
     if (!response.headers.get("x-content-type-options")) throw new Error(`${route} is missing security headers`);
     console.log(`${response.status} ${route}`);
   }
-  const eventId = `smoke-${crypto.randomUUID()}`;
-  const payload = { event_id: eventId, event_name: "page_view", session_id: `smoke-${crypto.randomUUID()}`, page_id: `smoke-${crypto.randomUUID()}`, path: "/", referrer_host: "", properties: { title: "Production smoke" }, occurred_at: new Date().toISOString() };
-  const response = await fetch(`${base}/api/events`, { method: "POST", headers: { "Content-Type": "application/json", Origin: base }, body: JSON.stringify(payload) });
-  const result = await response.json();
-  if (response.status !== 202 || result.stored !== true) throw new Error(`/api/events did not store the smoke event: ${response.status} ${JSON.stringify(result)}`);
   const table = process.env.SUPABASE_EVENTS_TABLE || "analytics_events";
-  const stored = await requestRows(table, `?event_id=eq.${encodeURIComponent(eventId)}&select=event_id`);
-  if (stored.length !== 1) throw new Error("Smoke event was not found in server storage.");
-  await requestRows(table, `?event_id=eq.${encodeURIComponent(eventId)}`, { method: "DELETE" });
-  console.log(`Production smoke passed for ${base}; the smoke event was removed.`);
+  const payloads = [
+    { event_id: `smoke-${crypto.randomUUID()}`, event_name: "page_view", session_id: `smoke-${crypto.randomUUID()}`, page_id: `smoke-${crypto.randomUUID()}`, path: "/", referrer_host: "", properties: { title: "Production smoke" }, occurred_at: new Date().toISOString() },
+    { event_id: `smoke-${crypto.randomUUID()}`, event_name: "pilot_form_submit", session_id: `smoke-${crypto.randomUUID()}`, page_id: `smoke-${crypto.randomUUID()}`, path: "/", referrer_host: "", properties: { attribution_id: "production-smoke", budget_authority: "unsure" }, occurred_at: new Date().toISOString() },
+  ];
+  for (const payload of payloads) {
+    const response = await fetch(`${base}/api/events`, { method: "POST", headers: { "Content-Type": "application/json", Origin: base }, body: JSON.stringify(payload) });
+    const result = await response.json();
+    if (response.status !== 202 || result.stored !== true) throw new Error(`/api/events did not store the ${payload.event_name} smoke event: ${response.status} ${JSON.stringify(result)}`);
+    const stored = await requestRows(table, `?event_id=eq.${encodeURIComponent(payload.event_id)}&select=event_id`);
+    if (stored.length !== 1) throw new Error(`${payload.event_name} smoke event was not found in server storage.`);
+    await requestRows(table, `?event_id=eq.${encodeURIComponent(payload.event_id)}`, { method: "DELETE" });
+  }
+  console.log(`Production smoke passed for ${base}; both smoke events were removed.`);
 })().catch((error) => { console.error(error.message); process.exitCode = 1; });

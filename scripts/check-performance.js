@@ -3,7 +3,7 @@ const path = require("path");
 const zlib = require("zlib");
 
 const publicRoot = path.join(__dirname, "..", "public");
-const pages = ["index.html", "how-it-works/index.html", "for/fitness-apps/index.html", "for/cooking-apps/index.html", "for/edtech-apps/index.html", "blog/index.html", "blog/pai-discovery-case-study/index.html", "privacy/index.html"];
+const pages = ["index.html", "pilot/index.html", "how-it-works/index.html", "for/fitness-apps/index.html", "for/cooking-apps/index.html", "for/edtech-apps/index.html", "blog/index.html", "blog/pai-discovery-case-study/index.html", "privacy/index.html"];
 
 function dependencies(contents) {
   const values = new Set();

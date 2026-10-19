@@ -16,12 +16,12 @@ test("renders shared includes and current navigation", () => {
   assert.match(markCurrentRoute('<a data-nav-route="/blog">Blog</a>', "/blog"), /aria-current="page"/);
 });
 
-test("build renders eight routes with hashed assets", () => {
+test("build renders nine routes with hashed assets", () => {
   const output = fs.mkdtempSync(path.join(os.tmpdir(), "sendlyr-test-build-"));
   try {
     const { manifest } = buildSite(output);
     assert.ok(Object.keys(manifest).length >= 20);
-    for (const route of ["index.html", "how-it-works/index.html", "for/fitness-apps/index.html", "for/cooking-apps/index.html", "for/edtech-apps/index.html", "blog/index.html", "blog/pai-discovery-case-study/index.html", "privacy/index.html"]) {
+    for (const route of ["index.html", "pilot/index.html", "how-it-works/index.html", "for/fitness-apps/index.html", "for/cooking-apps/index.html", "for/edtech-apps/index.html", "blog/index.html", "blog/pai-discovery-case-study/index.html", "privacy/index.html"]) {
       const html = fs.readFileSync(path.join(output, route), "utf8");
       assert.match(html, /\/build\//);
       assert.doesNotMatch(html, /\{\{/);

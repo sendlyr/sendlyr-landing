@@ -1,18 +1,34 @@
 # Sendlyr
 
-> Sendlyr helps product teams discover and validate product activation indicators.
+> Sendlyr publishes six open-source, MIT-licensed agent skills for honest lifecycle measurement. They find the early behavior that predicts conversion, design user states and journeys around it, keep AI-written emails true, and test the program with a sealed holdout. Sendlyr also runs a Signal Validation Pilot for teams that want help.
 
 ## Primary pages
 
-- [Home](https://sendlyr.com/): Revenue Leak Map and continuous decision-layer overview.
-- [How it works](https://sendlyr.com/how-it-works): Discover, validate, and operate method.
-- [Typesy VIP case study](https://sendlyr.com/blog/pai-discovery-case-study): Controlled leading-indicator experiment.
-- [Fitness apps](https://sendlyr.com/for/fitness-apps): Fitness activation use case.
-- [Cooking apps](https://sendlyr.com/for/cooking-apps): Cooking activation use case.
-- [Edtech apps](https://sendlyr.com/for/edtech-apps): Edtech activation use case.
+- [Skills](https://sendlyr.com/): the six open-source skills, how they chain, and how to install them.
+- [Signal Validation Pilot](https://sendlyr.com/pilot): a fixed-scope engagement to validate one candidate behavior against a real outcome, with a qualification form.
+- [How it works](https://sendlyr.com/how-it-works): candidate behavior, controlled experiment and readout.
+- [Typesy VIP case study](https://sendlyr.com/blog/pai-discovery-case-study): a corrected controlled experiment, including a null trial-conversion result.
+- [Edtech apps](https://sendlyr.com/for/edtech-apps): the edtech signal-validation use case.
+
+## Open-source skills
+
+Repository: https://github.com/sendlyr/skills (MIT). Install: `npx skills add sendlyr/skills`, or in Claude Code `/plugin marketplace add sendlyr/skills`. The scripts need Python 3.11+ and nothing else, make no network calls, and write aggregate reports only.
+
+1. finding-leading-indicators: rank candidate behaviors by lift × coverage, with leakage, maturity and out-of-time checks. Results are labelled predictive, not causal.
+2. designing-lifecycle-states: a priority-ladder state model with one ask per state and a no-send success state, plus an audit for unreachable states, duplicate asks and indistinguishable states.
+3. designing-state-journeys: a contact policy enforced at send time (caps, spacing, state match, render at send, human batch release, termination reasons), plus a send audit.
+4. grounding-lifecycle-emails: product memory, safe and blocked facts, objective then structured copy, and a rule-based claim check before human approval.
+5. designing-holdout-experiments: sample size from a pre-registered minimum worthwhile effect, deterministic hash assignment, a reach gate, and a sealed (hashed) pre-registration.
+6. writing-decision-readouts: delivery and measurement integrity gates first, then one evidence class (supported, falsified, harmful, inconclusive). The readout refuses to learn when the test was invalid.
 
 ## Public evidence boundary
 
-Typesy VIP treatment reached a 69.4% first-course-within-four-days hit rate across 121 users.
-Control reached 57.9% across 57 users. Relative lift was 19.9%; absolute lift was 11.5 points.
-This is an observed leading-indicator result. The public summary does not establish statistical significance or long-term retention lift.
+In eReflect's Typesy VIP experiment, the leading indicator (completing at least one course within the first four days) was 69.4% (129/186) in treatment and 57.7% (56/97) in control. The difference was +11.6 percentage points and +20.1% relative, with z ≈ 1.95 and p ≈ 0.051: borderline, not clean statistical significance.
+
+Trial conversion was 76.8% (136/177) in treatment and 76.7% (66/86) in control, a +0.1 percentage-point difference. There is no conversion lift. A ceiling effect is the leading explanation for the null: roughly 77% of control trials converted without the intervention, leaving little headroom. Treatment reach was 70.3% of treatment users, below the 90% gate the skills now require, so under those rules this readout is classified INVALID_DELIVERY.
+
+Within the unexposed control arm, indicator hitters converted at 75.5% (n=49) versus 78.4% (n=37) for non-hitters. The indicator did not predict conversion in that comparison. The confidence interval runs roughly from −20 to +16 percentage points, so a moderate effect cannot be ruled out.
+
+In Typesy Homeschool, 73% of treatment emails (623 of 848) went to households already past the key activation step, and reach was 80.3% of eligible treatment households. The lessons in the skills repository come from these findings.
+
+Only intent-to-treat comparisons are interpretable. The treatment/no-hit subgroup cross-tab is not reported, because `pai_hit` is post-treatment and conditioning on it breaks randomization through collider bias. These results do not establish revenue lift, conversion lift, or that completing a course caused conversion.

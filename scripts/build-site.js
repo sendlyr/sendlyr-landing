@@ -53,6 +53,7 @@ const CSS_ASSETS = [
   "vertical.css",
   "workflow.css",
   "editorial.css",
+  "skills.css",
 ];
 
 function hashBuffer(value) {

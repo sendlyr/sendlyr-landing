@@ -43,7 +43,7 @@
 @media (max-width: 760px) {
   .site-header { padding-top: 8px; }
   .nav-primary-row { gap: 8px; }
-  .brand-link img { width: 108px; }
+  .brand-link img { width: 96px; }
   .nav-cta { max-width: 174px; padding-left: 11px; font-size: 11px; line-height: 1.12; text-align: center; }
   .nav-cta .button-arrow { width: 30px; height: 30px; flex: 0 0 auto; }
   .nav-route-row {
